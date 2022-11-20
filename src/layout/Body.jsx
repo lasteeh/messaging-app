@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
+import Nav from './Navbar';
+import Sidepanel from './Sidepanel';
+import Chatbox from './Chatbox';
 
 export default function Body() {
   return (
     <div className="flex">
-        <div>Navigation</div>
-        <div>Messages</div>
-        <div>Chat</div>
-        <div>Members</div>
+        <Nav/>
+        <Sidepanel/>
+        <Chatbox/>
     </div>
   )
 }

@@ -1,9 +1,11 @@
 import Body from './layout/Body'
+import Apicall from './pages/Apicall';
 
 function App() {
   return (
     <>
-      <Body/>
+      {/* <Body/> */}
+      <Apicall/>
     </>
   );
 }

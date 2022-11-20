@@ -5,7 +5,7 @@ export default function Apicall() {
     const [accessData, setAccessData] = useState({})
 
     const userData = {
-        email: 'michelle@email.com',
+        email: 'daniel@email.com',
         password: '12345678',
     }
 
@@ -13,6 +13,11 @@ export default function Apicall() {
         "receiver_id": 2919,
         "receiver_class": "User",
         "body": "hello world"
+    }
+
+    const addMember = {
+        "id": 2919,
+        "member_id": 3
     }
 
     const fetchSlackAppApi = async () => {
@@ -44,10 +49,23 @@ export default function Apicall() {
         });
         const data = await response.json();
     }
+
+    const fetchAddMember = async () => {
+        const response = await fetch('http://206.189.91.54/api/v1/channels', {
+            method: 'Get',
+            headers: {
+                'Content-Type': 'application/json', 
+                ...accessData
+            },
+            // body: JSON.stringify(userMessage)
+        });
+        
+    }
     
     useEffect(()=>{
         fetchSlackAppApi();
         // fetchSlackAppMesage();
+        fetchAddMember();
     },[])
     
 
