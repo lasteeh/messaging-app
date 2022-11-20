@@ -65,7 +65,7 @@ export default function Apicall() {
     useEffect(()=>{
         fetchSlackAppApi();
         // fetchSlackAppMesage();
-        fetchAddMember();
+        // fetchAddMember();
     },[])
     
 
