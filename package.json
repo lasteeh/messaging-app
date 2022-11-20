@@ -1,5 +1,5 @@
 {
-  "name": "slackapp-project",
+  "name": "messaging-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
