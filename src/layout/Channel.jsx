@@ -64,18 +64,21 @@ export default function Channel() {
   };
 
   const loadUserContacts = () => {
-    let usercontacts = myContacts.users.find((user) => user.uid === "2914");
-    setContacts(
-      usercontacts.contacts.map((user, index) => (
-        <ChannelItem
-          key={index}
-          name={user.uid}
-          dataId={user.uid}
-          dataMsgType={"User"}
-          onClickSelected={selectedItem}
-        />
-      ))
-    );
+    let usercontacts = myContacts.users.find((user) => user.uid === accessData.id.toString());
+    
+    if (usercontacts !== undefined){
+      setContacts(
+        usercontacts.contacts.map((user, index) => (
+          <ChannelItem
+            key={index}
+            name={user.email}
+            dataId={user.uid}
+            dataMsgType={"User"}
+            onClickSelected={selectedItem}
+          />
+        ))
+      );
+    }
   };
 
   useEffect(() => {

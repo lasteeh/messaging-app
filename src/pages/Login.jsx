@@ -24,7 +24,7 @@ export default function Login() {
     <div className='flex flex-row h-[100%] items-stretch w-[100%] bg-gray-200'>
         <div className='w-[100%]'></div>
         
-        <div className='flex items-center justify-center w-[80%] bg-gray-400 ml'>
+        <div className='flex items-center justify-center w-[80%] bg-zinc-500 ml'>
           <form className='flex flex-col items-center justify-center gap-3' onSubmit={handleSubmit(data => {
             handleSignIn(data)
 
@@ -35,7 +35,7 @@ export default function Login() {
             })}>
             <input {...register('username')} className='w-[250px] p-2.5 rounded-xl' placeholder='Username'></input>
             <input {...register('password')} type='password' className='w-[250px] p-2.5 rounded-xl' placeholder='Password'></input>
-            <button type='submit' className='bg-gray-600 rounded-2xl w-[100px] h-[40px]'>Confirm</button>
+            <button type='submit' className='bg-zinc-600 rounded-2xl w-[100px] h-[40px] hover:bg-slate-700 border-slate-400/60 border-2 shadow-md'>Confirm</button>
           </form>
         </div>
     </div>

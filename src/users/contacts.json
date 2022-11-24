@@ -1,6 +1,7 @@
 {
 "users": [
-    {"uid": "2914", "contacts":[{"uid": "2908"},{"uid": "2919"}]},
-    {"uid": "2919", "contacts":[{"uid": "2914"}]}
+    {"uid": "2914", "contacts":[{"uid": "2908", "email": "kazel@email.com"},{"uid": "2919", "email": "michelle@email.com"}]},
+    {"uid": "2919", "contacts":[{"uid": "2914", "email": "daniel@email.com"}]},
+    {"uid": "2918", "contacts":[{"uid": "2914", "email": "daniel@email.com"},{"uid": "2908", "email": "kazel@email.com"}]}
 ]
 }

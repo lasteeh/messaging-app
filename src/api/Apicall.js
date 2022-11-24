@@ -40,13 +40,14 @@ export const fetchSignIn = async (data) => {
       password: data.password
     });
 
-    let accessToken = await {
+    let accessToken = {
+        id: res.data.data.id,
         'access-token': res.headers.get('access-token'),
         client: res.headers.get('client'),
         expiry: res.headers.get('expiry'),
         uid: res.headers.get('uid')
     }
-   
+
     return accessToken
 }
 
@@ -65,7 +66,6 @@ export const fetchRetrieveMessage = async (data, id, msgType) => {
     const res = await axios.get(`${urlApi}messages?receiver_id=${id}&receiver_class=${msgType}`, {
         headers: data
     })
-    
     const apidata = await res.data
     return apidata
 }
