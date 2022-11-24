@@ -1,4 +1,5 @@
 import React, { useContext, useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import AddMemberItem from "./AddMemberItem";
 import { fetchCreateChannel } from "../api/Apicall";
 import { ApiContext } from "../context/apiContext";
@@ -6,41 +7,32 @@ import { ApiContext } from "../context/apiContext";
 const CreateChannelModal = (props) => {
   const { createChannel, setCreateChannel, accessData } =
     useContext(ApiContext);
-  const [channelInfo, setChannelInfo] = useState({
-    name: "",
-    user_ids: [],
-  });
-
-  const [isShowing, setIsShowing] = useState(false);
   const [isPending, startTransition] = useTransition();
-
-  const [membersToAdd, setMembersToAdd] = useState({});
-
-  const channelSubmit = async (e) => {
-    e.preventDefault();
-
-    // await fetchCreateChannel(accessData, channelInfo);
-
-    setCreateChannel(false);
-  };
-
+  const { register, handleSubmit, reset } = useForm();
+  const [isShowing, setIsShowing] = useState(false);
   const [selection, setSelection] = useState([]);
+  const [inputValue, setInputValue] = useState([]);
+  const [membersToAdd, setMembersToAdd] = useState({});
 
   const userOptions = props.usersList;
 
+  const channelSubmit = (data) => {
+    let uid = Object.keys(membersToAdd);
+    let body = {
+      name: data.channelname,
+      user_ids: uid,
+    };
+    setCreateChannel(false);
+    fetchCreateChannel(accessData, body);
+    reset({ channelname: "" });
+  };
+
   const removeMember = (id) => {
-    if (!channelInfo.user_ids) {
-      console.log("hopia");
-      console.log(channelInfo.user_ids);
-    } else {
+    if (membersToAdd[id]) {
       setMembersToAdd((members) => {
         {
           const shallow = { ...members };
           delete shallow[id];
-
-          const newList = channelInfo.user_ids.filter((item) => item === id);
-          setChannelInfo({ ...channelInfo, user_ids: newList });
-
           return shallow;
         }
       });
@@ -48,87 +40,82 @@ const CreateChannelModal = (props) => {
   };
 
   const handleSelectClick = (e) => {
-    const val = parseInt(e.currentTarget.dataset.value);
-    const email = e.currentTarget.dataset.email;
-    const list = {};
+    const selected = e.currentTarget.dataset;
 
-    for (let i = 0; i < userOptions.length; i++) {
-      if (!membersToAdd[val]) {
-        if (userOptions[i].value === val) {
-          list[userOptions[i].value] = {
-            email: email,
-            value: val,
-          };
-        }
-      }
+    if (!membersToAdd[selected.value]) {
+      setMembersToAdd((members) => {
+        return {
+          ...members,
+          [selected.value]: { email: selected.email, value: selected.value },
+        };
+      });
     }
-    setMembersToAdd((prevMembers) => {
-      return { ...prevMembers, ...list };
-    });
-    setChannelInfo((prevInfo) => {
-      return {
-        ...prevInfo,
-        user_ids: [...prevInfo.user_ids, val],
-      };
-    });
-
+    setInputValue("");
     setIsShowing(false);
   };
 
-  const handleSelectionChange = (e) => {
-    if (
-      !e.target.value ||
-      e.target.value === "" ||
-      e.target.value === 0 ||
-      e.target.value.length < 1
-    ) {
-      setIsShowing(false);
-    } else if (e.target.value.length < 3) {
-      setSelection([
-        <div className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200">
-          <span className="block text-[0.8rem]">OH NO!</span>
-          <span>Too Many Matching Results</span>
-        </div>,
-      ]);
-      setIsShowing(true);
-    } else if (userOptions) {
-      setIsShowing(true);
-      startTransition(() => {
-        const list = [];
-        for (let i = 0; i < userOptions.length; i++) {
-          if (
-            parseInt(userOptions[i].value) === parseInt(e.target.value) ||
-            userOptions[i].label.match(e.target.value)
-          ) {
-            list.push(userOptions[i]);
-            setSelection(
-              list.map((item) => (
-                <div
-                  className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200"
-                  key={item.value}
-                  onClick={(e) => {
-                    handleSelectClick(e);
-                  }}
-                  data-value={item.value}
-                  data-email={item.label}
-                >
-                  <span>{item.label}</span>
-                  <span className="block text-[0.8rem]">UID: {item.value}</span>
-                </div>
-              ))
-            );
-          }
-        }
-      });
-    } else {
-      setSelection([
-        <div className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200">
-          <span className="block text-[0.8rem]">OH NO!</span>
-          <span>No Matching Results</span>
-        </div>,
-      ]);
-    }
+  const userFilterList = (val) => {
+    return userOptions.filter((user) => {
+      const Name = user.label.toLowerCase();
+      const Value = user.value.toString();
+      const trimmedSearchValue = val
+        .replace(/\s+/g, "")
+        .toString()
+        .toLowerCase();
+      return (
+        Value.includes(trimmedSearchValue) || Name.includes(trimmedSearchValue)
+      );
+    });
   };
+
+  const handleSelectionChange = (e) => {
+    let list;
+    let val = e.target.value;
+    setInputValue(e.target.value);
+    startTransition(() => {
+      if (val === "") {
+        setIsShowing(false);
+      } else if (val.length < 3) {
+        setSelection([
+          <div className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200">
+            <span className="block text-[0.8rem]">OH NO!</span>
+            <span>Too Many Matching Results</span>
+          </div>,
+        ]);
+        setIsShowing(true);
+      } else {
+        setIsShowing(true);
+        list = userFilterList(val);
+
+        if (list.length === 0) {
+          setSelection([
+            <div className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200">
+              <span className="block text-[0.8rem]">OH NO!</span>
+              <span>No Matching Results</span>
+            </div>,
+          ]);
+        } else {
+          setSelection(
+            list.map((item, index) => (
+              <div
+                key={index}
+                className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200"
+                onClick={(e) => {
+                  handleSelectClick(e);
+                }}
+                data-value={item.value}
+                data-email={item.label}
+              >
+                <span>{item.label}</span>
+                <span className="block text-[0.8rem]">UID: {item.value}</span>
+              </div>
+            ))
+          );
+        }
+      }
+    });
+  };
+
   return (
     <div
       className="grid place-items-center fixed inset-0 bg-gray-900/80 text-white z-[100] isolate w-[100vw] h-[100vh]"
@@ -138,27 +125,21 @@ const CreateChannelModal = (props) => {
     >
       <form
         className="flex flex-col justify-start items-stretch bg-slate-800 p-5 w-[min(500px,100%)] rounded-[12px] gap-[0]"
-        onSubmit={channelSubmit}
+        onSubmit={handleSubmit(channelSubmit)}
       >
         <span>Create a New Channel</span>
         <input
+          {...register("channelname")}
           type="text"
           placeholder="channel name"
           className="p-2 text-black m-[1rem_0]"
-          onChange={(e) => {
-            setChannelInfo((prevChannelInfo) => {
-              return {
-                ...prevChannelInfo,
-                name: e.target.value,
-              };
-            });
-          }}
         />
 
         <input
           type="text"
           placeholder="email"
           className="p-2 text-black"
+          value={inputValue}
           onChange={handleSelectionChange}
         />
 
