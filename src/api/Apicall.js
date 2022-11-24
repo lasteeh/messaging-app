@@ -51,7 +51,7 @@ export const fetchSignIn = async (data) => {
     return accessToken
 }
 
-export const fetchSemdMessage = async (data, body) => {
+export const fetchSendMessage = async (data, body) => {
     const res = await fetch(`${urlApi}messages`, {
         method: 'POST',
         headers: {
