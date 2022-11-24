@@ -46,7 +46,7 @@ export default function Chatbox() {
           ...
         </label>
 
-        <div className="more-options absolute min-w-[300px] max-w-[30%] h-[100%] bg-zinc-900 top-0 right-0 z-[4] text-white p-2.5 pt-[70px] overflow-y-auto">
+        <div className="more-options fixed min-w-[300px] max-w-[30%] h-[100%] bg-zinc-900 top-0 right-0 z-[4] text-white p-2.5 pt-[70px] overflow-y-auto">
           <div className="bg-zinc-500 p-2.5">
             <input
               type="checkbox"

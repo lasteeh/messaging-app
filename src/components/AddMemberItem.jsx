@@ -6,7 +6,9 @@ const AddMemberItem = (props) => {
   return (
     <div
       className="flex flex-row justify-start items-center relative max-h-[2rem] bg-blue-100 gap-[1rem] text-[0.8rem] text-[black] hover:brightness-90 w-[max-content]"
-      onClick={props.toggle}
+      onClick={() => {
+        props.toggle(props.value);
+      }}
     >
       <FontAwesomeIcon icon={faUser} className="p-2" />
       <span>{props.email ? props.email : "onepunch@man.com"}</span>
