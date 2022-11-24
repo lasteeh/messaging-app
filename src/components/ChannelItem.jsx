@@ -7,6 +7,7 @@ const ChannelItem = (props) => {
     <div
       data-id={props.dataId}
       data-type={props.dataMsgType}
+      data-name={props.name}
       className="flex flex-row justify-start items-stretch w-[100%] max-w-[280px] p-2.5 bg-zinc-700 rounded-2xl hover:scale-105 hover:bg-slate-600 transition ease-in-out cursor-pointer shadow-md"
       onClick={props.onClickSelected}
     >
