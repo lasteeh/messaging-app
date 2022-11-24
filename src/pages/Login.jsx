@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ApiContext } from '../context/apiContext';
-import { urlApi } from '../api/Apicall';
-import axios from 'axios';
+import { fetchSignIn } from '../api/Apicall';
 
 export default function Login() {
 
@@ -11,24 +10,15 @@ export default function Login() {
   const {accessData, setAccessData} = useContext(ApiContext);
   const {register, handleSubmit, reset} = useForm();
 
-  const fetchSignIn = async (data) => {
-  
-    const res = await axios.post(`${urlApi}auth/sign_in`, {
-      email: data.username, 
-      password: data.password
-    });
-
-    await setAccessData({
-        'access-token': res.headers.get('access-token'),
-        client: res.headers.get('client'),
-        expiry: res.headers.get('expiry'),
-        uid: res.headers.get('uid')
-    });
-
-    if (res.headers.get('access-token') !== null) {
+  const handleSignIn = useCallback( async (data) => {
+    try {
+      let checkData = await fetchSignIn(data)
+      setAccessData(checkData)
       navigate('./Home', {replace: true})
+    } catch (e) {
+      // shadow error handling
     }
-  }
+  },[]);
 
   return (
     <div className='flex flex-row h-[100%] items-stretch w-[100%] bg-gray-200'>
@@ -36,7 +26,7 @@ export default function Login() {
         
         <div className='flex items-center justify-center w-[80%] bg-gray-400 ml'>
           <form className='flex flex-col items-center justify-center gap-3' onSubmit={handleSubmit(data => {
-            fetchSignIn(data)
+            handleSignIn(data)
 
             reset({
               username: '',

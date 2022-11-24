@@ -33,6 +33,23 @@ export const fetchRegister = async () => {
     })
 }
 
+export const fetchSignIn = async (data) => {
+  
+    const res = await axios.post(`${urlApi}auth/sign_in`, {
+      email: data.username, 
+      password: data.password
+    });
+
+    let accessToken = await {
+        'access-token': res.headers.get('access-token'),
+        client: res.headers.get('client'),
+        expiry: res.headers.get('expiry'),
+        uid: res.headers.get('uid')
+    }
+   
+    return accessToken
+}
+
 export const fetchSemdMessage = async (data, body) => {
     const res = await fetch(`${urlApi}messages`, {
         method: 'POST',
