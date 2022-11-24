@@ -29,6 +29,16 @@ body {
   user-select: none;
 }
 
+.nav-item {
+  border-radius: 100%;
+  box-shadow: 0px 2px 4px 0px hsl(0, 0%, 0%, 0.25);
+  transition: border-radius 100ms ease, background-color 250ms ease;
+}
+.nav-item:hover {
+  background-color: hsl(220, 90%, 60%, 1);
+  border-radius: 12px;
+}
+
 .more-options {
   right: -100%;
   transition: right 500ms ease;
@@ -36,6 +46,13 @@ body {
 
 #more-options:checked ~ .more-options {
   right: 0;
+}
+#more-options + label {
+  transition: color 500ms ease;
+}
+#more-options:checked + label {
+  color: white;
+  background-color: hsl(0, 0%, 100%, 0.1);
 }
 
 .add-member {
@@ -50,4 +67,27 @@ body {
 
 .add-member .result > * {
   font-size: 0.8rem;
+}
+
+.messages-holder {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+.messages-holder > * {
+  position: relative;
+
+  display: inline;
+
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+
+  word-break: break-all;
+
+  overflow: hidden;
+
+  background-color: hsl(0, 0%, 0%, 0.25);
 }

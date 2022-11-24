@@ -11,14 +11,20 @@ import {
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
 const NavItem = (props) => {
-  
   let navigate = useNavigate();
-  const {msgType, SetMsgType} = useContext(ApiContext)
-  
+  const { msgType, SetMsgType, setChatBoxHeaderName } = useContext(ApiContext);
+
   return (
     <div
-      className={`nav-item grid items-center aspect-square w-[100%] max-w-[70px] p-3 rounded-full hover:rounded-[16px] bg-zinc-600 ${props.className}`}
-      onClick={()=> props.name === 'logout' ? navigate('/', {replace: true}) :SetMsgType(props.msgtype)}
+      className={`nav-item grid items-center aspect-square w-[100%] max-w-[70px] p-3  bg-zinc-600 hover:cursor-pointer ${props.className}`}
+      onClick={() => {
+        props.name === "logout"
+          ? navigate("/", { replace: true })
+          : SetMsgType(props.msgtype);
+        setChatBoxHeaderName(
+          props.name === "messages" ? "Messages" : "Channels"
+        );
+      }}
     >
       <FontAwesomeIcon
         icon={
@@ -32,7 +38,7 @@ const NavItem = (props) => {
             ? faDoorOpen
             : faIcons
         }
-        className="w-[100%] h-[100%]"
+        className="w-[100%] h-[100%] text-slate-100"
       />
     </div>
   );

@@ -4,7 +4,8 @@ import { fetchCreateChannel } from "../api/Apicall";
 import { ApiContext } from "../context/apiContext";
 
 const CreateChannelModal = (props) => {
-  const { createChannel, setCreateChannel } = useContext(ApiContext);
+  const { createChannel, setCreateChannel, accessData } =
+    useContext(ApiContext);
   const [channelInfo, setChannelInfo] = useState({
     name: "",
     user_ids: [],
@@ -15,8 +16,10 @@ const CreateChannelModal = (props) => {
 
   const [membersToAdd, setMembersToAdd] = useState({});
 
-  const channelSubmit = (e) => {
+  const channelSubmit = async (e) => {
     e.preventDefault();
+
+    // await fetchCreateChannel(accessData, channelInfo);
 
     setCreateChannel(false);
   };
@@ -30,51 +33,20 @@ const CreateChannelModal = (props) => {
       console.log("hopia");
       console.log(channelInfo.user_ids);
     } else {
-      // for (let i = 0; i < channelInfo.user_ids.length; i++) {
-      //   if (channelInfo.user_ids[i] === parseInt(id)) {
-      //     // setChannelInfo(
-      //     //   channelInfo.user_ids.filter((uid) => uid !== parseInt(id))
-      //     // );
-      //     // setChannelInfo(channelInfo.user_ids[(2918, 2914, 2908, 1)]);
-      //     console.log("sorry na uwu", id);
-      //   }
-      // }
-
-      // setChannelInfo((prevChannelInfo) => {
-      //   const shallow = { ...prevChannelInfo };
-      //   shallow["user_ids"].filter((uid) => uid !== id);
-
-      //   return { ...prevChannelInfo, user_ids: [...shallow] };
-      // });
-
-      // setChannelInfo((info) =>
-      //   info.user_ids.filter(
-      //     (uid) => uid !== id
-      //   )
-      // );
-
-      // setChannelInfo((info) => {
-      //   const shallow = info.user_ids;
-      //   shallow.filter((item) => item !== id);
-      // });
-
-      // setChannelInfo(channelInfo["user_ids"].filter((items) => items !== id));
-
       setMembersToAdd((members) => {
         {
           const shallow = { ...members };
           delete shallow[id];
-          
-          const newList = channelInfo.user_ids.filter(item => item === id );
-          setChannelInfo({...channelInfo, user_ids: newList});
+
+          const newList = channelInfo.user_ids.filter((item) => item === id);
+          setChannelInfo({ ...channelInfo, user_ids: newList });
 
           return shallow;
         }
       });
     }
   };
-  // console.log('id list', channelInfo.user_ids);
-  // console.log('members to add', membersToAdd);
+
   const handleSelectClick = (e) => {
     const val = parseInt(e.currentTarget.dataset.value);
     const email = e.currentTarget.dataset.email;

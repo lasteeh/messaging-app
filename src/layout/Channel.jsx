@@ -26,6 +26,7 @@ export default function Channel() {
     setChatMessages,
     channelMembers,
     setChannelMembers,
+    setChatBoxHeaderName,
   } = useContext(ApiContext);
 
   const selectedItem = async (e) => {
@@ -41,6 +42,8 @@ export default function Channel() {
       let members = await fetchChannelDetails(accessData, selected.id);
       setChannelMembers(members.data);
     }
+
+    // setChatBoxHeaderName()
   };
 
   const loadChannel = async () => {
@@ -59,14 +62,18 @@ export default function Channel() {
           ))
     );
 
+    setChatBoxHeaderName(ch.data.name);
+
     let users = await fetchAllUsers(accessData);
     setAllUsers(users);
   };
 
   const loadUserContacts = () => {
-    let usercontacts = myContacts.users.find((user) => user.uid === accessData.id.toString());
-    
-    if (usercontacts !== undefined){
+    let usercontacts = myContacts.users.find(
+      (user) => user.uid === accessData.id.toString()
+    );
+
+    if (usercontacts !== undefined) {
       setContacts(
         usercontacts.contacts.map((user, index) => (
           <ChannelItem
