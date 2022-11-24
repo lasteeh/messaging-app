@@ -64,12 +64,17 @@ const CreateChannelModal = (props) => {
         {
           const shallow = { ...members };
           delete shallow[id];
+          
+          const newList = channelInfo.user_ids.filter(item => item === id );
+          setChannelInfo({...channelInfo, user_ids: newList});
+
           return shallow;
         }
       });
-      console.log(typeof id);
     }
   };
+  // console.log('id list', channelInfo.user_ids);
+  // console.log('members to add', membersToAdd);
   const handleSelectClick = (e) => {
     const val = parseInt(e.currentTarget.dataset.value);
     const email = e.currentTarget.dataset.email;
