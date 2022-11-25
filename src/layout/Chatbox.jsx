@@ -11,44 +11,83 @@ import {
   faComments,
   faPlane,
   faCommentSlash,
+  faL,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Chatbox() {
   const [members, setMembers] = useState([]);
-  const {
+  const { 
     chat,
     setChat,
-    chatMessages,
-    channelMembers,
+    chatMessages, 
+    channelMembers, 
     msgType,
     chatBoxHeaderName,
     chatLoading,
     setChatLoading,
   } = useContext(ApiContext);
 
+  const chatFilter = (msg) => {
+    let body =[];
+    let lastSender = msg.length === 0 ? [] : msg[0].sender.id;
+    let count = 0;
+    let pictoggle = true
+    
+   
+    body = msg.map((user, index) => {
+      let nextPerson = msg.length === index+1 ? msg[0].sender.id : msg[index+1].sender.id
+      // if (user.sender.id === lastSender){
+      //   console.log(`Person ${user.sender.id}`, user.body)
+      //   lastSender = user.sender.id === msg[index+1].sender.id ? msg[index+1].sender.id : user.sender.id
+      // } else{
+        
+      //   console.log(`Dif Person ${user.sender.id}`, user.body)
+      // }
+      
+      if (user.sender.id === lastSender){
+        pictoggle = count === 0 ? true : false
+        count += 1
+        lastSender = user.sender.id === nextPerson ? nextPerson : user.sender.id
+        return (
+          <ChatItem
+            key={index}
+            body={user.body}
+            time={user.created_at}
+            sender={user.sender}
+            toggle={pictoggle}
+            pictoggle={pictoggle}
+          />
+        )
+      } else{
+        count = 0
+        pictoggle = true
+        return (
+          <ChatItem
+            key={index}
+            body={user.body}
+            time={user.created_at}
+            sender={user.sender}
+            toggle={pictoggle}
+            pictoggle={pictoggle}
+          />
+        )
+      }
+    }) 
+
+    setChat(body)
+  }
+
   useEffect(() => {
     if (chatMessages !== undefined) {
       let msg = chatMessages.data;
       msg === undefined
         ? console.log("undefined")
-        : setChat(
-            msg.map((data, index) => (
-              <ChatItem
-                key={index}
-                body={data.body}
-                time={data.created_at}
-                sender={data.sender}
-              />
-            ))
-          );
+        : chatFilter(msg)
     }
   }, [chatMessages]);
 
-  console.log("chat information", chatMessages);
-
   useEffect(() => {
     let mem = channelMembers.channel_members;
-
     mem === undefined
       ? console.log("undefined")
       : setMembers(
@@ -60,6 +99,8 @@ export default function Chatbox() {
 
   return (
     <div className="flex flex-col bg-gray-100 w-[100%] h-[100%] overflow-hidden">
+
+      
       <div className="flex flex-row items-center p-2.5 justify-start bg-gray-300 w-[100%] min-h-[80px] gap-[5px] isolate">
         <div className=" aspect-square h-[50px] p-[5px]">
           <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
@@ -81,6 +122,31 @@ export default function Chatbox() {
         </label>
 
         <div className="more-options fixed min-w-[270px] max-w-[30%] h-[100%] bg-zinc-900 top-0 right-0 z-[4] text-white p-2.5 pt-[70px] overflow-y-auto">
+          <div className="bg-zinc-500 p-2.5">
+            <input
+              type="checkbox"
+              className="hidden"
+              name="add-member"
+              id="add-member"
+            />
+            <label htmlFor="add-member" className="cursor-pointer">
+              add member
+            </label>
+            <div className="add-member w-[100%] flex flex-col justify-start items-stretch gap-[0.5rem]">
+              <div>
+                <input type="text" className=" w-[70%] p-2 text-black" />
+                <button type="button" className="w-[30%]">
+                  add
+                </button>
+              </div>
+              <div className="result flex flex-row-reverse flex-wrap justify-start items-start gap-[0.5rem]">
+                <AddMemberItem uid="last@email.com" />
+                <AddMemberItem uid="daniel@email.com" />
+                <AddMemberItem uid="kazel@email.com" />
+                <AddMemberItem uid="ceejay@email.com" />
+              </div>
+            </div>
+          </div>
           <div>
             <span className="font-semibold text-[0.9rem] uppercase">
               Members - {members.length}
@@ -110,7 +176,6 @@ export default function Chatbox() {
           </div>
         )}
       </div>
-
       <div className="flex flex-row items-center justify-start w-[100%] min-h-[80px] bg-gray-200 p-6 gap-[1em]">
         <input
           type="text"

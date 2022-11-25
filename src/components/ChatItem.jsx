@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 const ChatItem = (props) => {
+  
   const dateTimeToday = new Date().getTime();
-  const [sentAt, setSentAt] = useState("");
-
+  
   const calculateTime = (timeSent) => {
     const dateTime = new Date(timeSent);
     const timeDifference = dateTimeToday - dateTime;
@@ -45,18 +45,18 @@ const ChatItem = (props) => {
 
   return (
     <div className="flex flex-row flex-nowrap items-end gap-[0.8rem] w-[min(650px,_100%)] h-[max-content]">
-      <div className="photo-holder aspect-square w-[min(28px,_100%)] text-white bg-black p-[0.4rem] mb-[20px] rounded-[0.35rem]  grid place-items-center">
+      <div className={!props.pictoggle ? 'invisible photo-holder aspect-square w-[min(28px,_100%)]':'photo-holder aspect-square w-[min(28px,_100%)] text-white bg-black p-[0.4rem] mb-auto rounded-[0.35rem] grid place-items-center'}>
         <FontAwesomeIcon icon={faUser} className="w-[100%] h-[100%]" />
       </div>
       <div className="flex flex-col flex-nowrap gap-[0.1rem] ">
         <span className="sender text-[0.6rem] pl-[6px]">
-          {props.sender.uid}
+          {props.pictoggle && props.sender.uid}
         </span>
         <div className="messages-holder relative w-[100%]">
           <p>{props.body}</p>
         </div>
         <span className="time-holder lowercase text-[0.6rem] pl-[6px]">
-          {calculateTime(props.time)}
+          {props.toggle && calculateTime(props.time)}
         </span>
       </div>
     </div>
