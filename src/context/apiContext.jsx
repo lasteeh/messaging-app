@@ -14,6 +14,8 @@ export const ApiContextProvider = ({ children }) => {
   const [msgType, SetMsgType] = useState("User");
   const [chatMessages, setChatMessages] = useState([]);
   const [chatBoxHeaderName, setChatBoxHeaderName] = useState("");
+  const [channelHeaderName, setChannelHeaderName] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     if (accessData.length !== 0) {
@@ -24,6 +26,8 @@ export const ApiContextProvider = ({ children }) => {
   return (
     <ApiContext.Provider
       value={{
+        allUsers,
+        setAllUsers,
         accessData,
         setAccessData,
         channels,
@@ -38,6 +42,8 @@ export const ApiContextProvider = ({ children }) => {
         setChannelMembers,
         chatBoxHeaderName,
         setChatBoxHeaderName,
+        channelHeaderName,
+        setChannelHeaderName,
       }}
     >
       {children}

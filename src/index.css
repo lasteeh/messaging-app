@@ -55,20 +55,6 @@ body {
   background-color: hsl(0, 0%, 100%, 0.1);
 }
 
-.add-member {
-  height: 0;
-  opacity: 0;
-}
-
-#add-member:checked ~ .add-member {
-  height: initial;
-  opacity: 1;
-}
-
-.add-member .result > * {
-  font-size: 0.8rem;
-}
-
 .messages-holder {
   display: flex;
   flex-flow: column nowrap;

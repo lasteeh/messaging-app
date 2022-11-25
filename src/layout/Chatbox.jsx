@@ -5,7 +5,7 @@ import AddMemberItem from "../components/AddMemberItem";
 import ChatItem from "../components/ChatItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faComments } from "@fortawesome/free-solid-svg-icons";
 
 export default function Chatbox() {
   const [chat, setChat] = useState([]);
@@ -35,6 +35,7 @@ export default function Chatbox() {
 
   useEffect(() => {
     let mem = channelMembers.channel_members;
+
     mem === undefined
       ? console.log("undefined")
       : setMembers(
@@ -47,8 +48,10 @@ export default function Chatbox() {
   return (
     <div className="flex flex-col bg-gray-100 w-[100%] h-[100%] overflow-hidden">
       <div className="flex flex-row items-center p-2.5 justify-start bg-gray-300 w-[100%] min-h-[80px] gap-[5px] isolate">
-        <div className="bg-gray-400 aspect-square h-[50px]"></div>
-        <span>{chatBoxHeaderName}</span>
+        <div className=" aspect-square h-[50px] p-[5px]">
+          <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
+        </div>
+        <span className="text-[0.9rem] font-bold">{chatBoxHeaderName}</span>
         <input
           className="hidden"
           type="checkbox"
@@ -62,34 +65,11 @@ export default function Chatbox() {
           <FontAwesomeIcon className="w-[100%] h-[100%]" icon={faEllipsis} />
         </label>
 
-        <div className="more-options fixed min-w-[300px] max-w-[30%] h-[100%] bg-zinc-900 top-0 right-0 z-[4] text-white p-2.5 pt-[70px] overflow-y-auto">
-          <div className="bg-zinc-500 p-2.5">
-            <input
-              type="checkbox"
-              className="hidden"
-              name="add-member"
-              id="add-member"
-            />
-            <label htmlFor="add-member" className="cursor-pointer">
-              add member
-            </label>
-            <div className="add-member w-[100%] flex flex-col justify-start items-stretch gap-[0.5rem]">
-              <div>
-                <input type="text" className=" w-[70%] p-2 text-black" />
-                <button type="button" className="w-[30%]">
-                  add
-                </button>
-              </div>
-              <div className="result flex flex-row-reverse flex-wrap justify-start items-start gap-[0.5rem]">
-                <AddMemberItem uid="last@email.com" />
-                <AddMemberItem uid="daniel@email.com" />
-                <AddMemberItem uid="kazel@email.com" />
-                <AddMemberItem uid="ceejay@email.com" />
-              </div>
-            </div>
-          </div>
+        <div className="more-options fixed min-w-[270px] max-w-[30%] h-[100%] bg-zinc-900 top-0 right-0 z-[4] text-white p-2.5 pt-[70px] overflow-y-auto">
           <div>
-            <span>Members</span>
+            <span className="font-semibold text-[0.9rem] uppercase">
+              Members - {members.length}
+            </span>
             <div className="flex flex-col justify-start items-stretch">
               {members}
             </div>
@@ -97,7 +77,7 @@ export default function Chatbox() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-start w-[100%] grow shrink overflow-y-auto overflow-x-hidden p-2.5">
+      <div className="flex flex-col justify-start gap-[2rem] w-[100%] grow shrink overflow-y-auto overflow-x-hidden p-2.5">
         {chat}
       </div>
 
