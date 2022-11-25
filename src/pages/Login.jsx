@@ -6,8 +6,13 @@ import { fetchSignIn } from "../api/Apicall";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { accessData, setAccessData, setChat, setChatLoading } =
-    useContext(ApiContext);
+  const {
+    accessData,
+    setAccessData,
+    setChat,
+    setChatLoading,
+    setShowSideBarMembersList,
+  } = useContext(ApiContext);
   const { register, handleSubmit, reset } = useForm();
 
   const handleSignIn = useCallback(async (data) => {
@@ -37,6 +42,7 @@ export default function Login() {
 
             setChat("");
             setChatLoading(false);
+            setShowSideBarMembersList(false);
           })}
         >
           <input

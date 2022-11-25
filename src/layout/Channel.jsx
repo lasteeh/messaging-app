@@ -30,6 +30,7 @@ export default function Channel() {
     setChatBoxHeaderName,
     channelHeaderName,
     setChatLoading,
+    setShowSideBarMembersList,
   } = useContext(ApiContext);
 
   const selectedItem = async (e) => {
@@ -47,6 +48,7 @@ export default function Channel() {
     }
     setChatBoxHeaderName(selected.name);
     setChatLoading(true);
+    setShowSideBarMembersList(true);
   };
 
   const loadChannel = async () => {

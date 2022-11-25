@@ -19,6 +19,7 @@ const NavItem = (props) => {
     setChatBoxHeaderName,
     setChannelHeaderName,
     setChatLoading,
+    setShowSideBarMembersList,
   } = useContext(ApiContext);
 
   return (
@@ -38,6 +39,7 @@ const NavItem = (props) => {
         );
         setChat("");
         setChatLoading(false);
+        setShowSideBarMembersList(false);
       }}
     >
       <FontAwesomeIcon
