@@ -3,22 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 const ChatItem = (props) => {
   const dateTimeToday = new Date().getTime();
-  //   const date = dateTime.toLocaleDateString();
-  //   const time = dateTime.toLocaleTimeString();
-
   const [sentAt, setSentAt] = useState("");
   const [sameSender, setSameSender] = useState([])
-
-  // console.log(dateTimeToday, "time today");
-  //   console.log(
-  //     new Date("2022-11-22T14:30:09.437Z").getTime(),
-  //     "time boss kazel sent"
-  //   );
 
   const calculateTime = (timeSent) => {
     const dateTime = new Date(timeSent);
     const timeDifference = dateTimeToday - dateTime;
-
     const minute = 60_000;
     const hour = 60 * minute;
     const day = 24 * hour;
@@ -54,22 +44,19 @@ const ChatItem = (props) => {
     }
   };
 
-  //   console.log("time diff", timeDifference, props.sender.email, props.body);
-
-  //   console.log("test", timeDifference < day ? "hours ago" : "days ago");
-  //   console.log("test", timeDifference < week ? "days ago" : "weeks ago");
-
   return (
-    <div className="flex flex-row flex-nowrap gap-[0.8rem] w-[min(650px,_100%)] min-h-[70px] mb-[1rem]">
-      <div className="photo-holder aspect-square h-[min(28px,_100%)] text-white bg-black p-[0.4rem] rounded-[0.35rem] mb-[auto] grid place-items-center">
+    <div className="flex flex-row flex-nowrap items-end gap-[0.8rem] w-[min(650px,_100%)] min-h-[70px]">
+      <div className="photo-holder aspect-square h-[min(28px,_100%)] text-white bg-black p-[0.4rem] mb-[20px] rounded-[0.35rem]  grid place-items-center">
         <FontAwesomeIcon icon={faUser} className="w-[100%] h-[100%]" />
       </div>
-      <div className="flex flex-col flex-nowrap gap-[0.25rem]">
-        <span className="sender text-[0.75rem]">{props.sender.uid}</span>
+      <div className="flex flex-col flex-nowrap gap-[0.1rem] ">
+        <span className="sender text-[0.6rem] pl-[6px]">
+          {props.sender.uid}
+        </span>
         <div className="messages-holder relative w-[100%]">
           <p>{props.body}</p>
         </div>
-        <span className="time-holder lowercase text-[0.75rem]">
+        <span className="time-holder lowercase text-[0.6rem] pl-[6px]">
           {calculateTime(props.time)}
         </span>
       </div>
