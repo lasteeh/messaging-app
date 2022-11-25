@@ -29,6 +29,7 @@ export default function Chatbox() {
     chatLoading,
     setChatLoading,
     accessData,
+    showSideBarMembersList,
   } = useContext(ApiContext);
 
   const chatFilter = (msg) => {
@@ -127,9 +128,9 @@ export default function Chatbox() {
   }, [channelMembers]);
 
   return (
-    <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate">
+    <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate z-[4]">
       <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
-        <div className=" aspect-square h-[50px] p-[5px]">
+        <div className="icon aspect-square h-[50px] p-[5px]">
           <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
         </div>
         <span className="text-[0.9rem] font-bold">

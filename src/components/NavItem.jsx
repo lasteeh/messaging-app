@@ -24,7 +24,7 @@ const NavItem = (props) => {
 
   return (
     <div
-      className={`nav-item grid items-center aspect-square w-[100%] max-w-[70px] p-3  bg-zinc-600 hover:cursor-pointer ${props.className}`}
+      className={`nav-item grid items-center aspect-square w-[100%] max-w-[70px] p-3   hover:cursor-pointer ${props.className}`}
       onClick={() => {
         props.name === "logout"
           ? navigate("/", { replace: true })

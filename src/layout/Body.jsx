@@ -5,7 +5,7 @@ import Chatbox from "./Chatbox";
 
 export default function Body() {
   return (
-    <div className="flex flex-row items-stretch w-[100%] h-[100%] bg-green-900">
+    <div className="flex flex-row items-stretch w-[100%] h-[100%] isolate">
       <Nav />
       <Channel />
       <Chatbox />

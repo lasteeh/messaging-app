@@ -7,22 +7,6 @@
 /* theme picker */
 
 :root {
-  --clr-text-1: hsl(0, 0%, 90%, 1);
-  --clr-text-2: hsl(0, 0%, 15%, 1);
-
-  --clr-nav-bar-bg-1: hsl(240, 4%, 16%);
-  --clr-nav-bar-bg-2: hsl(240, 5%, 34%);
-
-  --clr-channel-panel-bg-1: hsl(240, 4%, 22%);
-  --clr-channel-panel-bg-2: hsl(240, 4%, 18%);
-
-  --clr-input-field-bg-1: hsl(240, 6%, 18%);
-
-  --clr-chat-box-bg-1: hsl(240, 4%, 23%);
-  --clr-chat-box-bg-2: hsl(240, 4%, 21%);
-
-  --clr-more-options-bg-1: hsl(240, 4%, 5%, 0.9);
-
   --border-radus-1: 8px;
 }
 
@@ -38,8 +22,13 @@
 .nav-bar {
   background-color: var(--clr-nav-bar-bg-1);
 }
+.nav-item {
+  background-color: var(--clr-nav-icon-bg-1);
+  color: var(--clr-nav-icon-text-1);
+}
 .logo-border {
-  background-color: var(--clr-nav-bar-bg-2);
+  opacity: 0.25;
+  background-color: var(--clr-text-3);
 }
 
 .channel-panel {
@@ -57,6 +46,12 @@
   border-radius: var(--border-radus-1) 0 0 var(--border-radus-1);
   background-color: var(--clr-channel-panel-bg-2);
 }
+.channel-item {
+  background-color: var(--clr-channel-item-bg-1);
+}
+.channel-item:hover {
+  background-color: var(--clr-channel-item-hover-bg-1);
+}
 
 .chat-box {
   background-color: var(--clr-chat-box-bg-2);
@@ -64,11 +59,106 @@
 .chat-box-header {
   background-color: var(--clr-chat-box-bg-1);
 }
+.chat-box-header .icon {
+  color: var(--clr-chat-box-header-icon-1);
+}
 .message-field {
   background-color: var(--clr-input-field-bg-1);
 }
 .more-options {
   background-color: var(--clr-more-options-bg-1);
+}
+#more-options + label {
+  color: var(--clr-text-1);
+}
+#more-options:checked + label {
+  color: var(--clr-text-3);
+}
+.member-list-item div:has(svg) {
+  color: var(--clr-chat-bubble-text-1);
+  background-color: var(--clr-chat-bubble-bg-1);
+}
+
+.theme-picker input[type="radio"] {
+  appearance: none;
+  aspect-ratio: 1 / 1;
+  width: 0.75rem;
+  outline: 1px solid var(--clr-radio, currentColor);
+  outline-offset: 1px;
+  border-radius: 100%;
+
+  box-shadow: 0px 1px 4px hsl(0, 0%, 100%, 0.9), 0px 2px 4px hsl(0, 0%, 0%, 0.9);
+}
+.theme-picker input[type="radio"]:checked {
+  background-color: var(--clr-radio);
+}
+input[type="radio"]#dark {
+  --clr-radio: black;
+}
+input[type="radio"]#blue {
+  --clr-radio: hsl(212, 85%, 55%);
+}
+
+:root:has(#dark:checked) {
+  --clr-text-1: hsl(0, 0%, 90%, 1);
+  --clr-text-2: hsl(0, 0%, 15%, 1);
+  --clr-text-3: hsl(0, 0%, 90%, 1);
+  --clr-text-4: hsl(0, 0%, 20%, 1);
+
+  --clr-nav-bar-bg-1: hsl(240, 4%, 16%);
+  --clr-nav-bar-bg-2: hsl(240, 5%, 34%);
+
+  --clr-nav-icon-bg-1: hsl(240, 5%, 34%);
+  --clr-nav-icon-text-1: hsl(0, 0%, 90%, 1);
+
+  --clr-channel-panel-bg-1: hsl(240, 4%, 22%);
+  --clr-channel-panel-bg-2: hsl(240, 4%, 18%);
+
+  --clr-channel-item-bg-1: hsl(240, 5%, 26%);
+  --clr-channel-item-hover-bg-1: hsl(215, 19%, 35%);
+
+  --clr-input-field-bg-1: hsl(240, 6%, 18%);
+
+  --clr-chat-box-bg-1: hsl(240, 4%, 23%);
+  --clr-chat-box-bg-2: hsl(240, 4%, 21%);
+
+  --clr-more-options-bg-1: hsl(240, 4%, 5%, 0.9);
+
+  --clr-chat-bubble-text-1: white;
+
+  --clr-chat-bubble-bg-1: hsl(240, 4%, 18%);
+}
+
+:root:has(#blue:checked) {
+  --clr-text-1: hsl(0, 0%, 15%, 1);
+  --clr-text-2: hsl(0, 0%, 15%, 1);
+  --clr-text-3: hsl(0, 0%, 15%, 1);
+  --clr-text-4: hsl(0, 0%, 90%, 1);
+
+  --clr-nav-bar-bg-1: hsl(0, 0%, 88%);
+  --clr-nav-bar-bg-2: hsl(0, 0%, 94%);
+
+  --clr-nav-icon-bg-1: hsl(212, 85%, 55%);
+  --clr-nav-icon-text-1: hsl(0, 0%, 90%, 1);
+
+  --clr-channel-panel-bg-1: hsl(0, 0%, 90%);
+  --clr-channel-panel-bg-2: hsl(0, 0%, 100%);
+
+  --clr-channel-item-bg-1: hsl(0, 0%, 95%);
+  --clr-channel-item-hover-bg-1: hsl(215, 49%, 65%);
+
+  --clr-input-field-bg-1: hsl(0, 0%, 92%);
+
+  --clr-chat-box-bg-1: hsl(0, 0%, 95%);
+  --clr-chat-box-bg-2: hsl(0, 0%, 100%);
+
+  --clr-more-options-bg-1: hsl(0, 5%, 98%);
+
+  --clr-chat-bubble-text-1: white;
+
+  --clr-chat-bubble-bg-1: hsl(212, 85%, 55%);
+
+  --clr-chat-box-header-icon-1: hsl(212, 85%, 55%);
 }
 
 /* scroll bar */
@@ -92,8 +182,16 @@ body {
   overflow: hidden;
 }
 
+body * {
+  transition: background-color 500ms ease;
+}
+
 input::placeholder {
   opacity: 0.5;
+}
+
+.channel-panel {
+  border-inline-end: 1px solid hsl(0, 0%, 0%, 0.05);
 }
 
 #root {
@@ -113,6 +211,8 @@ input::placeholder {
 }
 
 .more-options {
+  overflow-x: hidden;
+  box-shadow: -1px 0px 4px hsl(0, 0%, 0%, 0.1);
   right: -100%;
   transition: right 500ms ease;
 }
@@ -124,8 +224,7 @@ input::placeholder {
   transition: color 500ms ease;
 }
 #more-options:checked + label {
-  color: white;
-  background-color: hsl(0, 0%, 100%, 0.1);
+  background-color: var(--clr-text-4);
 }
 
 .messages-holder {
@@ -148,7 +247,8 @@ input::placeholder {
 
   overflow: hidden;
 
-  background-color: hsl(0, 0%, 0%, 0.25);
+  background-color: var(--clr-chat-bubble-bg-1);
+  color: var(--clr-chat-bubble-text-1);
 }
 
 .chatLoading {

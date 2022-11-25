@@ -18,8 +18,8 @@ const MemberListItem = (props) => {
   const randomNumber = Math.floor(Math.random() * 2);
 
   return (
-    <div className="flex flex-row flex-nowrap justify-start items-center gap-[0.6rem]  p-[0.5rem] font-regular">
-      <div className="aspect-square min-h-[30px] max-h-[35px] bg-slate-500  p-[0.7rem] grid place-items-center rounded-full">
+    <div className="member-list-item flex flex-row flex-nowrap justify-start items-center gap-[0.6rem]  p-[0.5rem] font-regular">
+      <div className="aspect-square min-h-[30px] max-h-[35px]   p-[0.7rem] grid place-items-center rounded-full">
         <FontAwesomeIcon
           icon={icons[randomNumber]}
           className="h-[100%] w-[100%]"

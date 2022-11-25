@@ -45,10 +45,14 @@ export default function Channel() {
     if (selected.type === "Channel") {
       let members = await fetchChannelDetails(accessData, selected.id);
       setChannelMembers(members.data);
+      setShowSideBarMembersList(true);
     }
-    setChatBoxHeaderName({id: selected.id, type: selected.type, name: selected.name});
+    setChatBoxHeaderName({
+      id: selected.id,
+      type: selected.type,
+      name: selected.name,
+    });
     setChatLoading(true);
-    setShowSideBarMembersList(true);
   };
 
   const loadChannel = async () => {
@@ -100,7 +104,7 @@ export default function Channel() {
 
   return (
     <>
-      <div className="channel-panel flex flex-col items-stretch justify-start  w-[100%] max-w-[320px] h-[100%]">
+      <div className="channel-panel flex flex-col items-stretch justify-start  w-[100%] max-w-[320px] h-[100%] z-[3]">
         <div className="channel-panel-header flex flex-row flex-wrap items-center justify-start w-[100%] min-h-[80px]  p-5 font-bold ">
           <span>{channelHeaderName}</span>
           {channelHeaderName === "Channels" ? (
@@ -132,7 +136,17 @@ export default function Channel() {
         <div className="channel-items flex flex-col items-start w-[100%] h-[100%] p-2.5 gap-2.5 overflow-y-auto">
           {msgType === "User" ? contacts : channels}
         </div>
-        <div className="theme-picker mt-auto p-[0.8rem] "></div>
+        <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
+          <label className="sr-only" htmlFor="theme">
+            dark
+          </label>
+          <input type="radio" name="theme" id="dark" />
+
+          <label className="sr-only" htmlFor="theme">
+            blue
+          </label>
+          <input type="radio" name="theme" id="blue" />
+        </div>
       </div>
       {createChannel ? (
         <CreateChannelModal usersList={usersOptions} />
