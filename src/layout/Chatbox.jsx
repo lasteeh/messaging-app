@@ -10,28 +10,44 @@ import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 export default function Chatbox() {
   const [chat, setChat] = useState([]);
   const [members, setMembers] = useState([]);
-  const { chatMessages, channelMembers, msgType, chatBoxHeaderName } =
-    useContext(ApiContext);
+  const { 
+    chatMessages, 
+    channelMembers, 
+    msgType, 
+    chatBoxHeaderName 
+  } = useContext(ApiContext);
+
+  const chatFilter = (msg) => {
+    let body;
+
+    // msg.forEach(user => {
+      
+    //   if (user.sender.id === senderid){
+    //     body = body + `<p>${user.body}</p>`
+    //   }
+    // }) 
+    
+    setChat(
+      msg.map((data, index) => (
+        <ChatItem
+          key={index}
+          body={data.body}
+          time={data.created_at}
+          sender={data.sender}
+        />
+      ))
+    );
+
+  }
 
   useEffect(() => {
     if (chatMessages !== undefined) {
       let msg = chatMessages.data;
       msg === undefined
         ? console.log("undefined")
-        : setChat(
-            msg.map((data, index) => (
-              <ChatItem
-                key={index}
-                body={data.body}
-                time={data.created_at}
-                sender={data.sender}
-              />
-            ))
-          );
+        : chatFilter(msg)
     }
   }, [chatMessages]);
-
-  console.log("chat information", chatMessages);
 
   useEffect(() => {
     let mem = channelMembers.channel_members;
