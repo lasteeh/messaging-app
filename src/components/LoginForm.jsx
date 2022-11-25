@@ -22,7 +22,7 @@ export default function LoginForm() {
         try {
             let checkData = await fetchSignIn(data);
             setAccessData(checkData);
-            navigate("./Home", { replace: true });
+            navigate("/Home", { replace: true });
         } catch (e) {
             // shadow errorhandling
         }
