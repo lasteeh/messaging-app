@@ -11,6 +11,7 @@ import {
   faComments,
   faPlane,
   faCommentSlash,
+  faL,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Chatbox() {
@@ -20,34 +21,60 @@ export default function Chatbox() {
     setChat,
     chatMessages, 
     channelMembers, 
-    msgType, 
+    msgType,
     chatBoxHeaderName,
     chatLoading,
     setChatLoading,
   } = useContext(ApiContext);
 
   const chatFilter = (msg) => {
-    let body;
-
-    msg.forEach(user => {
-      
-      
-      // if (user.sender.id === senderid){
-      //   body = body + `<p>${user.body}</p>`
-      // }
-    }) 
+    let body =[];
+    let lastSender = msg.length === 0 ? [] : msg[0].sender.id;
+    let count = 0;
+    let pictoggle = true
     
-    setChat(
-      msg.map((data, index) => (
-        <ChatItem
-          key={index}
-          body={data.body}
-          time={data.created_at}
-          sender={data.sender}
-        />
-      ))
-    );
+   
+    body = msg.map((user, index) => {
+      let nextPerson = msg.length === index+1 ? msg[0].sender.id : msg[index+1].sender.id
+      // if (user.sender.id === lastSender){
+      //   console.log(`Person ${user.sender.id}`, user.body)
+      //   lastSender = user.sender.id === msg[index+1].sender.id ? msg[index+1].sender.id : user.sender.id
+      // } else{
+        
+      //   console.log(`Dif Person ${user.sender.id}`, user.body)
+      // }
+      
+      if (user.sender.id === lastSender){
+        pictoggle = count === 0 ? true : false
+        count += 1
+        lastSender = user.sender.id === nextPerson ? nextPerson : user.sender.id
+        return (
+          <ChatItem
+            key={index}
+            body={user.body}
+            time={user.created_at}
+            sender={user.sender}
+            toggle={pictoggle}
+            pictoggle={pictoggle}
+          />
+        )
+      } else{
+        count = 0
+        pictoggle = true
+        return (
+          <ChatItem
+            key={index}
+            body={user.body}
+            time={user.created_at}
+            sender={user.sender}
+            toggle={pictoggle}
+            pictoggle={pictoggle}
+          />
+        )
+      }
+    }) 
 
+    setChat(body)
   }
 
   useEffect(() => {
