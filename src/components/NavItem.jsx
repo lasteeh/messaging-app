@@ -28,7 +28,7 @@ const NavItem = (props) => {
         props.name === "logout"
           ? navigate("/", { replace: true })
           : SetMsgType(props.msgtype);
-        setChatBoxHeaderName("...");
+        setChatBoxHeaderName("Hey there, Welcome!");
         setChannelHeaderName(
           props.name === "messages"
             ? "Messages"

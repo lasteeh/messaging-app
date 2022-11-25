@@ -78,7 +78,9 @@ export default function Chatbox() {
         <div className=" aspect-square h-[50px] p-[5px]">
           <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
         </div>
-        <span className="text-[0.9rem] font-bold">{chatBoxHeaderName}</span>
+        <span className="text-[0.9rem] font-bold">
+          {chatBoxHeaderName ? chatBoxHeaderName : "Hey there, Welcome!"}
+        </span>
         <input
           className="hidden"
           type="checkbox"
@@ -129,7 +131,7 @@ export default function Chatbox() {
         </div>
       </div>
 
-      <div className="relative grid auto-rows-auto w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate">
+      <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate">
         {!chat && !chatLoading && (
           <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1]">
             <FontAwesomeIcon icon={faPlane} />
@@ -146,6 +148,19 @@ export default function Chatbox() {
             <span className="opacity-[0.5]">No messages</span>
           </div>
         )}
+      </div>
+      <div className="flex flex-row items-center justify-start w-[100%] min-h-[80px] bg-gray-200 p-6 gap-[1em]">
+        <input
+          type="text"
+          className="max-h-[40px] grow bg-gray-300 p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]"
+          placeholder="Type a message..."
+        />
+        <span className="ml-auto text-[1.4rem]">
+          <FontAwesomeIcon
+            className="text-[#e74444] hover:text-[#db2c2c]"
+            icon={faPaperPlane}
+          />
+        </span>
       </div>
     </div>
   );
