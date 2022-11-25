@@ -64,7 +64,9 @@ export default function Chatbox() {
         <div className=" aspect-square h-[50px] p-[5px]">
           <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
         </div>
-        <span className="text-[0.9rem] font-bold">{chatBoxHeaderName}</span>
+        <span className="text-[0.9rem] font-bold">
+          {chatBoxHeaderName ? chatBoxHeaderName : "Hey there, Welcome!"}
+        </span>
         <input
           className="hidden"
           type="checkbox"
@@ -90,7 +92,7 @@ export default function Chatbox() {
         </div>
       </div>
 
-      <div className="relative flex flex-col justify-start gap-[2rem] w-[100%] grow shrink overflow-y-auto overflow-x-hidden p-2.5 isolate">
+      <div className="relative grid auto-rows-auto gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate">
         {!chat && !chatLoading && (
           <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1]">
             <FontAwesomeIcon icon={faPlane} />

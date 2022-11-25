@@ -44,8 +44,8 @@ const ChatItem = (props) => {
   };
 
   return (
-    <div className="flex flex-row flex-nowrap items-end gap-[0.8rem] w-[min(650px,_100%)] min-h-[70px]">
-      <div className="photo-holder aspect-square h-[min(28px,_100%)] text-white bg-black p-[0.4rem] mb-[20px] rounded-[0.35rem]  grid place-items-center">
+    <div className="flex flex-row flex-nowrap items-end gap-[0.8rem] w-[min(650px,_100%)] h-[max-content]">
+      <div className="photo-holder aspect-square w-[min(28px,_100%)] text-white bg-black p-[0.4rem] mb-[20px] rounded-[0.35rem]  grid place-items-center">
         <FontAwesomeIcon icon={faUser} className="w-[100%] h-[100%]" />
       </div>
       <div className="flex flex-col flex-nowrap gap-[0.1rem] ">

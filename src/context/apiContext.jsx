@@ -13,8 +13,10 @@ export const ApiContextProvider = ({ children }) => {
   const [createChannel, setCreateChannel] = useState(false);
   const [msgType, SetMsgType] = useState("User");
   const [chatMessages, setChatMessages] = useState([]);
-  const [chatBoxHeaderName, setChatBoxHeaderName] = useState("");
-  const [channelHeaderName, setChannelHeaderName] = useState("");
+  const [chatBoxHeaderName, setChatBoxHeaderName] = useState(
+    "Hey there, Welcome!"
+  );
+  const [channelHeaderName, setChannelHeaderName] = useState("Home");
   const [allUsers, setAllUsers] = useState([]);
   const [chat, setChat] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
