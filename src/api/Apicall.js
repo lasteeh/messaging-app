@@ -1,21 +1,5 @@
 import axios from "axios"
 
-const regData = {
-    email: '',
-    password: ''
-}
-
-const userMessage = {
-    "receiver_id": '',
-    "receiver_class": 'User', //msgType
-    "body": ''
-}
-
-const createChannel = {
-    "name": '',
-    "user_ids": []
-}
-
 const addMember = {
     "id": '', //channel id
     "member_id": ''
@@ -23,13 +7,13 @@ const addMember = {
 
 export const urlApi = 'http://206.189.91.54/api/v1/';
 
-export const fetchRegister = async () => {
+export const fetchRegister = async (body) => {
     const res = await fetch(`${urlApi}auth/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(regData)
+        body: JSON.stringify(body)
     })
 }
 

@@ -1,15 +1,21 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Body from "./layout/Body";
-import Login from './pages/Login';
+import Frontpage from './pages/Frontpage';
+import LoginForm from "./components/LoginForm";
+import SignUpForm from "./components/SignUpForm";
 import { ApiContextProvider } from './context/apiContext'
 
 function App() {
   return (
     <ApiContextProvider>
       <Routes>
-        <Route path="/" element={<Login/>}/>
+        <Route path="/" element={<Frontpage/>}>
+          <Route path="Login" element={<LoginForm/>}/>
+          <Route path="Signup" element={<SignUpForm/>}/>
+        </Route>
         <Route path="/Home" element={<Body/>}/>
+        <Route path='*' element={<Navigate to='/Login' replace={true}/>}/>
       </Routes>
     </ApiContextProvider>
   );
