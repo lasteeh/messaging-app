@@ -12,8 +12,14 @@ import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
 const NavItem = (props) => {
   let navigate = useNavigate();
-  const { msgType, SetMsgType, setChatBoxHeaderName, setChannelHeaderName } =
-    useContext(ApiContext);
+  const {
+    setChat,
+    msgType,
+    SetMsgType,
+    setChatBoxHeaderName,
+    setChannelHeaderName,
+    setChatLoading,
+  } = useContext(ApiContext);
 
   return (
     <div
@@ -30,6 +36,8 @@ const NavItem = (props) => {
             ? "Channels"
             : "Home"
         );
+        setChat("");
+        setChatLoading(false);
       }}
     >
       <FontAwesomeIcon

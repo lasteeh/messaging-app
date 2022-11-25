@@ -77,3 +77,73 @@ body {
 
   background-color: hsl(0, 0%, 0%, 0.25);
 }
+
+.chatLoading {
+  opacity: 0.15;
+
+  display: grid;
+  place-items: center;
+}
+.chatLoading > .fa-plane {
+  font-size: clamp(10rem, 1vw, 15rem);
+
+  animation-name: swing;
+  animation-duration: 2s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes swing {
+  0% {
+    transform: translateY(-100px) rotate(-15deg);
+  }
+
+  100% {
+    transform: translateY(100px) rotate(15deg);
+  }
+}
+
+.chatLoading .cloud {
+  position: absolute;
+
+  animation-name: pass;
+  animation-duration: 2s;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.chatLoading .cloud.one {
+  opacity: 0.2;
+  font-size: 10rem;
+  translate: 0 -80%;
+  animation-duration: 2.5s;
+}
+.chatLoading .cloud.two {
+  opacity: 0.2;
+  font-size: 20rem;
+  translate: 0 70%;
+  animation-duration: 3s;
+}
+.chatLoading .cloud.three {
+  opacity: 0.1;
+  font-size: 6rem;
+  translate: 0 70%;
+  animation-duration: 2s;
+}
+.chatLoading .cloud.four {
+  opacity: 0.1;
+  font-size: 4rem;
+  translate: 0 -290%;
+}
+
+@keyframes pass {
+  0% {
+    transform: translateX(1000%);
+  }
+
+  100% {
+    transform: translateX(-1000%);
+  }
+}

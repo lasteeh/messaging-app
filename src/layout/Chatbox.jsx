@@ -5,13 +5,26 @@ import AddMemberItem from "../components/AddMemberItem";
 import ChatItem from "../components/ChatItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
-import { faEllipsis, faComments } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloud,
+  faEllipsis,
+  faComments,
+  faPlane,
+  faCommentSlash,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Chatbox() {
-  const [chat, setChat] = useState([]);
   const [members, setMembers] = useState([]);
-  const { chatMessages, channelMembers, msgType, chatBoxHeaderName } =
-    useContext(ApiContext);
+  const {
+    chat,
+    setChat,
+    chatMessages,
+    channelMembers,
+    msgType,
+    chatBoxHeaderName,
+    chatLoading,
+    setChatLoading,
+  } = useContext(ApiContext);
 
   useEffect(() => {
     if (chatMessages !== undefined) {
@@ -77,8 +90,23 @@ export default function Chatbox() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-start gap-[2rem] w-[100%] grow shrink overflow-y-auto overflow-x-hidden p-2.5">
-        {chat}
+      <div className="relative flex flex-col justify-start gap-[2rem] w-[100%] grow shrink overflow-y-auto overflow-x-hidden p-2.5 isolate">
+        {!chat && !chatLoading && (
+          <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1]">
+            <FontAwesomeIcon icon={faPlane} />
+            <FontAwesomeIcon icon={faCloud} className="cloud one " />
+            <FontAwesomeIcon icon={faCloud} className="cloud two " />
+            <FontAwesomeIcon icon={faCloud} className="cloud three " />
+            <FontAwesomeIcon icon={faCloud} className="cloud four " />
+          </div>
+        )}
+        {chatLoading && chat}
+        {chatLoading && chat.length === 0 && (
+          <div className="absolute inset-0 h-[100%] w-[100%] z-[-1] flex flex-col justify-center gap-[1rem] items-center opacity-[0.5]">
+            <FontAwesomeIcon icon={faCommentSlash} className="text-[3rem]" />
+            <span className="opacity-[0.5]">No messages</span>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-row items-center justify-start w-[100%] min-h-[80px] bg-gray-200 p-6 gap-[1em]">
