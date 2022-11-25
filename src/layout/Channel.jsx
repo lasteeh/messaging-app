@@ -110,7 +110,7 @@ export default function Channel() {
           {channelHeaderName === "Channels" ? (
             <FontAwesomeIcon
               icon={faSquarePlus}
-              className="ml-auto cursor-pointer text-[1.25rem]"
+              className="channel-plus ml-auto cursor-pointer text-[1.25rem]"
               onClick={() => {
                 setUsersOptions(
                   allUsers.data &&
@@ -141,7 +141,7 @@ export default function Channel() {
             dark
           </label>
           <input
-            className="cursor-pointer"
+            className="cursor-pointer opacity-[0.75]"
             type="radio"
             name="theme"
             id="dark"
@@ -153,7 +153,7 @@ export default function Channel() {
             blue
           </label>
           <input
-            className="cursor-pointer"
+            className="cursor-pointer opacity-[0.75]"
             type="radio"
             name="theme"
             id="blue"

@@ -118,67 +118,75 @@ const CreateChannelModal = (props) => {
 
   return (
     <div
-      className="grid place-items-center fixed inset-0 bg-gray-900/80 text-white z-[105] isolate w-[100vw] h-[100vh]"
+      className="grid place-items-center fixed inset-0 bg-zinc-900/70 text-white z-[105] isolate w-[100vw] h-[100vh] "
       onClick={() => {
         setIsShowing(false);
       }}
     >
       <form
-        className="flex flex-col justify-start items-stretch bg-slate-800 p-5 w-[min(500px,100%)] rounded-[12px] gap-[0]"
+        className="create-channel-form   px-[1rem] pt-[4rem] pb-[1rem] w-[min(500px,100%)] rounded-[12px] "
         onSubmit={handleSubmit(channelSubmit)}
       >
-        <span>Create a New Channel</span>
-        <input
-          {...register("channelname")}
-          type="text"
-          placeholder="channel name"
-          className="p-2 text-black m-[1rem_0]"
-        />
+        <div className="flex flex-col justify-start items-stretch gap-[0] w-[100%] rounded-[0.75rem] pl-[1.5rem] pr-[1.5rem] pb-[2.5rem] pt-[1rem]">
+          <span className="text-center font-bold text-[1.5rem]">
+            Create a New Channel
+          </span>
+          <input
+            {...register("channelname")}
+            type="text"
+            placeholder="channel name"
+            className="create-channel-field p-3 text-black m-[1rem_0] rounded-[5px] indent-[5px] focus:outline-none"
+          />
 
-        <input
-          type="text"
-          placeholder="email"
-          className="p-2 text-black"
-          value={inputValue}
-          onChange={handleSelectionChange}
-        />
+          <input
+            type="text"
+            placeholder="email"
+            className="create-channel-field p-3 text-black rounded-[5px] indent-[5px] focus:outline-none"
+            value={inputValue}
+            onChange={handleSelectionChange}
+          />
 
-        <div className="relative w-[100%] p-[2px]">
-          {isShowing && (
-            <div
-              className={`${
-                isShowing ? "bg-white visible" : "bg-transparent invisible"
-              } absolute top-[0] left-[0] w-[100%] max-h-[30vh]   overflow-y-auto rounded-[0.25rem] p-[0.5rem_0rem] z-[20] mt-[0.5rem]`}
-            >
-              {selection}
-            </div>
-          )}
-        </div>
-        <div
-          id="add-member-list"
-          className="w-[100%] flex flex-row flex-wrap justify-center items-start gap-[0.5rem] p-[1rem]"
-        >
-          {membersToAdd &&
-            Object.keys(membersToAdd).map((key, index) => {
-              return (
-                <AddMemberItem
-                  key={index}
-                  value={membersToAdd[key].value}
-                  email={membersToAdd[key].email}
-                  toggle={removeMember}
-                />
-              );
-            })}
-        </div>
-        <div>
-          <button type="submit" className="cursor-pointer">
-            Confirm
-          </button>
+          <div className="relative w-[100%] p-[2px]">
+            {isShowing && (
+              <div
+                className={`${
+                  isShowing ? "bg-white visible" : "bg-transparent invisible"
+                } absolute top-[0] left-[0] w-[100%] max-h-[30vh]   overflow-y-auto rounded-[0.25rem] p-[0.5rem_0rem] z-[20] mt-[0.5rem]`}
+              >
+                {selection}
+              </div>
+            )}
+          </div>
           <div
-            onClick={() => setCreateChannel(false)}
-            className="cursor-pointer"
+            id="add-member-list"
+            className="w-[100%] flex flex-row flex-wrap justify-center items-start gap-[0.5rem] p-[1rem]"
           >
-            Cancel
+            {membersToAdd &&
+              Object.keys(membersToAdd).map((key, index) => {
+                return (
+                  <AddMemberItem
+                    key={index}
+                    value={membersToAdd[key].value}
+                    email={membersToAdd[key].email}
+                    toggle={removeMember}
+                  />
+                );
+              })}
+          </div>
+          <div className="flex flex-row justify-center items-start gap-[1.5rem] w-[100%]">
+            <button
+              type="submit"
+              className="cursor-pointer bg-green-600 hover:bg-green-500 pt-2 pb-2 pr-6 pl-6 rounded-[5px]"
+            >
+              Confirm
+            </button>
+            <button
+              type="button"
+              onClick={() => setCreateChannel(false)}
+              className="cursor-pointer bg-red-700 hover:bg-red-800 pt-2 pb-2 pr-6 pl-6 rounded-[5px]"
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </form>

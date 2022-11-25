@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserGroup, faHashtag } from "@fortawesome/free-solid-svg-icons";
 
 const ChannelItem = (props) => {
-  console.log(props, "props");
   return (
     <div
       data-id={props.dataId}

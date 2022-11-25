@@ -38,6 +38,9 @@
   background-color: var(--clr-channel-panel-bg-2);
   border-radius: var(--border-radus-1) 0 0 var(--border-radus-1);
 }
+.channel-plus {
+  color: var(--clr-chat-box-header-icon-1);
+}
 .channel-filter input {
   border-radius: var(--border-radus-1);
   background-color: var(--clr-input-field-bg-1);
@@ -51,6 +54,20 @@
 }
 .channel-item:hover {
   background-color: var(--clr-channel-item-hover-bg-1);
+}
+.create-channel-form {
+  color: var(--clr-text-1);
+  background-color: var(--clr-nav-bar-bg-1);
+}
+.create-channel-form > div {
+  background-color: var(--clr-create-channel-bg-1);
+}
+.create-channel-form input {
+  color: var(--clr-text-1);
+  background-color: var(--clr-input-field-bg-1);
+}
+.create-channel-form button {
+  color: var(--clr-text-5);
 }
 
 .chat-box {
@@ -81,6 +98,15 @@
   color: var(--clr-chat-bubble-text-1);
   background-color: var(--clr-chat-bubble-bg-1);
 }
+.channel-exist-add-member input {
+  background-color: var(--clr-input-field-bg-1);
+}
+.channel-exist-add-member button {
+  background-color: var(--clr-nav-icon-bg-1);
+}
+.channel-exist-add-member button {
+  color: var(--clr-text-5);
+}
 
 .theme-picker input[type="radio"] {
   appearance: none;
@@ -107,6 +133,7 @@ input[type="radio"]#blue {
   --clr-text-2: hsl(0, 0%, 15%, 1);
   --clr-text-3: hsl(0, 0%, 90%, 1);
   --clr-text-4: hsl(0, 0%, 20%, 1);
+  --clr-text-5: hsl(0, 0%, 90%, 1);
 
   --clr-nav-bar-bg-1: hsl(240, 4%, 16%);
   --clr-nav-bar-bg-2: hsl(240, 5%, 34%);
@@ -116,6 +143,8 @@ input[type="radio"]#blue {
 
   --clr-channel-panel-bg-1: hsl(240, 4%, 22%);
   --clr-channel-panel-bg-2: hsl(240, 4%, 18%);
+
+  --clr-create-channel-bg-1: hsl(240, 4%, 10%);
 
   --clr-channel-item-bg-1: hsl(240, 5%, 26%);
   --clr-channel-item-hover-bg-1: hsl(215, 19%, 35%);
@@ -138,6 +167,7 @@ input[type="radio"]#blue {
   --clr-text-2: hsl(0, 0%, 15%, 1);
   --clr-text-3: hsl(0, 0%, 15%, 1);
   --clr-text-4: hsl(0, 0%, 90%, 1);
+  --clr-text-5: hsl(0, 0%, 90%, 1);
 
   --clr-nav-bar-bg-1: hsl(0, 0%, 88%);
   --clr-nav-bar-bg-2: hsl(0, 0%, 94%);
@@ -147,6 +177,8 @@ input[type="radio"]#blue {
 
   --clr-channel-panel-bg-1: hsl(0, 0%, 90%);
   --clr-channel-panel-bg-2: hsl(0, 0%, 100%);
+
+  --clr-create-channel-bg-1: hsl(200, 90%, 98%);
 
   --clr-channel-item-bg-1: hsl(0, 0%, 95%);
   --clr-channel-item-hover-bg-1: hsl(215, 49%, 65%);
@@ -189,6 +221,10 @@ body {
 
 body * {
   transition: background-color 500ms ease;
+}
+
+input {
+  font-style: italic;
 }
 
 input::placeholder {

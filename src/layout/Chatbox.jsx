@@ -19,6 +19,8 @@ import {
 export default function Chatbox() {
   const [members, setMembers] = useState([]);
   const [messagebox, setMessagebox] = useState([]);
+  const [addMemberSelectionIsShowing, setAddMemberSelectionIsShowing] =
+    useState(false);
   const {
     chat,
     setChat,
@@ -128,7 +130,9 @@ export default function Chatbox() {
         );
   }, [channelMembers]);
 
-  console.log(chatBoxHeaderName, "chatboxheader");
+  const handleAddMemberField = () => {
+    console.log("changed");
+  };
 
   return (
     <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate z-[4]">
@@ -172,7 +176,7 @@ export default function Chatbox() {
           <FontAwesomeIcon className="w-[100%] h-[100%]" icon={faEllipsis} />
         </label>
 
-        <div className="more-options fixed min-w-[270px] max-w-[30%] h-[100vh]  top-0 right-0 z-[4]  p-4 pt-[70px] overflow-y-auto z-[100]">
+        <div className="more-options fixed min-w-[270px] max-w-[30%] h-[100vh]  top-0 right-0 z-[4]  p-4 pt-[70px] pb-[70px] overflow-y-auto z-[100] isolate">
           {showSideBarMembersList ? (
             <div>
               <span className="font-semibold text-[0.9rem] uppercase">
@@ -181,10 +185,27 @@ export default function Chatbox() {
               <div className="flex flex-col justify-start items-stretch">
                 {members}
               </div>
+
+              <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4">
+                <input
+                  className="w-[100%] rounded-[5px] p-2 focus:outline-none indent-[0.5rem]"
+                  type="text"
+                  onChange={() => {
+                    handleAddMemberField();
+                  }}
+                  placeholder="UID or Email"
+                />
+                <button
+                  className="w-[100%] rounded-[5px] text-center p-2 mt-[5px] capitalize font-bold shadow-md"
+                  type="button"
+                >
+                  add member
+                </button>
+              </div>
             </div>
           ) : (
             <div className="mt-[100%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
-              <p className="text-[0.7rem]">by:</p>
+              <p className="text-[0.8rem]">by:</p>
               <p className="text-[2rem] font-bold">DANIEL & LAST</p>
               <p className="text-[0.9rem]">
                 Non-commercial project. All pictures belong to their authors.

@@ -45,8 +45,6 @@ const ChatItem = (props) => {
     }
   };
 
-  console.log(accessData, "accessdata", props.sender, "sender");
-
   return (
     <div
       className={`flex flex-row flex-nowrap items-end gap-[0.8rem] w-[100%] h-[max-content] pl-[1rem] pr-[1rem] ${
