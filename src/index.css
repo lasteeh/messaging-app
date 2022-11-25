@@ -4,6 +4,75 @@
 @tailwind components;
 @tailwind utilities;
 
+/* theme picker */
+
+:root {
+  --clr-text-1: hsl(0, 0%, 90%, 1);
+  --clr-text-2: hsl(0, 0%, 15%, 1);
+
+  --clr-nav-bar-bg-1: hsl(240, 4%, 16%);
+  --clr-nav-bar-bg-2: hsl(240, 5%, 34%);
+
+  --clr-channel-panel-bg-1: hsl(240, 4%, 22%);
+  --clr-channel-panel-bg-2: hsl(240, 4%, 18%);
+
+  --clr-input-field-bg-1: hsl(240, 6%, 18%);
+
+  --clr-chat-box-bg-1: hsl(240, 4%, 23%);
+  --clr-chat-box-bg-2: hsl(240, 4%, 21%);
+
+  --clr-more-options-bg-1: hsl(240, 4%, 5%, 0.9);
+
+  --border-radus-1: 8px;
+}
+
+.nav-item,
+.channel-panel,
+.chat-body {
+  color: var(--clr-text-1);
+}
+.channel-item svg {
+  color: var(--clr-text-2);
+}
+
+.nav-bar {
+  background-color: var(--clr-nav-bar-bg-1);
+}
+.logo-border {
+  background-color: var(--clr-nav-bar-bg-2);
+}
+
+.channel-panel {
+  background-color: var(--clr-nav-bar-bg-1);
+}
+.channel-panel-header {
+  background-color: var(--clr-channel-panel-bg-2);
+  border-radius: var(--border-radus-1) 0 0 var(--border-radus-1);
+}
+.channel-filter input {
+  border-radius: var(--border-radus-1);
+  background-color: var(--clr-input-field-bg-1);
+}
+.channel-items {
+  border-radius: var(--border-radus-1) 0 0 var(--border-radus-1);
+  background-color: var(--clr-channel-panel-bg-2);
+}
+
+.chat-box {
+  background-color: var(--clr-chat-box-bg-2);
+}
+.chat-box-header {
+  background-color: var(--clr-chat-box-bg-1);
+}
+.message-field {
+  background-color: var(--clr-input-field-bg-1);
+}
+.more-options {
+  background-color: var(--clr-more-options-bg-1);
+}
+
+/* scroll bar */
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -21,6 +90,10 @@
 
 body {
   overflow: hidden;
+}
+
+input::placeholder {
+  opacity: 0.5;
 }
 
 #root {

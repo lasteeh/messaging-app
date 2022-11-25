@@ -54,7 +54,7 @@ const NavItem = (props) => {
             ? faDoorOpen
             : faIcons
         }
-        className="w-[100%] h-[100%] text-slate-100"
+        className="w-[100%] h-[100%]"
       />
     </div>
   );

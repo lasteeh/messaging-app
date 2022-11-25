@@ -100,8 +100,8 @@ export default function Channel() {
 
   return (
     <>
-      <div className="flex flex-col items-stretch justify-start bg-zinc-500 w-[100%] max-w-[320px] h-[100%]">
-        <div className="flex flex-row flex-wrap items-center justify-start w-[100%] min-h-[80px] bg-zinc-700 p-5 font-bold text-white">
+      <div className="channel-panel flex flex-col items-stretch justify-start  w-[100%] max-w-[320px] h-[100%]">
+        <div className="channel-panel-header flex flex-row flex-wrap items-center justify-start w-[100%] min-h-[80px]  p-5 font-bold ">
           <span>{channelHeaderName}</span>
           {channelHeaderName === "Channels" ? (
             <FontAwesomeIcon
@@ -122,13 +122,17 @@ export default function Channel() {
           )}
         </div>
 
-        <div className="p-2.5">
-          <input className="w-[100%] h-[100%] p-2.5"></input>
+        <div className="channel-filter p-[0.8rem]">
+          <input
+            className="indent-[10px] w-[100%] h-[100%] p-2.5  focus:outline-none"
+            placeholder="Search"
+          />
         </div>
 
-        <div className="flex flex-col items-start w-[100%] h-[100%] p-2.5 gap-2.5 overflow-y-auto">
+        <div className="channel-items flex flex-col items-start w-[100%] h-[100%] p-2.5 gap-2.5 overflow-y-auto">
           {msgType === "User" ? contacts : channels}
         </div>
+        <div className="theme-picker mt-auto p-[0.8rem] "></div>
       </div>
       {createChannel ? (
         <CreateChannelModal usersList={usersOptions} />

@@ -117,8 +117,8 @@ export default function Chatbox() {
   }, [channelMembers]);
 
   return (
-    <div className="flex flex-col bg-gray-100 w-[100%] h-[100%] overflow-hidden">
-      <div className="flex flex-row items-center p-2.5 justify-start bg-gray-300 w-[100%] min-h-[80px] gap-[5px] isolate">
+    <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate">
+      <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
         <div className=" aspect-square h-[50px] p-[5px]">
           <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
         </div>
@@ -132,13 +132,13 @@ export default function Chatbox() {
           id="more-options"
         />
         <label
-          className="h-[40px] w-[40px] hover:bg-gray-400/25 text-center ml-auto z-[5] p-[0.6rem] grid place-items-center rounded-full"
+          className="h-[40px] w-[40px] hover:bg-gray-400/25 text-center ml-auto z-[5] p-[0.6rem] grid place-items-center rounded-full z-[101]"
           htmlFor="more-options"
         >
           <FontAwesomeIcon className="w-[100%] h-[100%]" icon={faEllipsis} />
         </label>
 
-        <div className="more-options fixed min-w-[270px] max-w-[30%] h-[100%] bg-zinc-900 top-0 right-0 z-[4] text-white p-2.5 pt-[70px] overflow-y-auto">
+        <div className="more-options fixed min-w-[270px] max-w-[30%] h-[100vh]  top-0 right-0 z-[4]  p-4 pt-[70px] overflow-y-auto z-[100]">
           {showSideBarMembersList ? (
             <div>
               <span className="font-semibold text-[0.9rem] uppercase">
@@ -154,9 +154,9 @@ export default function Chatbox() {
         </div>
       </div>
 
-      <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate">
+      <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate z-[4]">
         {!chat && !chatLoading && (
-          <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1]">
+          <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1] h-[100%] overflow-hidden">
             <FontAwesomeIcon icon={faPlane} />
             <FontAwesomeIcon icon={faCloud} className="cloud one " />
             <FontAwesomeIcon icon={faCloud} className="cloud two " />
@@ -172,10 +172,10 @@ export default function Chatbox() {
           </div>
         )}
       </div>
-      <div className="flex flex-row items-center justify-start w-[100%] min-h-[80px] bg-gray-200 p-6 gap-[1em]">
+      <div className="message-sender flex flex-row items-center justify-start w-[100%] min-h-[80px]  p-6 gap-[1em] z-[5]">
         <input
           type="text"
-          className="max-h-[40px] grow bg-gray-300 p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]"
+          className="message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]"
           placeholder="Type a message..."
         />
         <span className="ml-auto text-[1.4rem]">

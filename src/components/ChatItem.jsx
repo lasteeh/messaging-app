@@ -59,15 +59,19 @@ const ChatItem = (props) => {
         <FontAwesomeIcon icon={faUser} className="w-[100%] h-[100%]" />
       </div>
       <div className="flex flex-col flex-nowrap gap-[0.1rem] ">
-        <span className="sender text-[0.6rem] pl-[6px]">
-          {props.pictoggle && props.sender.uid}
-        </span>
+        {props.toggle && (
+          <div>
+            <span className="sender text-[0.6rem] pl-[6px]">
+              {props.sender.uid}
+            </span>
+            <span className="time-holder lowercase text-[0.6rem] pl-[6px]">
+              {calculateTime(props.time)}
+            </span>
+          </div>
+        )}
         <div className="messages-holder relative w-[100%]">
           <p>{props.body}</p>
         </div>
-        <span className="time-holder lowercase text-[0.6rem] pl-[6px]">
-          {props.toggle && calculateTime(props.time)}
-        </span>
       </div>
     </div>
   );
