@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { ApiContext } from "../context/apiContext";
 const ChatItem = (props) => {
-  
+  const { accessData } = useContext(ApiContext);
+
   const dateTimeToday = new Date().getTime();
-  
+
   const calculateTime = (timeSent) => {
     const dateTime = new Date(timeSent);
     const timeDifference = dateTimeToday - dateTime;
@@ -43,9 +45,17 @@ const ChatItem = (props) => {
     }
   };
 
+  console.log(accessData, "accessdata", props.sender, "sender");
+
   return (
     <div className="flex flex-row flex-nowrap items-end gap-[0.8rem] w-[min(650px,_100%)] h-[max-content]">
-      <div className={!props.pictoggle ? 'invisible photo-holder aspect-square w-[min(28px,_100%)]':'photo-holder aspect-square w-[min(28px,_100%)] text-white bg-black p-[0.4rem] mb-auto rounded-[0.35rem] grid place-items-center'}>
+      <div
+        className={
+          !props.pictoggle
+            ? "invisible photo-holder aspect-square w-[min(28px,_100%)]"
+            : "photo-holder aspect-square w-[min(28px,_100%)] text-white bg-black p-[0.4rem] mb-auto rounded-[0.35rem] grid place-items-center"
+        }
+      >
         <FontAwesomeIcon icon={faUser} className="w-[100%] h-[100%]" />
       </div>
       <div className="flex flex-col flex-nowrap gap-[0.1rem] ">

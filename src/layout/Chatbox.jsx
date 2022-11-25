@@ -36,61 +36,18 @@ export default function Chatbox() {
     let pictoggle = true;
 
     body = msg.map((user, index) => {
-      let nextPerson = msg.length === index+1 ? msg[0].sender.id : msg[index+1].sender.id
-      
+      let nextPerson =
+        msg.length === index + 1 ? msg[0].sender.id : msg[index + 1].sender.id;
+
       // if (user.sender.id === lastSender){
       //   console.log(`Same Person ${user.sender.id}`, user.body)
-      //   lastSender = user.sender.id 
+      //   lastSender = user.sender.id
       // } else if (user.sender.id === nextPerson){
-      //   console.log(`Same Person ${user.sender.id}`, user.body)   
+      //   console.log(`Same Person ${user.sender.id}`, user.body)
       //   lastSender = user.sender.id
       // }else{
       //   console.log(`dif Person ${user.sender.id}`, user.body)
       // }
-      
-      if (user.sender.id === lastSender){
-        pictoggle = count === 0 ? true : false
-        count += 1
-        lastSender = user.sender.id === nextPerson ? nextPerson : user.sender.id
-        return (
-          <ChatItem
-            key={index}
-            body={user.body}
-            time={user.created_at}
-            sender={user.sender}
-            toggle={pictoggle}
-            pictoggle={pictoggle}
-          />
-        )
-      } if (user.sender.id === nextPerson){
-        pictoggle = count === 0 ? true : false
-        count += 1
-        lastSender = user.sender.id
-        return (
-          <ChatItem
-            key={index}
-            body={user.body}
-            time={user.created_at}
-            sender={user.sender}
-            toggle={!pictoggle}
-            pictoggle={!pictoggle}
-          />
-        )
-      } else{
-        count = 0
-        pictoggle = true
-        return (
-          <ChatItem
-            key={index}
-            body={user.body}
-            time={user.created_at}
-            sender={user.sender}
-            toggle={pictoggle}
-            pictoggle={pictoggle}
-          />
-        )
-      }
-    }) 
 
       if (user.sender.id === lastSender) {
         pictoggle = count === 0 ? true : false;
@@ -105,6 +62,21 @@ export default function Chatbox() {
             sender={user.sender}
             toggle={pictoggle}
             pictoggle={pictoggle}
+          />
+        );
+      }
+      if (user.sender.id === nextPerson) {
+        pictoggle = count === 0 ? true : false;
+        count += 1;
+        lastSender = user.sender.id;
+        return (
+          <ChatItem
+            key={index}
+            body={user.body}
+            time={user.created_at}
+            sender={user.sender}
+            toggle={!pictoggle}
+            pictoggle={!pictoggle}
           />
         );
       } else {
