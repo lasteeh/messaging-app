@@ -27,7 +27,7 @@ const NavItem = (props) => {
       className={`nav-item grid items-center aspect-square w-[100%] max-w-[70px] p-3   hover:cursor-pointer ${props.className}`}
       onClick={() => {
         props.name === "logout"
-          ? navigate("/", { replace: true })
+          ? navigate("/Login", { replace: true })
           : SetMsgType(props.msgtype);
         setChatBoxHeaderName("Hey there, Welcome!");
         setChannelHeaderName(
