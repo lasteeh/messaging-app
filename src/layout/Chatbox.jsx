@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../context/apiContext";
+import { fetchSendMessage, fetchRetrieveMessage } from "../api/Apicall";
 import MemberListItem from "../components/MemberListItem";
 import AddMemberItem from "../components/AddMemberItem";
 import ChatItem from "../components/ChatItem";
@@ -16,17 +17,18 @@ import {
 
 export default function Chatbox() {
   const [members, setMembers] = useState([]);
+  const [messagebox, setMessagebox] = useState([]);
   const {
     chat,
     setChat,
     chatMessages,
+    setChatMessages,
     channelMembers,
     msgType,
     chatBoxHeaderName,
     chatLoading,
     setChatLoading,
-    showSideBarMembersList,
-    setShowSideBarMembersList,
+    accessData,
   } = useContext(ApiContext);
 
   const chatFilter = (msg) => {
@@ -38,16 +40,6 @@ export default function Chatbox() {
     body = msg.map((user, index) => {
       let nextPerson =
         msg.length === index + 1 ? msg[0].sender.id : msg[index + 1].sender.id;
-
-      // if (user.sender.id === lastSender){
-      //   console.log(`Same Person ${user.sender.id}`, user.body)
-      //   lastSender = user.sender.id
-      // } else if (user.sender.id === nextPerson){
-      //   console.log(`Same Person ${user.sender.id}`, user.body)
-      //   lastSender = user.sender.id
-      // }else{
-      //   console.log(`dif Person ${user.sender.id}`, user.body)
-      // }
 
       if (user.sender.id === lastSender) {
         pictoggle = count === 0 ? true : false;
@@ -98,6 +90,24 @@ export default function Chatbox() {
     setChat(body);
   };
 
+  const sendMessage = async () => {
+    if (messagebox) {
+      let body = {
+        receiver_id: chatBoxHeaderName.id,
+        receiver_class: chatBoxHeaderName.type,
+        body: messagebox,
+      };
+      await fetchSendMessage(accessData, body);
+      setMessagebox("");
+      let msg = await fetchRetrieveMessage(
+        accessData,
+        chatBoxHeaderName.id,
+        chatBoxHeaderName.type
+      );
+      await setChatMessages(msg);
+    }
+  };
+
   useEffect(() => {
     if (chatMessages !== undefined) {
       let msg = chatMessages.data;
@@ -123,7 +133,7 @@ export default function Chatbox() {
           <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
         </div>
         <span className="text-[0.9rem] font-bold">
-          {chatBoxHeaderName ? chatBoxHeaderName : "Hey there, Welcome!"}
+          {chatBoxHeaderName ? chatBoxHeaderName.name : "Hey there, Welcome!"}
         </span>
         <input
           className="hidden"
@@ -177,8 +187,18 @@ export default function Chatbox() {
           type="text"
           className="message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]"
           placeholder="Type a message..."
+          value={messagebox}
+          onChange={(e) => setMessagebox(e.currentTarget.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          }}
         />
-        <span className="ml-auto text-[1.4rem]">
+        <span
+          className="ml-auto text-[1.4rem] cursor-pointer"
+          onClick={sendMessage}
+        >
           <FontAwesomeIcon
             className="text-[#e74444] hover:text-[#db2c2c]"
             icon={faPaperPlane}

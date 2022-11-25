@@ -46,7 +46,7 @@ export default function Channel() {
       let members = await fetchChannelDetails(accessData, selected.id);
       setChannelMembers(members.data);
     }
-    setChatBoxHeaderName(selected.name);
+    setChatBoxHeaderName({id: selected.id, type: selected.type, name: selected.name});
     setChatLoading(true);
     setShowSideBarMembersList(true);
   };
