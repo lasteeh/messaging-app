@@ -13,6 +13,7 @@ import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 const NavItem = (props) => {
   let navigate = useNavigate();
   const {
+    accessData,
     setChat,
     msgType,
     SetMsgType,
@@ -22,6 +23,10 @@ const NavItem = (props) => {
     setShowSideBarMembersList,
   } = useContext(ApiContext);
 
+  const parseName = (name) => {
+    return name.replace(name.charAt(), name.charAt().toUpperCase());
+  };
+
   return (
     <div
       className={`nav-item grid items-center aspect-square w-[100%] max-w-[70px] p-3   hover:cursor-pointer ${props.className}`}
@@ -29,7 +34,7 @@ const NavItem = (props) => {
         props.name === "logout"
           ? navigate("/Login", { replace: true })
           : SetMsgType(props.msgtype);
-        setChatBoxHeaderName("Hey there, Welcome!");
+        setChatBoxHeaderName(`Welcome, User ${accessData.id}!`);
         setChannelHeaderName(
           props.name === "messages"
             ? "Messages"
@@ -41,6 +46,7 @@ const NavItem = (props) => {
         setChatLoading(false);
         setShowSideBarMembersList(false);
       }}
+      title={parseName(props.name)}
     >
       <FontAwesomeIcon
         icon={

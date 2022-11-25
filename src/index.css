@@ -62,6 +62,9 @@
 .chat-box-header .icon {
   color: var(--clr-chat-box-header-icon-1);
 }
+.photo-holder {
+  background-color: var(--clr-chat-bubble-icon-1);
+}
 .message-field {
   background-color: var(--clr-input-field-bg-1);
 }
@@ -125,6 +128,7 @@ input[type="radio"]#blue {
   --clr-more-options-bg-1: hsl(240, 4%, 5%, 0.9);
 
   --clr-chat-bubble-text-1: white;
+  --clr-chat-bubble-icon-1: hsl(0, 0%, 0%);
 
   --clr-chat-bubble-bg-1: hsl(240, 4%, 18%);
 }
@@ -157,6 +161,7 @@ input[type="radio"]#blue {
   --clr-chat-bubble-text-1: white;
 
   --clr-chat-bubble-bg-1: hsl(212, 85%, 55%);
+  --clr-chat-bubble-icon-1: hsl(212, 100%, 18%);
 
   --clr-chat-box-header-icon-1: hsl(212, 85%, 55%);
 }
@@ -319,4 +324,16 @@ input::placeholder {
   100% {
     transform: translateX(-1000%);
   }
+}
+
+.creep {
+  opacity: 0.04;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  scale: 2;
+  font-size: clamp(15rem, 10vw, 40rem);
+
+  rotate: -30deg;
 }

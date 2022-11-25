@@ -5,14 +5,15 @@ import MemberListItem from "../components/MemberListItem";
 import AddMemberItem from "../components/AddMemberItem";
 import ChatItem from "../components/ChatItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import { faPaperPlane, faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 import {
   faCloud,
   faEllipsis,
   faComments,
   faPlane,
   faCommentSlash,
-  faL,
+  faPoo,
+  faHashtag,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Chatbox() {
@@ -127,15 +128,37 @@ export default function Chatbox() {
         );
   }, [channelMembers]);
 
+  console.log(chatBoxHeaderName, "chatboxheader");
+
   return (
     <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate z-[4]">
       <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
         <div className="icon aspect-square h-[50px] p-[5px]">
-          <FontAwesomeIcon className="h-[100%] w-[100%]" icon={faComments} />
+          <FontAwesomeIcon
+            className="h-[100%] w-[100%]"
+            icon={
+              chatBoxHeaderName === undefined ||
+              chatBoxHeaderName === `Welcome, User ${accessData.id}!`
+                ? faPoo
+                : chatBoxHeaderName !== undefined &&
+                  chatBoxHeaderName.type === "Channel"
+                ? faHashtag
+                : faComments
+            }
+          />
         </div>
-        <span className="text-[0.9rem] font-bold">
-          {chatBoxHeaderName ? chatBoxHeaderName.name : "Hey there, Welcome!"}
-        </span>
+        <div className="grid auto-rows-auto">
+          <span className="text-[0.9rem] font-bold">
+            {chatBoxHeaderName && chatBoxHeaderName.name
+              ? chatBoxHeaderName.name
+              : `Welcome, User ${accessData.id}!`}
+          </span>
+          <span className="text-[0.8rem] block">
+            {chatBoxHeaderName === `Welcome, User ${accessData.id}!`
+              ? accessData.uid
+              : ""}
+          </span>
+        </div>
         <input
           className="hidden"
           type="checkbox"
@@ -160,12 +183,18 @@ export default function Chatbox() {
               </div>
             </div>
           ) : (
-            ""
+            <div className="mt-[100%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
+              <p className="text-[0.7rem]">by:</p>
+              <p className="text-[2rem] font-bold">DANIEL & LAST</p>
+              <p className="text-[0.9rem]">
+                Non-commercial project. All pictures belong to their authors.
+              </p>
+            </div>
           )}
         </div>
       </div>
 
-      <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate z-[4]">
+      <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] z-[5] overflow-y-auto overflow-x-hidden p-2.5 isolate z-[4]">
         {!chat && !chatLoading && (
           <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1] h-[100%] overflow-hidden">
             <FontAwesomeIcon icon={faPlane} />
@@ -175,14 +204,22 @@ export default function Chatbox() {
             <FontAwesomeIcon icon={faCloud} className="cloud four " />
           </div>
         )}
-        {chatLoading && chat}
         {chatLoading && chat.length === 0 && (
           <div className="absolute inset-0 h-[100%] w-[100%] z-[-1] flex flex-col justify-center gap-[1rem] items-center opacity-[0.5]">
             <FontAwesomeIcon icon={faCommentSlash} className="text-[3rem]" />
             <span className="opacity-[0.5]">No messages</span>
           </div>
         )}
+        {chatLoading && chat}
+        {chatLoading && chat.length !== 0 ? (
+          <div className="chatHere fixed right-0 bottom-0 h-[100%] w-[10%] z-[-3] h-[100%]">
+            <FontAwesomeIcon className="creep" icon={faFaceSmile} />
+          </div>
+        ) : (
+          <div className="sr-only"></div>
+        )}
       </div>
+
       <div className="message-sender flex flex-row items-center justify-start w-[100%] min-h-[80px]  p-6 gap-[1em] z-[5]">
         <input
           type="text"

@@ -14,7 +14,7 @@ export const ApiContextProvider = ({ children }) => {
   const [msgType, SetMsgType] = useState("User");
   const [chatMessages, setChatMessages] = useState([]);
   const [chatBoxHeaderName, setChatBoxHeaderName] = useState(
-    "Hey there, Welcome!"
+    `Hey there, Welcome! ${accessData.provider}`
   );
   const [channelHeaderName, setChannelHeaderName] = useState("Home");
   const [allUsers, setAllUsers] = useState([]);

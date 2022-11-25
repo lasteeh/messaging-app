@@ -137,15 +137,28 @@ export default function Channel() {
           {msgType === "User" ? contacts : channels}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
-          <label className="sr-only" htmlFor="theme">
+          <label className="sr-only" htmlFor="dark">
             dark
           </label>
-          <input type="radio" name="theme" id="dark" />
+          <input
+            className="cursor-pointer"
+            type="radio"
+            name="theme"
+            id="dark"
+            defaultChecked
+            title="Dark Theme"
+          />
 
-          <label className="sr-only" htmlFor="theme">
+          <label className="sr-only" htmlFor="blue">
             blue
           </label>
-          <input type="radio" name="theme" id="blue" />
+          <input
+            className="cursor-pointer"
+            type="radio"
+            name="theme"
+            id="blue"
+            title="Light Theme"
+          />
         </div>
       </div>
       {createChannel ? (
