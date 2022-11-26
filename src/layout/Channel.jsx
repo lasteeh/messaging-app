@@ -102,27 +102,30 @@ export default function Channel() {
     loadUserContacts();
   }, []);
 
-  // const defaultThemeState = {
-  //   dark: true,
-  //   light: false,
-  // };
-  // const currentState = JSON.parse(localStorage.getItem("themePreference"));
   const [theme, setTheme] = useState("dark");
 
-  // useEffect(() => {
-  //   localStorage.setItem("themePreference", JSON.stringify(theme));
-  // }, [theme]);
+  const getTheme = (theme) => {
+    localStorage.setItem("themePreference", JSON.stringify(theme));
+  };
 
-  // useEffect(() => {
-  //   const localtheme = JSON.parse(localStorage.getItem("themePreference"));
-  //   if (localtheme) {
-  //     setTheme(localtheme);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const localtheme = JSON.parse(localStorage.getItem("themePreference"));
+    if (localtheme) {
+      setTheme(localtheme);
+    }
+  }, [theme]);
 
   const handleTheme = (e) => {
     setTheme(e.target.id.toLowerCase());
+    getTheme(e.target.id.toLowerCase());
   };
+
+  console.log(
+    "theme:",
+    theme,
+    "local storage : ",
+    JSON.parse(localStorage.getItem("themePreference"))
+  );
 
   return (
     <>
