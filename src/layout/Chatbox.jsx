@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { ApiContext } from "../context/apiContext";
 import { fetchSendMessage, fetchRetrieveMessage } from "../api/Apicall";
 import MemberListItem from "../components/MemberListItem";
@@ -136,6 +136,12 @@ export default function Chatbox() {
     console.log("changed", e.target.value, "ipnutvalue: ", addMemberInput);
   };
 
+  const dummy = useRef(null);
+
+  useEffect(() => {
+    dummy.current.scrollIntoView({ behavior: "smooth" });
+  }, [chatBoxHeaderName]);
+
   return (
     <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate z-[4]">
       <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
@@ -240,6 +246,7 @@ export default function Chatbox() {
         ) : (
           <div className="sr-only"></div>
         )}
+        <div className="dummy" ref={dummy}></div>
       </div>
 
       <div className="message-sender flex flex-row items-center justify-start w-[100%] min-h-[80px]  p-6 gap-[1em] z-[5]">
