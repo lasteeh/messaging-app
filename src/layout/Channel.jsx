@@ -102,6 +102,28 @@ export default function Channel() {
     loadUserContacts();
   }, []);
 
+  // const defaultThemeState = {
+  //   dark: true,
+  //   light: false,
+  // };
+  // const currentState = JSON.parse(localStorage.getItem("themePreference"));
+  const [theme, setTheme] = useState("dark");
+
+  // useEffect(() => {
+  //   localStorage.setItem("themePreference", JSON.stringify(theme));
+  // }, [theme]);
+
+  // useEffect(() => {
+  //   const localtheme = JSON.parse(localStorage.getItem("themePreference"));
+  //   if (localtheme) {
+  //     setTheme(localtheme);
+  //   }
+  // }, []);
+
+  const handleTheme = (e) => {
+    setTheme(e.target.id.toLowerCase());
+  };
+
   return (
     <>
       <div className="channel-panel flex flex-col items-stretch justify-start  w-[100%] max-w-[320px] h-[100%] z-[3]">
@@ -145,19 +167,24 @@ export default function Channel() {
             type="radio"
             name="theme"
             id="dark"
-            defaultChecked
+            checked={theme !== "light"}
+            value="dark"
             title="Dark Theme"
+            onChange={handleTheme}
           />
 
-          <label className="sr-only" htmlFor="blue">
-            blue
+          <label className="sr-only" htmlFor="light">
+            light
           </label>
           <input
             className="cursor-pointer opacity-[0.75]"
             type="radio"
             name="theme"
-            id="blue"
+            id="light"
             title="Light Theme"
+            checked={theme === "light"}
+            value="light"
+            onChange={handleTheme}
           />
         </div>
       </div>

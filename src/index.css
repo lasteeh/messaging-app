@@ -124,7 +124,7 @@
 input[type="radio"]#dark {
   --clr-radio: black;
 }
-input[type="radio"]#blue {
+input[type="radio"]#light {
   --clr-radio: hsl(212, 85%, 55%);
 }
 
@@ -162,7 +162,7 @@ input[type="radio"]#blue {
   --clr-chat-bubble-bg-1: hsl(240, 4%, 18%);
 }
 
-:root:has(#blue:checked) {
+:root:has(#light:checked) {
   --clr-text-1: hsl(0, 0%, 15%, 1);
   --clr-text-2: hsl(0, 0%, 15%, 1);
   --clr-text-3: hsl(0, 0%, 15%, 1);

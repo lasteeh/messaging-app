@@ -140,7 +140,7 @@ const CreateChannelModal = (props) => {
 
           <input
             type="text"
-            placeholder="email"
+            placeholder="email or id"
             className="create-channel-field p-3 text-black rounded-[5px] indent-[5px] focus:outline-none"
             value={inputValue}
             onChange={handleSelectionChange}

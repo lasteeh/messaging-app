@@ -21,6 +21,7 @@ export default function Chatbox() {
   const [messagebox, setMessagebox] = useState([]);
   const [addMemberSelectionIsShowing, setAddMemberSelectionIsShowing] =
     useState(false);
+  const [addMemberInput, setAddMemberInput] = useState("");
   const {
     chat,
     setChat,
@@ -130,8 +131,9 @@ export default function Chatbox() {
         );
   }, [channelMembers]);
 
-  const handleAddMemberField = () => {
-    console.log("changed");
+  const handleAddMemberField = (e) => {
+    setAddMemberInput(e.target.value);
+    console.log("changed", e.target.value, "ipnutvalue: ", addMemberInput);
   };
 
   return (
@@ -190,13 +192,12 @@ export default function Chatbox() {
                 <input
                   className="w-[100%] rounded-[5px] p-2 focus:outline-none indent-[0.5rem]"
                   type="text"
-                  onChange={() => {
-                    handleAddMemberField();
-                  }}
+                  onChange={handleAddMemberField}
                   placeholder="UID or Email"
+                  value={addMemberInput}
                 />
                 <button
-                  className="w-[100%] rounded-[5px] text-center p-2 mt-[5px] capitalize font-bold shadow-md"
+                  className="w-[100%] rounded-[5px] text-center p-2 mt-[5px] capitalize font-bold shadow-md hover:brightness-125 active:scale-[0.98]"
                   type="button"
                 >
                   add member
