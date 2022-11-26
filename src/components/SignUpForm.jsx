@@ -26,7 +26,7 @@ export default function SignUpForm() {
                 confirmpassword: ""
             });
 
-            navigate("/Login", { replace: true })
+            navigate("/Slackapp/Login", { replace: true })
         } catch(e){
             // shadow errorhandling
             console.log(e)

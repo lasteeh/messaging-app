@@ -14,7 +14,6 @@ export default function Chatbox() {
   const [members, setMembers] = useState([]);
   const [addMemberSelectionIsShowing, setAddMemberSelectionIsShowing] =
     useState(false);
-  const [addMemberInput, setAddMemberInput] = useState("");
   const {
     chat,
     setChat,
@@ -102,8 +101,6 @@ export default function Chatbox() {
           ))
         );}
   }, [channelMembers]);
-
-  
 
   const dummy = useRef(null);
 

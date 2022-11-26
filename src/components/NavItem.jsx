@@ -32,7 +32,7 @@ const NavItem = (props) => {
       className={`nav-item grid items-center aspect-square w-[100%] max-w-[70px] p-3   hover:cursor-pointer ${props.className}`}
       onClick={() => {
         props.name === "logout"
-          ? navigate("/Login", { replace: true })
+          ? navigate("/Slackapp/Login", { replace: true })
           : SetMsgType(props.msgtype);
         setChatBoxHeaderName(`Welcome, User ${accessData.id}!`);
         setChannelHeaderName(
