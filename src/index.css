@@ -261,9 +261,11 @@ input::placeholder {
 #more-options:checked ~ .more-options {
   right: 0;
 }
+
 #more-options + label {
   transition: color 500ms ease;
 }
+
 #more-options:checked + label {
   background-color: var(--clr-text-4);
 }
@@ -278,29 +280,22 @@ input::placeholder {
 
 .messages-holder > * {
   position: relative;
-
   display: inline;
-
   padding: 0.5rem 1rem;
   border-radius: 8px;
-
   word-break: break-all;
-
   overflow: hidden;
-
   background-color: var(--clr-chat-bubble-bg-1);
   color: var(--clr-chat-bubble-text-1);
 }
 
 .chatLoading {
   opacity: 0.15;
-
   display: grid;
   place-items: center;
 }
 .chatLoading > .fa-plane {
   font-size: clamp(10rem, 1vw, 15rem);
-
   animation-name: swing;
   animation-duration: 2s;
   animation-direction: alternate;
@@ -318,40 +313,6 @@ input::placeholder {
   }
 }
 
-.chatLoading .cloud {
-  position: absolute;
-
-  animation-name: pass;
-  animation-duration: 2s;
-  animation-direction: normal;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.chatLoading .cloud.one {
-  opacity: 0.2;
-  font-size: 10rem;
-  translate: 0 -80%;
-  animation-duration: 2.5s;
-}
-.chatLoading .cloud.two {
-  opacity: 0.2;
-  font-size: 20rem;
-  translate: 0 70%;
-  animation-duration: 3s;
-}
-.chatLoading .cloud.three {
-  opacity: 0.1;
-  font-size: 6rem;
-  translate: 0 70%;
-  animation-duration: 2s;
-}
-.chatLoading .cloud.four {
-  opacity: 0.1;
-  font-size: 4rem;
-  translate: 0 -290%;
-}
-
 @keyframes pass {
   0% {
     transform: translateX(1000%);
@@ -364,12 +325,10 @@ input::placeholder {
 
 .creep {
   opacity: 0.04;
-
   position: absolute;
   bottom: 0;
   right: 0;
   scale: 2;
   font-size: clamp(15rem, 10vw, 40rem);
-
   rotate: -30deg;
 }
