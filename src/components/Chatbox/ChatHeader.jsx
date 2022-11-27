@@ -50,6 +50,8 @@ export default function ChatHeader(props) {
       id: selected.value,
       member_id: channelMembers.id,
     });
+    setSelection([1]);
+    setIsShowing(false);
   };
 
   const handleSubmitMember = () => {
@@ -94,15 +96,15 @@ export default function ChatHeader(props) {
         }
       }
     }
-  };
 
-  console.log(
-    "temporary data:",
-    temporaryMemberRequest,
-    "send to -> ",
-    addMemberRequest,
-    "?"
-  );
+    console.log(
+      "temporary data:",
+      temporaryMemberRequest,
+      "send to -> ",
+      addMemberRequest,
+      "?"
+    );
+  };
 
   const handleAddMemberField = (e) => {
     setAddMemberInput(e.target.value);

@@ -122,13 +122,6 @@ export default function Channel() {
     getTheme(e.target.id.toLowerCase());
   };
 
-  console.log(
-    "theme:",
-    theme,
-    "local storage : ",
-    JSON.parse(localStorage.getItem("themePreference"))
-  );
-
   return (
     <>
       <div className="channel-panel flex flex-col items-stretch justify-start  w-[100%] max-w-[320px] h-[100%] z-[3]">
