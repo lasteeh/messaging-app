@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { ApiContext } from "../context/apiContext";
 import MemberListItem from "../components/MemberListItem";
-import AddMemberItem from "../components/AddMemberItem";
 import ChatItem from "../components/ChatItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
@@ -12,17 +11,13 @@ import Messagebox from "../components/Chatbox/Messagebox";
 
 export default function Chatbox() {
   const [members, setMembers] = useState([]);
-  const [addMemberSelectionIsShowing, setAddMemberSelectionIsShowing] =
-    useState(false);
   const {
     chat,
     setChat,
     chatMessages,
     channelMembers,
-    msgType,
     chatBoxHeaderName,
     chatLoading,
-    setChatLoading,
     accessData,
   } = useContext(ApiContext);
 

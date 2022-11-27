@@ -6,8 +6,7 @@ import { fetchSignIn } from "../helper/Apicall";
 
 export default function LoginForm() {
     const navigate = useNavigate();
-    const { 
-        accessData, 
+    const {  
         setAccessData, 
         setChat, 
         setChatLoading 

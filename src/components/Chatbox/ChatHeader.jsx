@@ -7,6 +7,7 @@ import {
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiContext } from "../../context/apiContext";
+import { userFilterList } from "../../helper/functions";
 
 export default function ChatHeader(props) {
   const [addMemberInput, setAddMemberInput] = useState("");
@@ -28,20 +29,6 @@ export default function ChatHeader(props) {
     id: "",
     member_id: "",
   });
-
-  const userFilterList = (val) => {
-    return usersOptions.filter((user) => {
-      const Name = user.label.toLowerCase();
-      const Value = user.value.toString();
-      const trimmedSearchValue = val
-        .replace(/\s+/g, "")
-        .toString()
-        .toLowerCase();
-      return (
-        Value.includes(trimmedSearchValue) || Name.includes(trimmedSearchValue)
-      );
-    });
-  };
 
   const handleSelectClick = (e) => {
     const selected = e.currentTarget.dataset;
@@ -110,7 +97,7 @@ export default function ChatHeader(props) {
     setAddMemberInput(e.target.value);
 
     let list;
-    let val = e.target.value;
+    let val = e.currentTarget.value;
 
     startTransition(() => {
       if (!usersOptions || usersOptions === "") {
@@ -133,7 +120,7 @@ export default function ChatHeader(props) {
         ]);
         setIsShowing(true);
       } else {
-        list = userFilterList(val);
+        list = userFilterList(val, usersOptions);
 
         if (list.length === 0) {
           setSelection([

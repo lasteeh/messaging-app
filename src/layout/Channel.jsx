@@ -23,9 +23,7 @@ export default function Channel() {
     createChannel,
     setCreateChannel,
     msgType,
-    chateMessages,
     setChatMessages,
-    channelMembers,
     setChannelMembers,
     setChatBoxHeaderName,
     channelHeaderName,
@@ -102,7 +100,7 @@ export default function Channel() {
   useEffect(() => {
     loadChannel();
     loadUserContacts();
-  }, []);
+  }, [createChannel]);
 
   const [theme, setTheme] = useState("dark");
 
