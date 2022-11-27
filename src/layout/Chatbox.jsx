@@ -107,7 +107,7 @@ export default function Chatbox() {
 
   useEffect(() => {
     dummy.current.scrollIntoView({ behavior: "auto" });
-  }, [chatBoxHeaderName, chatMessages]);
+  }, [chatBoxHeaderName, chatMessages, chat]);
 
   return (
     <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate z-[4]">
