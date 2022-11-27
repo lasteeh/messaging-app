@@ -87,7 +87,7 @@ export default function ChatHeader(props) {
             </div>
           </div>
         ) : (
-          <div className="mt-[100%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
+          <div className="mt-[75%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
             <p className="text-[0.8rem]">by:</p>
             <p className="text-[2rem] font-bold">DANIEL & LAST</p>
             <p className="text-[0.9rem]">
