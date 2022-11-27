@@ -1,7 +1,7 @@
 import React, { useContext, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import AddMemberItem from "./AddMemberItem";
-import { fetchCreateChannel } from "../api/Apicall";
+import { fetchCreateChannel } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 
 const CreateChannelModal = (props) => {

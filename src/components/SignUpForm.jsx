@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { fetchRegister } from '../api/Apicall';
+import { fetchRegister } from '../helper/Apicall';
 
 export default function SignUpForm() {
 

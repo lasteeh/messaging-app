@@ -97,7 +97,7 @@ export default function Chatbox() {
     if(mem !== undefined){
        setMembers(
           mem.map((data, index) => (
-            <MemberListItem key={index} name={data.user_id} />
+            <MemberListItem key={index} id={data.user_id} />
           ))
         );}
   }, [channelMembers]);

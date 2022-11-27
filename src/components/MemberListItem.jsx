@@ -8,8 +8,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const MemberListItem = (props) => {
-  // const { allUsers } = useContext(ApiContext);
-  // const [channelMemberInfo, setChannelMemberInfo] = useState();
+  
+  const { allUsers } = useContext(ApiContext);
+  const memberName = allUsers.data.find(user => user.id === props.id)
 
   // const userItems = allUsers.data;
 
@@ -25,7 +26,7 @@ const MemberListItem = (props) => {
           className="h-[100%] w-[100%]"
         />
       </div>
-      <h1>{props.name}</h1>
+      <h1>{memberName.uid}</h1>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import {
   fetchAllUsers,
   fetchRetrieveMessage,
   fetchChannelDetails,
-} from "../api/Apicall";
+} from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
