@@ -69,6 +69,10 @@
 .create-channel-form button {
   color: var(--clr-text-5);
 }
+.temp-member {
+  color: var(--clr-text-1);
+  background-color: var(--clr-channel-item-bg-1);
+}
 
 .chat-box {
   background-color: var(--clr-chat-box-bg-2);
@@ -223,7 +227,7 @@ body * {
   transition: background-color 500ms ease;
 }
 
-input {
+input::placeholder {
   font-style: italic;
 }
 

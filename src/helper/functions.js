@@ -37,3 +37,17 @@ export const calculateTime = (timeSent) => {
         return "invalid time";
     }
 };
+
+export const userFilterList = (val, allusers) => {
+    return allusers.filter((user) => {
+      const Name = user.label.toLowerCase();
+      const Value = user.value.toString();
+      const trimmedSearchValue = val
+        .replace(/\s+/g, "")
+        .toString()
+        .toLowerCase();
+      return (
+        Value.includes(trimmedSearchValue) || Name.includes(trimmedSearchValue)
+      );
+    });
+  };

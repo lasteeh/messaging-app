@@ -21,6 +21,7 @@ export const ApiContextProvider = ({ children }) => {
   const [chat, setChat] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
   const [showSideBarMembersList, setShowSideBarMembersList] = useState(false);
+  const [usersOptions, setUsersOptions] = useState();
 
   useEffect(() => {
     if (accessData.length !== 0) {
@@ -55,6 +56,8 @@ export const ApiContextProvider = ({ children }) => {
         setChatLoading,
         showSideBarMembersList,
         setShowSideBarMembersList,
+        usersOptions,
+        setUsersOptions,
       }}
     >
       {children}

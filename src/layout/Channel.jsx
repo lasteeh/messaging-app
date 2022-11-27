@@ -15,7 +15,7 @@ import myContacts from "../users/contacts.json";
 export default function Channel() {
   const [channels, setChannels] = useState([]);
   const [contacts, setContacts] = useState([]);
-  const [usersOptions, setUsersOptions] = useState();
+
   const {
     allUsers,
     setAllUsers,
@@ -29,6 +29,8 @@ export default function Channel() {
     channelHeaderName,
     setChatLoading,
     setShowSideBarMembersList,
+    setUsersOptions,
+    usersOptions,
   } = useContext(ApiContext);
 
   const selectedItem = async (e) => {

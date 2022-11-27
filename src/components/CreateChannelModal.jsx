@@ -2,6 +2,7 @@ import React, { useContext, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import AddMemberItem from "./AddMemberItem";
 import { fetchCreateChannel } from "../helper/Apicall";
+import { userFilterList } from "../helper/functions";
 import { ApiContext } from "../context/apiContext";
 
 const CreateChannelModal = (props) => {
@@ -54,24 +55,10 @@ const CreateChannelModal = (props) => {
     setIsShowing(false);
   };
 
-  const userFilterList = (val) => {
-    return userOptions.filter((user) => {
-      const Name = user.label.toLowerCase();
-      const Value = user.value.toString();
-      const trimmedSearchValue = val
-        .replace(/\s+/g, "")
-        .toString()
-        .toLowerCase();
-      return (
-        Value.includes(trimmedSearchValue) || Name.includes(trimmedSearchValue)
-      );
-    });
-  };
-
   const handleSelectionChange = (e) => {
     let list;
-    let val = e.target.value;
-    setInputValue(e.target.value);
+    let val = e.currentTarget.value;
+    setInputValue(e.currentTarget.value);
     startTransition(() => {
       if (val === "") {
         setIsShowing(false);
@@ -85,7 +72,7 @@ const CreateChannelModal = (props) => {
         setIsShowing(true);
       } else {
         setIsShowing(true);
-        list = userFilterList(val);
+        list = userFilterList(val, userOptions);
 
         if (list.length === 0) {
           setSelection([
