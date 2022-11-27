@@ -5,7 +5,7 @@ import { fetchCreateChannel } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 
 const CreateChannelModal = (props) => {
-  const { createChannel, setCreateChannel, accessData } =
+  const { setCreateChannel, accessData } =
     useContext(ApiContext);
   const [isPending, startTransition] = useTransition();
   const { register, handleSubmit, reset } = useForm();

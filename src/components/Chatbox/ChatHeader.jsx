@@ -57,36 +57,36 @@ export default function ChatHeader(props) {
         <div className="more-options fixed min-w-[270px] max-w-[30%] h-[100vh]  top-0 right-0 p-4 pt-[70px] pb-[70px] overflow-y-auto z-[100] isolate">
         {showSideBarMembersList ? (
             <div>
-            <span className="font-semibold text-[0.9rem] uppercase">
-                Members - {props.members.length}
-            </span>
-            <div className="flex flex-col justify-start items-stretch">
-                {props.members}
-            </div>
+                <span className="font-semibold text-[0.9rem] uppercase">
+                    Members - {props.members.length}
+                </span>
+                <div className="flex flex-col justify-start items-stretch">
+                    {props.members}
+                </div>
 
-            <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4">
-                <input
-                className="w-[100%] rounded-[5px] p-2 focus:outline-none indent-[0.5rem]"
-                type="text"
-                onChange={handleAddMemberField}
-                placeholder="UID or Email"
-                value={addMemberInput}
-                />
-                <button
-                className="w-[100%] rounded-[5px] text-center p-2 mt-[5px] capitalize font-bold shadow-md hover:brightness-125 active:scale-[0.98]"
-                type="button"
-                >
-                add member
-                </button>
-            </div>
+                <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4">
+                    <input
+                    className="w-[100%] rounded-[5px] p-2 focus:outline-none indent-[0.5rem]"
+                    type="text"
+                    onChange={handleAddMemberField}
+                    placeholder="UID or Email"
+                    value={addMemberInput}
+                    />
+                    <button
+                    className="w-[100%] rounded-[5px] text-center p-2 mt-[5px] capitalize font-bold shadow-md hover:brightness-125 active:scale-[0.98]"
+                    type="button"
+                    >
+                    add member
+                    </button>
+                </div>
             </div>
         ) : (
             <div className="mt-[100%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
-            <p className="text-[0.8rem]">by:</p>
-            <p className="text-[2rem] font-bold">DANIEL & LAST</p>
-            <p className="text-[0.9rem]">
-                Non-commercial project. All pictures belong to their authors.
-            </p>
+                <p className="text-[0.8rem]">by:</p>
+                <p className="text-[2rem] font-bold">DANIEL & LAST</p>
+                <p className="text-[0.9rem]">
+                    Non-commercial project. All pictures belong to their authors.
+                </p>
             </div>
         )}
         </div>
