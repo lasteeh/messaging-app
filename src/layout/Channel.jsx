@@ -23,9 +23,7 @@ export default function Channel() {
     createChannel,
     setCreateChannel,
     msgType,
-    chateMessages,
     setChatMessages,
-    channelMembers,
     setChannelMembers,
     setChatBoxHeaderName,
     channelHeaderName,
@@ -100,7 +98,7 @@ export default function Channel() {
   useEffect(() => {
     loadChannel();
     loadUserContacts();
-  }, []);
+  }, [createChannel]);
 
   const [theme, setTheme] = useState("dark");
 
@@ -119,13 +117,6 @@ export default function Channel() {
     setTheme(e.target.id.toLowerCase());
     getTheme(e.target.id.toLowerCase());
   };
-
-  console.log(
-    "theme:",
-    theme,
-    "local storage : ",
-    JSON.parse(localStorage.getItem("themePreference"))
-  );
 
   return (
     <>

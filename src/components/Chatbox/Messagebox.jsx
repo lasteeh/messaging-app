@@ -5,11 +5,13 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { ApiContext } from '../../context/apiContext';
 
 export default function Messagebox() {
+
     const [messagebox, setMessagebox] = useState('');
-    const [animate, setAnimate] = useState("message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]");
+    const [animateWiggle, setWiggle] = useState(false);
     const {setChatMessages, chatBoxHeaderName, accessData} = useContext(ApiContext)
 
-    const sendMessage = async () => {
+    const sendMessage = async (e) => {
+
         if (messagebox !== '') {
           let body = await {
             receiver_id: chatBoxHeaderName.id,
@@ -25,21 +27,22 @@ export default function Messagebox() {
           );
           await setChatMessages(msg);
         } else {
-          setTimeout(setAnimate('animate-[wiggle_100ms_ease-in-out_3] message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]'))
-          setAnimate('message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]')
+          setWiggle(true)
+          setTimeout(()=>{
+            setWiggle(false)},3000);
         }
     };
 
     return (
     <div className="message-sender flex flex-row items-center justify-start w-[100%] min-h-[80px]  p-6 gap-[1em] z-[5]">
         <input
-        className={animate}
+        className={'message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]' + (animateWiggle?' animate-[wiggle_100ms_ease-in-out_3]':'')}
         placeholder="Type a message..."
         value={messagebox}
         onChange={(e) => setMessagebox(e.currentTarget.value)}
         onKeyPress={(e) => {
             if (e.key === "Enter") {
-            sendMessage();
+            sendMessage(e);
             }
         }}
         />

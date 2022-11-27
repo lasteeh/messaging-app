@@ -11,9 +11,6 @@ const MemberListItem = (props) => {
   
   const { allUsers } = useContext(ApiContext);
   const memberName = allUsers.data.find(user => user.id === props.id)
-
-  // const userItems = allUsers.data;
-
   const icons = [faUserSecret, faUserNurse, faUserNinja];
 
   const randomNumber = Math.floor(Math.random() * 2);
