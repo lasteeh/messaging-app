@@ -11,7 +11,7 @@ const AddMemberItem = (props) => {
       }}
     >
       <FontAwesomeIcon icon={faUser} className="p-2" />
-      <span>{props.email ? props.email : "onepunch@man.com"}</span>
+      <span>{props.email}</span>
       <FontAwesomeIcon
         icon={faXmark}
         className="remove-icon bg-rose-400/75 p-2 ml-[1rem]"

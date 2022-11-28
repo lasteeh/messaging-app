@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { ApiContext } from "../context/apiContext";
-import MemberListItem from "../components/MemberListItem";
 import ChatItem from "../components/ChatItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
@@ -10,13 +9,10 @@ import Airplane from "../components/Chatbox/Airplane";
 import Messagebox from "../components/Chatbox/Messagebox";
 
 export default function Chatbox() {
-  const [members, setMembers] = useState([]);
   const {
     chat,
-    allUsers,
     setChat,
     chatMessages,
-    channelMembers,
     chatBoxHeaderName,
     chatLoading,
     accessData,
@@ -88,17 +84,6 @@ export default function Chatbox() {
     }
   }, [chatMessages]);
 
-  useEffect(() => {
-    let mem = channelMembers.channel_members;
-    if (mem !== undefined) {
-      setMembers(
-        mem.map((data, index) => (
-          <MemberListItem key={index} id={data.user_id} users={allUsers}/>
-        ))
-      );
-    }
-  }, [channelMembers]);
-
   const dummy = useRef(null);
 
   useEffect(() => {
@@ -110,7 +95,6 @@ export default function Chatbox() {
       <ChatHeader
         chatheader={chatBoxHeaderName}
         username={accessData.uid}
-        members={members}
       />
 
       <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate z-[4]">

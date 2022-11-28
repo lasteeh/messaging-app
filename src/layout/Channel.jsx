@@ -24,7 +24,6 @@ export default function Channel() {
     setCreateChannel,
     msgType,
     setChatMessages,
-    setChannelMembers,
     setChatBoxHeaderName,
     channelHeaderName,
     setChatLoading,
@@ -43,8 +42,6 @@ export default function Channel() {
     setChatMessages(msg);
 
     if (selected.type === "Channel") {
-      let members = await fetchChannelDetails(accessData, selected.id);
-      setChannelMembers(members.data);
       setShowSideBarMembersList(true);
     }
     setChatBoxHeaderName({
