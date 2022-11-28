@@ -9,7 +9,6 @@ export const ApiContextProvider = ({ children }) => {
       : JSON.parse(sessionStorage.getItem("token"))
   );
   const [channels, setChannels] = useState([]);
-  const [channelMembers, setChannelMembers] = useState([]);
   const [createChannel, setCreateChannel] = useState(false);
   const [msgType, SetMsgType] = useState("User");
   const [chatMessages, setChatMessages] = useState([]);
@@ -49,8 +48,6 @@ export const ApiContextProvider = ({ children }) => {
         SetMsgType,
         chatMessages,
         setChatMessages,
-        channelMembers,
-        setChannelMembers,
         chatBoxHeaderName,
         setChatBoxHeaderName,
         channelHeaderName,
