@@ -36,7 +36,7 @@ export default function Messagebox() {
     return (
     <div className="message-sender flex flex-row items-center justify-start w-[100%] min-h-[80px]  p-6 gap-[1em] z-[5]">
         <input
-        className={'message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]' + (animateWiggle?' animate-[wiggle_100ms_ease-in-out_3]':'')}
+        className={'message-field max-h-[40px] grow  p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]' + (animateWiggle?' animate-wiggle':'')}
         placeholder="Type a message..."
         value={messagebox}
         onChange={(e) => setMessagebox(e.currentTarget.value)}
