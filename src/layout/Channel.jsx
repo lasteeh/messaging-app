@@ -17,6 +17,8 @@ export default function Channel() {
   const [contacts, setContacts] = useState([]);
 
   const {
+    theme,
+    setTheme,
     allUsers,
     setAllUsers,
     accessData,
@@ -101,8 +103,6 @@ export default function Channel() {
     loadChannel();
     loadUserContacts();
   }, [createChannel]);
-
-  const [theme, setTheme] = useState("dark");
 
   const getTheme = (theme) => {
     localStorage.setItem("themePreference", JSON.stringify(theme));
