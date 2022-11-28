@@ -1,5 +1,6 @@
 import React, { useContext, useState, useTransition } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fetchAddMember } from "../../helper/Apicall";
 import {
   faHashtag,
   faComments,
@@ -12,6 +13,7 @@ import { userFilterList } from "../../helper/functions";
 export default function ChatHeader(props) {
   const [addMemberInput, setAddMemberInput] = useState("");
   const {
+    accessData,
     showSideBarMembersList,
     allUsers,
     usersOptions,
@@ -21,10 +23,6 @@ export default function ChatHeader(props) {
   const [isListing, startTransition] = useTransition();
   const [selection, setSelection] = useState([]);
   const [isShowing, setIsShowing] = useState(false);
-  const [addMemberRequest, setAddMemberRequest] = useState({
-    id: "",
-    member_id: "",
-  });
   const [temporaryMemberRequest, setTemporaryMemberRequest] = useState({
     id: "",
     member_id: "",
@@ -34,8 +32,8 @@ export default function ChatHeader(props) {
     const selected = e.currentTarget.dataset;
     setAddMemberInput(selected.email);
     setTemporaryMemberRequest({
-      id: selected.value,
-      member_id: channelMembers.id,
+      id: channelMembers.id,
+      member_id: Number(selected.value),
     });
     setSelection([1]);
     setIsShowing(false);
@@ -75,8 +73,8 @@ export default function ChatHeader(props) {
         if (!existing && selection.length === 1) {
           console.log("all goods pre");
           setTemporaryMemberRequest({
-            id: target.value,
-            member_id: channelMembers.id,
+            id: channelMembers.id,
+            member_id: Number(target.value),
           });
         } else {
           console.log("existing pre");
@@ -84,13 +82,8 @@ export default function ChatHeader(props) {
       }
     }
 
-    console.log(
-      "temporary data:",
-      temporaryMemberRequest,
-      "send to -> ",
-      addMemberRequest,
-      "?"
-    );
+    fetchAddMember(accessData, temporaryMemberRequest);
+    console.log("success");
   };
 
   const handleAddMemberField = (e) => {
@@ -222,6 +215,11 @@ export default function ChatHeader(props) {
                 onChange={handleAddMemberField}
                 placeholder="UID or Email"
                 value={addMemberInput}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmitMember(e);
+                  }
+                }}
               />
               <button
                 className="w-[100%] rounded-[5px] text-center p-2 mt-[5px] capitalize font-bold shadow-md hover:brightness-125 active:scale-[0.98]"
