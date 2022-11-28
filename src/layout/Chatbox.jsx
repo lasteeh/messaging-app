@@ -113,7 +113,7 @@ export default function Chatbox() {
       />
 
       <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate z-[4]">
-        {!chat && !chatLoading && <Airplane />}
+        {!chatLoading && <Airplane />}
         {chatLoading && chat.length === 0 && (
           <div className="absolute inset-0 h-[100%] w-[100%] z-[-1] flex flex-col justify-center gap-[1rem] items-center opacity-[0.5]">
             <FontAwesomeIcon icon={faCommentSlash} className="text-[3rem]" />
@@ -122,7 +122,7 @@ export default function Chatbox() {
         )}
         {chatLoading && chat}
         {chatLoading && chat.length !== 0 ? (
-          <div className="chatHere fixed right-0 bottom-0 h-[100%] w-[10%] z-[-3]">
+          <div className="chatHere fixed right-0 bottom-0 h-[100%] w-[10%] z-[-3] pointer-events-none">
             <FontAwesomeIcon className="creep" icon={faFaceSmile} />
           </div>
         ) : (
