@@ -142,7 +142,7 @@ const CreateChannelModal = (props) => {
                 } absolute top-[0] left-[0] w-[100%] max-h-[30vh]   overflow-y-auto rounded-[0.25rem] p-[0.5rem_0rem] z-[20] mt-[0.5rem]`}
               >
                 {selection && (
-                  <div className="text-center w-[100%]  p-2 pointer-events-none font-semibold underline">
+                  <div className="text-center w-[100%]  p-2 pointer-events-none font-semibold underline text-black">
                     Click on Users to Add to the List
                   </div>
                 )}
