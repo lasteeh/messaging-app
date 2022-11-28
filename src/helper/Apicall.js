@@ -1,10 +1,5 @@
 import axios from "axios"
 
-const addMember = {
-    "id": '', //channel id
-    "member_id": ''
-}
-
 export const urlApi = 'http://206.189.91.54/api/v1/';
 
 export const fetchRegister = async (body) => {
@@ -89,14 +84,14 @@ export const fetchChannelDetails = async (data, id) => {
     return apidata
 }
 
-export const fetchAddMember = async (data) => {
+export const fetchAddMember = async (data, body) => {
     const res = await fetch(`${urlApi}channel/add_member`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json', 
             ...data
         },
-        body: JSON.stringify(addMember)
+        body: JSON.stringify(body)
     });
 }
 

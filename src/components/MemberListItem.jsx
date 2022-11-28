@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { ApiContext } from "../context/apiContext";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserSecret,
@@ -9,8 +8,7 @@ import {
 
 const MemberListItem = (props) => {
   
-  const { allUsers } = useContext(ApiContext);
-  const memberName = allUsers.data.find(user => user.id === props.id)
+  const memberName = props.users.data.find(user => user.id === props.id)
   const icons = [faUserSecret, faUserNurse, faUserNinja];
 
   const randomNumber = Math.floor(Math.random() * 2);

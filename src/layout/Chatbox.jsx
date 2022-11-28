@@ -13,6 +13,7 @@ export default function Chatbox() {
   const [members, setMembers] = useState([]);
   const {
     chat,
+    allUsers,
     setChat,
     chatMessages,
     channelMembers,
@@ -92,7 +93,7 @@ export default function Chatbox() {
     if (mem !== undefined) {
       setMembers(
         mem.map((data, index) => (
-          <MemberListItem key={index} id={data.user_id} />
+          <MemberListItem key={index} id={data.user_id} users={allUsers}/>
         ))
       );
     }
