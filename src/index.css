@@ -298,34 +298,6 @@ input::placeholder {
   display: grid;
   place-items: center;
 }
-.chatLoading > .fa-plane {
-  font-size: clamp(10rem, 1vw, 15rem);
-  animation-name: swing;
-  animation-duration: 2s;
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-@keyframes swing {
-  0% {
-    transform: translateY(-100px) rotate(-15deg);
-  }
-
-  100% {
-    transform: translateY(100px) rotate(15deg);
-  }
-}
-
-@keyframes pass {
-  0% {
-    transform: translateX(1000%);
-  }
-
-  100% {
-    transform: translateX(-1000%);
-  }
-}
 
 .creep {
   opacity: 0.04;

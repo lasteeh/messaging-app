@@ -6,13 +6,8 @@ export default function Airplane() {
 
     const style = {
         cloud: {
-            position: 'absolute',  
-            animationName: 'pass',
-            animationDuration: '2s',
-            animationDirection: 'normal',
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'linear',
-          },
+              position: 'absolute',
+        },
         one: {
             opacity: '0.2',
             fontSize: '10rem',
@@ -40,11 +35,11 @@ export default function Airplane() {
 
     return (
         <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1] overflow-hidden">
-            <FontAwesomeIcon icon={faPlane} />
-            <FontAwesomeIcon icon={faCloud} style={{...style.cloud ,...style.one}}/>
-            <FontAwesomeIcon icon={faCloud} style={{...style.cloud ,...style.two}}/>
-            <FontAwesomeIcon icon={faCloud} style={{...style.cloud ,...style.three}}/>
-            <FontAwesomeIcon icon={faCloud} style={{...style.cloud ,...style.four}}/>
+            <FontAwesomeIcon className='animate-swing text-[clamp(10rem,_1vw,_15rem)]' icon={faPlane} />
+            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.one}}/>
+            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.two}}/>
+            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.three}}/>
+            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.four}}/>
         </div>
   )
 }
