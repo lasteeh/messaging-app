@@ -14,7 +14,8 @@ export default function MemberSidebar() {
       id: "",
       member_id: "",
     });
-    const [members, setMembers] = useState([]);
+    const [membersDisplay, setMembersDisplay] = useState([]);
+    const [memberList, setMemberList] = useState([])
     const {
         accessData,
         allUsers,
@@ -26,8 +27,9 @@ export default function MemberSidebar() {
     const loadMembers = async() => {
         let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
         let mem = members.data.channel_members;
+        setMemberList(mem)
         if (mem !== undefined) {
-          setMembers(
+          setMembersDisplay(
             mem.map((data, index) => (
               <MemberListItem key={index} id={data.user_id}/>
             ))
@@ -36,73 +38,77 @@ export default function MemberSidebar() {
     }
 
     const validationFilter = () =>{
-        const existingMembers = channelMembers.channel_members;
+    
+        const existingMembers = memberList.map(member => {
+            return usersOptions.find(user => user.value === member.user_id)
+        });
         
         if (!addMemberInput) {
-            console.log("empty field");
-            return;
+            return {error: "empty field"}
         }
       
         if (addMemberInput.length < 3) {
-        console.log("too many matches");
-        return;
+            return {error: "too many matches"}
         } else {
-        const target = usersOptions.find(
-            (user) =>
-            user.label === addMemberInput.toLowerCase() ||
-            user.value === parseInt(addMemberInput)
-        );
-            if (!target) {
-                console.log(`${addMemberInput} does not exist`);
-                return;
+        const target = userFilterList(addMemberInput, usersOptions);
+            if (!target || target.length === 0) {
+                return {error: `${addMemberInput} does not exist`}
             }
             if (target) {
                 const existing = existingMembers.find(
-                (user) => user.user_id === target.value
+                (user) => Number(user.value) === Number(target[0].value) || user.label === target[0].label
                 );
-
                 if (selection.length !== 1) {
-                console.log("dami pa din pre");
-                return;
+                    return {error: "dami pa din pre"}
+                }
+                if (existing) {
+                    return {error: "existing pre"}
                 }
                 if (!existing && selection.length === 1) {
-                console.log("all goods pre");
-                setTemporaryMemberRequest({
-                    id: channelMembers.id,
-                    member_id: Number(target.value),
-                });
-                } else {
-                console.log("existing pre");
-                }
+                    setTemporaryMemberRequest({
+                        id: chatBoxHeaderName.id,
+                        member_id: Number(target.value),
+                    });
+                    return {success: "all goods pre"}
+                } 
             }
         }
     }
 
     useEffect(()=>{
         loadMembers()
-    },[])
+    },[chatBoxHeaderName])
+
+    const handleSubmitMember = async() => {
+        
+        let valid = validationFilter()
+
+        if (valid['success']) {
+            // fetchAddMember(accessData, temporaryMemberRequest);
+            console.log(valid.success)
+        } else {
+            console.log(valid.error)
+        }
+
+        setAddMemberInput('')
+        loadMembers()
+    };
 
     const handleSelectClick = (e) => {
         const selected = e.currentTarget.dataset;
         setAddMemberInput(selected.email);
         setTemporaryMemberRequest({
-          id: channelMembers.id,
+          id: chatBoxHeaderName.id,
           member_id: Number(selected.value),
         });
         setSelection([1]);
         setIsShowing(false);
       };
 
-    const handleSubmitMember = async() => {
-        
-        fetchAddMember(accessData, temporaryMemberRequest);
-        console.log("success");
-    };
-    
       const handleAddMemberField = (e) => {
-        setAddMemberInput(e.target.value);
+        setAddMemberInput(e.currentTarget.value);
     
-        let list;
+        let userlist;
         let val = e.currentTarget.value;
     
         startTransition(() => {
@@ -126,9 +132,9 @@ export default function MemberSidebar() {
             ]);
             setIsShowing(true);
           } else {
-            list = userFilterList(val, usersOptions);
+            userlist = userFilterList(val, usersOptions);
     
-            if (list.length === 0) {
+            if (userlist.length === 0) {
               setSelection([
                 <div className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200">
                   <span className="block text-[0.8rem]">OH NO!</span>
@@ -137,7 +143,7 @@ export default function MemberSidebar() {
               ]);
             } else {
               setSelection(
-                list.map((item, index) => (
+                userlist.map((item, index) => (
                   <div
                     key={index}
                     className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200"
@@ -160,10 +166,10 @@ export default function MemberSidebar() {
     return (
     <div>
         <span className="font-semibold text-[0.9rem] uppercase">
-            Members - {members.length}
+            Members - {membersDisplay.length}
         </span>
         <div className="flex flex-col justify-start items-stretch">
-            {members}
+            {membersDisplay}
         </div>
 
         <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4 isolate">
