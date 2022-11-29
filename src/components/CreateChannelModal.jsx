@@ -6,7 +6,8 @@ import { userFilterList } from "../helper/functions";
 import { ApiContext } from "../context/apiContext";
 
 const CreateChannelModal = (props) => {
-  const { setCreateChannel, accessData } = useContext(ApiContext);
+  const { setCreateChannel, accessData, setPopUpMessageList } =
+    useContext(ApiContext);
   const [isPending, startTransition] = useTransition();
   const { register, handleSubmit, reset } = useForm();
   const [isShowing, setIsShowing] = useState(false);
@@ -17,14 +18,15 @@ const CreateChannelModal = (props) => {
   const userOptions = props.usersList;
 
   const channelSubmit = (data) => {
-    let uid = Object.keys(membersToAdd);
-    let body = {
-      name: data.channelname,
-      user_ids: uid,
-    };
-    setCreateChannel(false);
-    fetchCreateChannel(accessData, body);
-    reset({ channelname: "" });
+    // let uid = Object.keys(membersToAdd);
+    // let body = {
+    //   name: data.channelname,
+    //   user_ids: uid,
+    // };
+    // setCreateChannel(false);
+    // fetchCreateChannel(accessData, body);
+    // reset({ channelname: "" });
+    showMessage();
   };
 
   const removeMember = (id) => {

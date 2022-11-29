@@ -22,6 +22,7 @@ export const ApiContextProvider = ({ children }) => {
   const [showSideBarMembersList, setShowSideBarMembersList] = useState(false);
   const [usersOptions, setUsersOptions] = useState();
   const [theme, setTheme] = useState("dark");
+  const [popUpMessageList, setPopUpMessageList] = useState([]);
 
   useEffect(() => {
     if (accessData.length !== 0) {
@@ -58,6 +59,8 @@ export const ApiContextProvider = ({ children }) => {
         setShowSideBarMembersList,
         usersOptions,
         setUsersOptions,
+        popUpMessageList,
+        setPopUpMessageList,
       }}
     >
       {children}
