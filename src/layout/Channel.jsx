@@ -70,6 +70,8 @@ export default function Channel() {
           ))
     );
 
+    setChatBoxHeaderName(ch.data.name);
+
     let users = await fetchAllUsers(accessData);
     setAllUsers(users);
   };
