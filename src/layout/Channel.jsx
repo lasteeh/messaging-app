@@ -3,7 +3,6 @@ import {
   fetchGetUserChannel,
   fetchAllUsers,
   fetchRetrieveMessage,
-  fetchChannelDetails,
 } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -69,10 +68,7 @@ export default function Channel() {
             />
           ))
     );
-
-    setChatBoxHeaderName(ch.data.name);
-
-    let users = await fetchAllUsers(accessData);
+    const users = await fetchAllUsers(accessData);
     setAllUsers(users);
   };
 
