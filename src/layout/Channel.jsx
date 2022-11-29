@@ -3,7 +3,6 @@ import {
   fetchGetUserChannel,
   fetchAllUsers,
   fetchRetrieveMessage,
-  fetchChannelDetails,
 } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -67,9 +66,8 @@ export default function Channel() {
             />
           ))
     );
-
-    let users = await fetchAllUsers(accessData);
-    setAllUsers(users);
+    const users = await fetchAllUsers(accessData)
+    setAllUsers(users)
   };
 
   const loadUserContacts = () => {

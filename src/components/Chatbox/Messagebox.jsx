@@ -15,19 +15,13 @@ export default function Messagebox() {
     const sendMessage = async (e) => {
 
         if (messagebox !== '') {
-          let body = await {
+          let body = {
             receiver_id: chatBoxHeaderName.id,
             receiver_class: chatBoxHeaderName.type,
             body: messagebox,
           };
           await fetchSendMessage(accessData, body);
           setMessagebox("");
-          let msg = await fetchRetrieveMessage(
-            accessData,
-            chatBoxHeaderName.id,
-            chatBoxHeaderName.type
-          );
-          await setChatMessages(msg);
         } else {
           setWiggle(true)
           setTimeout(()=>{

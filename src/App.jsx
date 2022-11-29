@@ -12,8 +12,8 @@ function App() {
   const queryClient = new QueryClient
 
   return (
-    <ApiContextProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+    <ApiContextProvider>  
       <Routes>
         <Route path="/" element={<Navigate to='/Slackapp/Login' replace={true}/>}/>
         <Route path="/Slackapp" element={<Frontpage/>}>
@@ -23,8 +23,8 @@ function App() {
         <Route path="/Slackapp/Home" element={<Body/>}/>
         <Route path='*' element={<Navigate to='/Slackapp/Login' replace={true}/>}/>
       </Routes>
-      </QueryClientProvider>
     </ApiContextProvider>
+    </QueryClientProvider>
   );
 }
 

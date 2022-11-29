@@ -23,7 +23,7 @@ export default function MemberSidebar() {
         setUsersOptions,
         chatBoxHeaderName,
     } = useContext(ApiContext);
-    
+
     const loadMembers = async() => {
         let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
         let mem = members.data.channel_members;
