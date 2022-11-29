@@ -1,13 +1,15 @@
 import React, {useState, useContext} from 'react'
 import { fetchSendMessage, fetchRetrieveMessage } from '../../helper/Apicall';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faSmileBeam } from '@fortawesome/free-solid-svg-icons';
 import { ApiContext } from '../../context/apiContext';
+import EmojiPicker from 'emoji-picker-react';
 
 export default function Messagebox() {
 
     const [messagebox, setMessagebox] = useState('');
     const [animateWiggle, setWiggle] = useState(false);
+    const [showEmoji, setShowEmoji] = useState(false);
     const {setChatMessages, chatBoxHeaderName, accessData} = useContext(ApiContext)
 
     const sendMessage = async (e) => {
@@ -46,14 +48,32 @@ export default function Messagebox() {
             }
         }}
         />
+        <div className='absolute bottom-14 right-14'>
+          {showEmoji && 
+          <EmojiPicker
+            onEmojiClick={e => {
+              setMessagebox(messagebox + e.emoji)
+              setShowEmoji(false)
+            }}
+          />}
+        </div>
+        <span
+        className='ml-auto text-[1.4rem] cursor-pointer'
+        onClick={e => setShowEmoji(!showEmoji)}
+        >
+          <FontAwesomeIcon
+            className='text-amber-400 hover:text-amber-500'
+            icon={faSmileBeam}
+          />
+        </span>
         <span
         className="ml-auto text-[1.4rem] cursor-pointer"
         onClick={sendMessage}
         >
-        <FontAwesomeIcon
-            className="text-[#e74444] hover:text-[#db2c2c]"
-            icon={faPaperPlane}
-        />
+          <FontAwesomeIcon
+              className="text-[#e74444] hover:text-[#db2c2c]"
+              icon={faPaperPlane}
+          />
         </span>
     </div>
   )

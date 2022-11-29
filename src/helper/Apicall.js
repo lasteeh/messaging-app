@@ -74,7 +74,7 @@ export const fetchGetUserChannel = async (data) => {
   return apidata;
 };
 
-export const fetchChannelDetails = async (data, id) => {
+export async function fetchChannelDetails (data, id) {
   const res = await fetch(`${urlApi}channels/${id}`, {
     method: "Get",
     headers: {
@@ -82,8 +82,8 @@ export const fetchChannelDetails = async (data, id) => {
       ...data,
     },
   });
-  const apidata = await res.json();
-  return apidata;
+  // const apidata = await ;
+  return res.json();
 };
 
 export const fetchAddMember = async (data, body) => {
@@ -104,7 +104,6 @@ export const fetchAllUsers = async (data) => {
       "Content-Type": "application/json",
       ...data,
     },
-  });
-  const apidata = await res.json();
-  return apidata;
+  }); 
+  return res.json();
 };

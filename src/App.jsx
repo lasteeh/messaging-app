@@ -5,10 +5,15 @@ import Frontpage from './pages/Frontpage';
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { ApiContextProvider } from './context/apiContext'
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
+
+  const queryClient = new QueryClient
+
   return (
     <ApiContextProvider>
+      <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/" element={<Navigate to='/Slackapp/Login' replace={true}/>}/>
         <Route path="/Slackapp" element={<Frontpage/>}>
@@ -18,6 +23,7 @@ function App() {
         <Route path="/Slackapp/Home" element={<Body/>}/>
         <Route path='*' element={<Navigate to='/Slackapp/Login' replace={true}/>}/>
       </Routes>
+      </QueryClientProvider>
     </ApiContextProvider>
   );
 }
