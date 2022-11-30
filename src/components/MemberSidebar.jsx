@@ -84,7 +84,7 @@ export default function MemberSidebar() {
         let valid = validationFilter()
 
         if (valid['success']) {
-            // fetchAddMember(accessData, temporaryMemberRequest);
+            fetchAddMember(accessData, temporaryMemberRequest);
             console.log(valid.success)
         } else {
             console.log(valid.error)
