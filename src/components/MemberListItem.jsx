@@ -6,16 +6,49 @@ import {
   faUserNurse,
   faUserNinja,
 } from "@fortawesome/free-solid-svg-icons";
+import { fetchRetrieveMessage } from "../helper/Apicall";
 
 const MemberListItem = (props) => {
-  const { allUsers } = useContext(ApiContext);
+  const {
+    allUsers,
+    accessData,
+    setChatMessages,
+    setShowSideBarMembersList,
+    setChatBoxHeaderName,
+    setChatLoading,
+  } = useContext(ApiContext);
   const memberName = allUsers.data.find((user) => user.id === props.id);
   const icons = [faUserSecret, faUserNurse, faUserNinja];
 
   const randomNumber = Math.floor(Math.random() * 2);
 
+  const selectedItem = async (e) => {
+    let selected = e.currentTarget.dataset;
+    let msg = await fetchRetrieveMessage(
+      accessData,
+      selected.id,
+      selected.type
+    );
+    setChatMessages(msg);
+
+    setShowSideBarMembersList(false);
+
+    setChatBoxHeaderName({
+      id: selected.id,
+      type: selected.type,
+      name: selected.name,
+    });
+    setChatLoading(true);
+  };
+
   return (
-    <div className="member-list-item flex flex-row flex-nowrap justify-start items-center gap-[0.6rem]  p-[0.5rem] font-regular">
+    <div
+      className="member-list-item flex flex-row flex-nowrap justify-start items-center gap-[0.6rem]  p-[0.5rem] font-regular hover:brightness-[1.25] cursor-pointer"
+      onClick={selectedItem}
+      data-type="User"
+      data-id={props.id}
+      data-name={memberName.uid}
+    >
       <div className="aspect-square min-h-[30px] max-h-[35px]   p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
         <FontAwesomeIcon
           icon={icons[randomNumber]}

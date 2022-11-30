@@ -177,8 +177,6 @@ export default function MemberSidebar() {
     });
   };
 
-  console.log("access data:", accessData, "members:", memberList);
-
   return (
     <div>
       <span className="font-semibold text-[0.9rem] uppercase">

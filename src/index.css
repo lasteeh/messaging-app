@@ -51,6 +51,7 @@
 }
 .channel-item {
   background-color: var(--clr-channel-item-bg-1);
+  border-color: var(--clr-chat-box-header-icon-1);
 }
 .channel-item:hover {
   background-color: var(--clr-channel-item-hover-bg-1);
@@ -227,7 +228,7 @@ body {
 }
 
 body * {
-  transition: background-color 500ms ease;
+  transition: border-width 500ms ease, background-color 500ms ease;
 }
 
 input::placeholder {
