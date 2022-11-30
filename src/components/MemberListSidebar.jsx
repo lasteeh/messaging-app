@@ -16,6 +16,7 @@ export default function MemberSidebar() {
     id: "",
     member_id: "",
   });
+  const [owner, setOwner] = useState();
   const [membersDisplay, setMembersDisplay] = useState([]);
   const [memberList, setMemberList] = useState([]);
   const {
@@ -32,8 +33,9 @@ export default function MemberSidebar() {
   const loadMembers = async () => {
     let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
     let mem = members.data.channel_members.filter(
-      (item) => item.user_id !== accessData.id
+      (item) => item.user_id !== members.data.owner_id
     );
+    setOwner(members.data.owner_id);
     setMemberList(mem);
     if (mem !== undefined) {
       setMembersDisplay(
@@ -179,12 +181,17 @@ export default function MemberSidebar() {
 
   return (
     <div>
-      <span className="font-semibold text-[0.9rem] uppercase">
-        Members - {membersDisplay.length}
-      </span>
-      <div className="flex flex-col justify-start items-stretch">
-        {membersDisplay}
-      </div>
+      {membersDisplay.length > 0 && (
+        <>
+          <span className="font-semibold text-[0.9rem] uppercase">
+            {membersDisplay.length > 1 ? "Members" : "Member"} -{" "}
+            {membersDisplay.length}
+          </span>
+          <div className="flex flex-col justify-start items-stretch">
+            {membersDisplay}
+          </div>
+        </>
+      )}
       <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
       <div className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem]">
         <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
@@ -194,7 +201,7 @@ export default function MemberSidebar() {
           />
         </div>
 
-        <span>{accessData.uid}</span>
+        <span>{owner}</span>
       </div>
 
       <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4 isolate">
