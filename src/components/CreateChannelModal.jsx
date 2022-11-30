@@ -6,7 +6,7 @@ import { userFilterList } from "../helper/functions";
 import { ApiContext } from "../context/apiContext";
 
 const CreateChannelModal = (props) => {
-  const { setCreateChannel, accessData } =
+  const { setCreateChannel, accessData, setPopUpMessageList } =
     useContext(ApiContext);
   const [isPending, startTransition] = useTransition();
   const { register, handleSubmit, reset } = useForm();
@@ -18,14 +18,15 @@ const CreateChannelModal = (props) => {
   const userOptions = props.usersList;
 
   const channelSubmit = (data) => {
-    let uid = Object.keys(membersToAdd);
-    let body = {
-      name: data.channelname,
-      user_ids: uid,
-    };
-    setCreateChannel(false);
-    fetchCreateChannel(accessData, body);
-    reset({ channelname: "" });
+    // let uid = Object.keys(membersToAdd);
+    // let body = {
+    //   name: data.channelname,
+    //   user_ids: uid,
+    // };
+    // setCreateChannel(false);
+    // fetchCreateChannel(accessData, body);
+    // reset({ channelname: "" });
+    showMessage();
   };
 
   const removeMember = (id) => {
@@ -85,16 +86,18 @@ const CreateChannelModal = (props) => {
           setSelection(
             list.map((item, index) => (
               <div
+                className="create-channel dropdown-selection relative text-black w-[100%] p-[0.25rem_1rem] hover:bg-gray-200 "
                 key={index}
-                className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200"
                 onClick={(e) => {
                   handleSelectClick(e);
                 }}
                 data-value={item.value}
                 data-email={item.label}
               >
-                <span>{item.label}</span>
-                <span className="block text-[0.8rem]">UID: {item.value}</span>
+                <span className="relative">{item.label}</span>
+                <span className="relative block text-[0.8rem]">
+                  UID: {item.value}
+                </span>
               </div>
             ))
           );
@@ -140,26 +143,33 @@ const CreateChannelModal = (props) => {
                   isShowing ? "bg-white visible" : "bg-transparent invisible"
                 } absolute top-[0] left-[0] w-[100%] max-h-[30vh]   overflow-y-auto rounded-[0.25rem] p-[0.5rem_0rem] z-[20] mt-[0.5rem]`}
               >
+                {selection && (
+                  <div className="text-center w-[100%]  p-2 pointer-events-none font-semibold underline text-black">
+                    Click on Users to Add to the List
+                  </div>
+                )}
                 {selection}
               </div>
             )}
           </div>
-          <div
-            id="add-member-list"
-            className="w-[100%] flex flex-row flex-wrap justify-center items-start gap-[0.5rem] p-[1rem]"
-          >
-            {membersToAdd &&
-              Object.keys(membersToAdd).map((key, index) => {
-                return (
-                  <AddMemberItem
-                    key={index}
-                    value={membersToAdd[key].value}
-                    email={membersToAdd[key].email}
-                    toggle={removeMember}
-                  />
-                );
-              })}
-          </div>
+          <fieldset id="add-member-list" className="w-[100%] ">
+            <legend className="p-0 pb-0 font-semibold ml-[1rem] px-[8px]">
+              List of Members to Add:
+            </legend>
+            <div className="flex flex-row flex-wrap justify-center items-start gap-[0.5rem] p-[1rem]">
+              {membersToAdd &&
+                Object.keys(membersToAdd).map((key, index) => {
+                  return (
+                    <AddMemberItem
+                      key={index}
+                      value={membersToAdd[key].value}
+                      email={membersToAdd[key].email}
+                      toggle={removeMember}
+                    />
+                  );
+                })}
+            </div>
+          </fieldset>
           <div className="flex flex-row justify-center items-start gap-[1.5rem] w-[100%]">
             <button
               type="submit"

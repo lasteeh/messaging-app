@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "./Navbar";
 import Channel from "./Channel";
 import Chatbox from "./Chatbox";
+import PopUpMessage from "../components/PopUpMessage";
 
 export default function Body() {
   return (
@@ -9,6 +10,7 @@ export default function Body() {
       <Nav />
       <Channel />
       <Chatbox />
+      <PopUpMessage />
     </div>
   );
 }

@@ -8,11 +8,15 @@ import {
   faDoorOpen,
   faIcons,
 } from "@fortawesome/free-solid-svg-icons";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import {
+  faDiscord,
+  faFacebookMessenger,
+} from "@fortawesome/free-brands-svg-icons";
 
 const NavItem = (props) => {
   let navigate = useNavigate();
   const {
+    theme,
     accessData,
     setChat,
     msgType,
@@ -50,8 +54,10 @@ const NavItem = (props) => {
     >
       <FontAwesomeIcon
         icon={
-          props.name === "logo"
+          props.name === "logo" && theme === "dark"
             ? faDiscord
+            : props.name === "logo" && theme === "light"
+            ? faFacebookMessenger
             : props.name === "messages"
             ? faMessage
             : props.name === "channels"

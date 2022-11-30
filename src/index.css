@@ -308,3 +308,31 @@ input::placeholder {
   font-size: clamp(15rem, 10vw, 40rem);
   rotate: -30deg;
 }
+
+fieldset,
+fieldset::before,
+fieldset::after {
+  border-width: 1px;
+  margin-block-start: 0.5rem;
+  margin-block-end: 1.5rem;
+}
+.create-channel.dropdown-selection::after {
+  content: "ADD";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding-inline-end: 1rem;
+  color: green;
+
+  opacity: 0;
+
+  transition: opacity 250ms ease;
+}
+.create-channel.dropdown-selection:hover::after {
+  opacity: 1;
+}

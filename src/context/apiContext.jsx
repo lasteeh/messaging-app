@@ -21,6 +21,8 @@ export const ApiContextProvider = ({ children }) => {
   const [chatLoading, setChatLoading] = useState(false);
   const [showSideBarMembersList, setShowSideBarMembersList] = useState(false);
   const [usersOptions, setUsersOptions] = useState();
+  const [theme, setTheme] = useState("dark");
+  const [popUpMessageList, setPopUpMessageList] = useState([]);
 
   useEffect(() => {
     if (accessData.length !== 0) {
@@ -31,6 +33,8 @@ export const ApiContextProvider = ({ children }) => {
   return (
     <ApiContext.Provider
       value={{
+        theme,
+        setTheme,
         chat,
         setChat,
         allUsers,
@@ -55,6 +59,8 @@ export const ApiContextProvider = ({ children }) => {
         setShowSideBarMembersList,
         usersOptions,
         setUsersOptions,
+        popUpMessageList,
+        setPopUpMessageList,
       }}
     >
       {children}

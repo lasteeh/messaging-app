@@ -9,6 +9,7 @@ const AddMemberItem = (props) => {
       onClick={() => {
         props.toggle(props.value);
       }}
+      title="Click to remove"
     >
       <FontAwesomeIcon icon={faUser} className="p-2" />
       <span>{props.email}</span>
