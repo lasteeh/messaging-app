@@ -3,7 +3,7 @@ import { ApiContext } from "../context/apiContext";
 import { fetchAddMember, fetchChannelDetails } from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
-import PopUpMessage from "./PopUpMessage";
+import { useToasty } from "./PopUpMessage";
 
 export default function MemberSidebar() {
   const [addMemberInput, setAddMemberInput] = useState("");
@@ -25,6 +25,7 @@ export default function MemberSidebar() {
     popUpMessageList,
     setPopUpMessageList,
   } = useContext(ApiContext);
+  const toasty = useToasty();
 
   const loadMembers = async () => {
     let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
@@ -87,13 +88,15 @@ export default function MemberSidebar() {
 
     if (valid["success"]) {
       // fetchAddMember(accessData, temporaryMemberRequest);
-      setPopUpMessageList([
-        ...popUpMessageList,
-        { message: "failed", error: true },
-      ]);
+      // setPopUpMessageList([
+      //   ...popUpMessageList,
+      //   { message: "failed", error: true },
+      // ]);
       console.log(valid.success);
+      toasty(valid.success);
     } else {
       console.log(valid.error);
+      toasty(valid.error);
     }
 
     setAddMemberInput("");
