@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHashtag,
@@ -8,11 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiContext } from "../../context/apiContext";
 import MemberListSidebar from "../MemberListSidebar";
+import { randomGreeting } from "../../helper/functions";
 
 export default function ChatHeader(props) {
-  
   const { showSideBarMembersList } = useContext(ApiContext);
- 
+  const [greet, setGreet] = useState(randomGreeting());
+
   return (
     <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
       <div className="icon aspect-square h-[50px] p-[5px]">
@@ -29,17 +30,16 @@ export default function ChatHeader(props) {
           }
         />
       </div>
-      <div className="grid auto-rows-auto">
+      <div className="grid auto-rows-auto ">
         <span className="text-[0.9rem] font-bold">
           {props.chatheader && props.chatheader.name
             ? props.chatheader.name
-            : `Welcome, ${props.username}!`}
+            : greet}
         </span>
-        <span className="text-[0.8rem] block">
-          {props.chatheader === `Welcome, ${props.username}!`
-            ? props.username
-            : ""}
-        </span>
+      </div>
+      <div className="header-sign-in-info ml-auto mr-[0rem] grid auto-cols-auto text-right text-[clamp(0.6rem,1vw,1rem)] pr-[0.5rem] rounded-[5px] border-r-[5px]">
+        <span className="uppercase text-[70%]">signed in as</span>
+        <span className="font-bold ">{props.username}</span>
       </div>
       <input
         className="hidden"
@@ -48,16 +48,16 @@ export default function ChatHeader(props) {
         id="more-options"
       />
       <label
-        className="h-[40px] w-[40px] hover:bg-gray-400/25 text-center ml-auto p-[0.6rem] grid place-items-center rounded-full z-[101]"
+        className="h-[40px] w-[40px] hover:bg-gray-400/25 text-center p-[0.6rem] grid place-items-center rounded-full z-[101]"
         htmlFor="more-options"
       >
         <FontAwesomeIcon className="w-[100%] h-[100%]" icon={faEllipsis} />
       </label>
 
       <div className="more-options fixed min-w-[350px] max-w-[30%] h-[100vh]  top-0 right-0 p-4 pt-[70px] pb-[120px] overflow-y-auto z-[100] isolate">
-        {showSideBarMembersList ? 
-          <MemberListSidebar/>  
-         : (
+        {showSideBarMembersList ? (
+          <MemberListSidebar />
+        ) : (
           <div className="mt-[75%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
             <p className="text-[0.8rem]">by:</p>
             <p className="text-[2rem] font-bold">DANIEL & LAST</p>

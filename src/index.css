@@ -83,6 +83,9 @@
 .chat-box-header .icon {
   color: var(--clr-chat-box-header-icon-1);
 }
+.header-sign-in-info {
+  border-color: var(--clr-chat-box-header-icon-1);
+}
 .photo-holder {
   background-color: var(--clr-chat-bubble-icon-1);
 }

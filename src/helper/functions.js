@@ -48,3 +48,19 @@ export const userFilterList = (val, allusers) => {
     );
   });
 };
+
+export const randomGreeting = () => {
+  const greetList = [
+    "Hey gorgeous!",
+    "Who we chattin' today?",
+    "Wasssssup?",
+    "Uy gumagana na erps!",
+    "Hi Miss Kate!",
+    "Kamusta na?",
+    "Kamusta ka?",
+    "Message someone you love today...",
+  ];
+  const randomNumber = Math.floor(Math.random() * greetList.length);
+
+  return greetList[randomNumber];
+};
