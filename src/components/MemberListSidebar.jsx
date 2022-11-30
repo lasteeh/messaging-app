@@ -1,9 +1,11 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState, useTransition } from "react";
 import { ApiContext } from "../context/apiContext";
 import { fetchAddMember, fetchChannelDetails } from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
 import { useToasty } from "./PopUpMessage";
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
 
 export default function MemberSidebar() {
   const [addMemberInput, setAddMemberInput] = useState("");
@@ -29,7 +31,9 @@ export default function MemberSidebar() {
 
   const loadMembers = async () => {
     let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
-    let mem = members.data.channel_members;
+    let mem = members.data.channel_members.filter(
+      (item) => item.user_id !== accessData.id
+    );
     setMemberList(mem);
     if (mem !== undefined) {
       setMembersDisplay(
@@ -173,6 +177,8 @@ export default function MemberSidebar() {
     });
   };
 
+  console.log("access data:", accessData, "members:", memberList);
+
   return (
     <div>
       <span className="font-semibold text-[0.9rem] uppercase">
@@ -180,6 +186,17 @@ export default function MemberSidebar() {
       </span>
       <div className="flex flex-col justify-start items-stretch">
         {membersDisplay}
+      </div>
+      <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
+      <div className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem]">
+        <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
+          <FontAwesomeIcon
+            icon={faCrown}
+            className="h-[100%] w-[100%] text-yellow-400"
+          />
+        </div>
+
+        <span>{accessData.uid}</span>
       </div>
 
       <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4 isolate">

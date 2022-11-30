@@ -8,9 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const MemberListItem = (props) => {
-  
   const { allUsers } = useContext(ApiContext);
-  const memberName = allUsers.data.find(user => user.id === props.id)
+  const memberName = allUsers.data.find((user) => user.id === props.id);
   const icons = [faUserSecret, faUserNurse, faUserNinja];
 
   const randomNumber = Math.floor(Math.random() * 2);
