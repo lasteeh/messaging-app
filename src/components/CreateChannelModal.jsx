@@ -4,6 +4,7 @@ import AddMemberItem from "./AddMemberItem";
 import { fetchCreateChannel } from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import { ApiContext } from "../context/apiContext";
+import { useToasty } from "./PopUpMessage";
 
 const CreateChannelModal = (props) => {
   const { setCreateChannel, accessData, setPopUpMessageList } =
@@ -15,6 +16,8 @@ const CreateChannelModal = (props) => {
   const [inputValue, setInputValue] = useState([]);
   const [membersToAdd, setMembersToAdd] = useState({});
 
+  const toasty = useToasty();
+
   const userOptions = props.usersList;
 
   const channelSubmit = (data) => {
@@ -24,9 +27,8 @@ const CreateChannelModal = (props) => {
     //   user_ids: uid,
     // };
     // setCreateChannel(false);
-    // fetchCreateChannel(accessData, body);
+    // let valid = fetchCreateChannel(accessData, body);
     // reset({ channelname: "" });
-    showMessage();
   };
 
   const removeMember = (id) => {
