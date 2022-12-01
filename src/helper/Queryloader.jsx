@@ -10,7 +10,7 @@ const Queryloader = () => {
 
   useQuery(['ALL_USERS', accessData], ()=> fetchAllUsers(accessData),
     {
-      refetchInterval: 240000,
+      refetchInterval: 90000,
       onSuccess: data => queryClient.setQueryData('ALL_USERS', data)
     })
 
