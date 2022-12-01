@@ -11,7 +11,7 @@ const ChannelItem = (props) => {
       data-id={props.dataId}
       data-type={props.dataMsgType}
       data-name={props.name}
-      className={`channel-item flex flex-row justify-start items-stretch w-[100%] max-w-[280px] p-1  rounded-[10px] hover:scale-105  transition ease-in-out cursor-pointer shadow-md ${
+      className={`channel-item animate-fadeIn duration-[2s] flex flex-row justify-start items-stretch w-[100%] max-w-[280px] p-1  rounded-[10px] hover:scale-105  transition ease-in-out cursor-pointer shadow-md ${
         props.name === chatBoxHeaderName.name
           ? "border-r-[8px]"
           : "border-r-[0px]"

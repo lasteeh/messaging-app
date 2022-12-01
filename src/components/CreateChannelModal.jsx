@@ -108,7 +108,7 @@ const CreateChannelModal = (props) => {
 
   return (
     <div
-      className="grid place-items-center fixed inset-0 bg-zinc-900/70 text-white z-[105] isolate w-[100vw] h-[100vh] "
+      className="grid place-items-center fixed inset-0 animate-fadeIn bg-zinc-900/70 text-white z-[105] isolate w-[100vw] h-[100vh] "
       onClick={() => {
         setIsShowing(false);
       }}

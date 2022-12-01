@@ -79,7 +79,7 @@ export default function MemberSidebar() {
             user.label === target[0].label
         );
         if (selection.length !== 1) {
-          return { error: "dami pa din pre" };
+          return { error: "dami pa din kaparehas pre" };
         }
         if (existing) {
           return { error: "existing pre" };
@@ -104,7 +104,7 @@ export default function MemberSidebar() {
 
     if (valid["success"]) {
       // fetchAddMember(accessData, temporaryMemberRequest);
-      toasty(valid.success);
+      toasty(valid.success, false);
     } else {
       toasty(valid.error);
     }
@@ -190,7 +190,6 @@ export default function MemberSidebar() {
       selected.id,
       selected.type
     );
-    setChatMessages(msg);
     SetMsgType("User");
 
     setShowSideBarMembersList(false);

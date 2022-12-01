@@ -5,12 +5,11 @@ import { ApiContext } from "../context/apiContext";
 import { calculateTime } from "../helper/functions";
 
 const ChatItem = (props) => {
-  
   const { accessData } = useContext(ApiContext);
 
   return (
     <div
-      className={`flex flex-row flex-nowrap items-end gap-[0.8rem] w-[100%] h-[max-content] pl-[1rem] pr-[1rem] ${
+      className={`flex flex-row flex-nowrap items-end gap-[0.8rem] w-[100%] h-[max-content] pl-[1rem] pr-[1rem] animate-swipeUp ${
         accessData.id === props.sender.id && "flex-row-reverse"
       }`}
     >

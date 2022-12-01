@@ -8,21 +8,25 @@ import ChatHeader from "../components/Chatbox/ChatHeader";
 import Airplane from "../components/Chatbox/Airplane";
 import Messagebox from "../components/Chatbox/Messagebox";
 import { useQuery } from "react-query";
-import {fetchRetrieveMessage} from '../helper/Apicall'
+import { fetchRetrieveMessage } from "../helper/Apicall";
 
 export default function Chatbox() {
-  const {
-    chat,
-    setChat,
-    chatBoxHeaderName,
-    chatLoading,
-    accessData,
-  } = useContext(ApiContext);
+  const { chat, setChat, chatBoxHeaderName, chatLoading, accessData } =
+    useContext(ApiContext);
 
-  const getAllMessages = () =>{
-    return useQuery(['ALL_USERS', accessData, chatBoxHeaderName], ()=> fetchRetrieveMessage(accessData, chatBoxHeaderName.id, chatBoxHeaderName.type),{refetchInterval: 2000})
-  }
-  const {data: chatMessages} = getAllMessages();
+  const getAllMessages = () => {
+    return useQuery(
+      ["ALL_USERS", accessData, chatBoxHeaderName],
+      () =>
+        fetchRetrieveMessage(
+          accessData,
+          chatBoxHeaderName.id,
+          chatBoxHeaderName.type
+        ),
+      { refetchInterval: 2000 }
+    );
+  };
+  const { data: chatMessages } = getAllMessages();
 
   const chatFilter = (msg) => {
     let body = [];
@@ -98,10 +102,7 @@ export default function Chatbox() {
 
   return (
     <div className="chat-box chat-body flex flex-col  w-[100%] h-[100%] overflow-hidden isolate z-[4]">
-      <ChatHeader
-        chatheader={chatBoxHeaderName}
-        username={accessData.uid}
-      />
+      <ChatHeader chatheader={chatBoxHeaderName} username={accessData.uid} />
 
       <div className="relative grid auto-rows-max gap-[5px] w-[100%] h-[100vh] overflow-y-auto overflow-x-hidden p-2.5 isolate z-[4]">
         {!chatLoading && <Airplane />}
@@ -122,7 +123,7 @@ export default function Chatbox() {
         <div className="dummy" ref={dummy}></div>
       </div>
 
-      <Messagebox />
+      {chatLoading && <Messagebox />}
     </div>
   );
 }

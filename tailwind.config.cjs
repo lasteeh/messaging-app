@@ -34,12 +34,33 @@ module.exports = {
             transform: "translateY(0%)",
           },
         },
+        swipeUp: {
+          "0%": {
+            transform: "translateY(-50%)",
+          },
+          "75%": {
+            transform: "translateY(10%)",
+          },
+          "100%": {
+            transform: "translateY(0%)",
+          },
+        },
+        fadeIn: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
         swing: "swing 2s ease-in-out infinite alternate",
         pass: "pass 2s linear infinite normal",
         slideDown: "slideDown 250ms ease-in-out",
+        swipeUp: "swipeUp 500ms ease-in-out",
+        fadeIn: "fadeIn 500ms ease",
       },
     },
     plugins: [],

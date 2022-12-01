@@ -17,7 +17,7 @@ export default function ChatHeader(props) {
 
   return (
     <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
-      <div className="icon aspect-square h-[50px] p-[5px]">
+      <div className="animate-fadeIn icon aspect-square h-[50px] p-[5px]">
         <FontAwesomeIcon
           className="h-[100%] w-[100%]"
           icon={
@@ -31,7 +31,7 @@ export default function ChatHeader(props) {
           }
         />
       </div>
-      <div className="grid auto-rows-auto ">
+      <div className="animate-fadeIn grid auto-rows-auto ">
         <p className="text-[0.9rem] font-bold flex flex-col justify-start items-start">
           {props.chatheader && props.chatheader.name ? (
             props.chatheader.name
