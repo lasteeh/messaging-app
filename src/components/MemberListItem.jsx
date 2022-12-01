@@ -22,7 +22,7 @@ const MemberListItem = (props) => {
 
   const randomNumber = Math.floor(Math.random() * 2);
 
-  const selectedItem = async (e) => {
+  const messageMember = async (e) => {
     let selected = e.currentTarget.dataset;
     let msg = await fetchRetrieveMessage(
       accessData,
@@ -44,7 +44,7 @@ const MemberListItem = (props) => {
   return (
     <div
       className="member-list-item flex flex-row flex-nowrap justify-start items-center gap-[0.6rem]  p-[0.5rem] font-regular hover:brightness-[1.25] cursor-pointer"
-      onClick={selectedItem}
+      onClick={messageMember}
       data-type="User"
       data-id={props.id}
       data-name={memberName.uid}

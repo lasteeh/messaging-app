@@ -35,7 +35,10 @@ export default function MemberSidebar() {
     let mem = members.data.channel_members.filter(
       (item) => item.user_id !== members.data.owner_id
     );
-    setOwner(members.data.owner_id);
+    const ownerName = allUsers.data.find(
+      (user) => user.id === members.data.owner_id
+    );
+    setOwner({ owner_id: members.data.owner_id, owner_name: ownerName.uid });
     setMemberList(mem);
     if (mem !== undefined) {
       setMembersDisplay(
@@ -179,6 +182,8 @@ export default function MemberSidebar() {
     });
   };
 
+  console.log(owner);
+
   return (
     <div>
       {membersDisplay.length > 0 && (
@@ -192,17 +197,21 @@ export default function MemberSidebar() {
           </div>
         </>
       )}
-      <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
-      <div className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem]">
-        <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
-          <FontAwesomeIcon
-            icon={faCrown}
-            className="h-[100%] w-[100%] text-yellow-400"
-          />
-        </div>
+      {owner && (
+        <>
+          <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
+          <div className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem]">
+            <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
+              <FontAwesomeIcon
+                icon={faCrown}
+                className="h-[100%] w-[100%] text-yellow-400"
+              />
+            </div>
 
-        <span>{owner}</span>
-      </div>
+            <span>{owner.owner_name}</span>
+          </div>
+        </>
+      )}
 
       <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4 isolate">
         <div className="relative w-[100%] p-[2px] z-[1]">

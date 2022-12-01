@@ -6,7 +6,6 @@ import { ApiContext } from "../context/apiContext";
 const ChannelItem = (props) => {
   const { chatBoxHeaderName } = useContext(ApiContext);
 
-  console.log(props.name, "propsname", chatBoxHeaderName, "chatboxheadername");
   return (
     <div
       data-id={props.dataId}
