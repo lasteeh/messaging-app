@@ -15,7 +15,6 @@ export const ApiContextProvider = ({ children }) => {
     `Hey there, Welcome! ${accessData.uid}`
   );
   const [channelHeaderName, setChannelHeaderName] = useState("Home");
-  const [allUsers, setAllUsers] = useState([]);
   const [chat, setChat] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
   const [showSideBarMembersList, setShowSideBarMembersList] = useState(false);
@@ -38,8 +37,6 @@ export const ApiContextProvider = ({ children }) => {
         setTheme,
         chat,
         setChat,
-        allUsers,
-        setAllUsers,
         accessData,
         setAccessData,
         channels,

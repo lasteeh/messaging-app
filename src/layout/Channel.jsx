@@ -4,6 +4,7 @@ import {
   fetchAllUsers,
 } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
+import {  useQuery, useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import ChannelItem from "../components/ChannelItem";
@@ -17,8 +18,6 @@ export default function Channel() {
   const {
     theme,
     setTheme,
-    allUsers,
-    setAllUsers,
     accessData,
     createChannel,
     setCreateChannel,
@@ -30,6 +29,17 @@ export default function Channel() {
     setUsersOptions,
     usersOptions,
   } = useContext(ApiContext);
+
+  const queryClient = useQueryClient()
+  
+  const getAllUsers = () =>{
+    return useQuery(['ALL_USERS', accessData], ()=> fetchAllUsers(accessData),
+    {
+      refetchInterval: 300000,
+      onSuccess: data => queryClient.setQueryData('ALL_USERS', data)
+    })
+  }
+  const { data: allUsers } = getAllUsers();
 
   const selectedItem = async (e) => {
     let selected = e.currentTarget.dataset;
@@ -60,8 +70,6 @@ export default function Channel() {
             />
           ))
     );
-    const users = await fetchAllUsers(accessData)
-    setAllUsers(users)
   };
 
   const loadUserContacts = () => {

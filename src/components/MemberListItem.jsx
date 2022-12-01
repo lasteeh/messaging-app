@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ApiContext } from "../context/apiContext";
+import { useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserSecret,
@@ -9,12 +10,13 @@ import {
 
 const MemberListItem = (props) => {
   const {
-    allUsers,
     setShowSideBarMembersList,
     setChatBoxHeaderName,
     setChatLoading,
     SetMsgType,
   } = useContext(ApiContext);
+  const queryClient = useQueryClient();
+  const allUsers = queryClient.getQueryData('ALL_USERS')
   const memberName = allUsers.data.find((user) => user.id === props.id);
   const icons = [faUserSecret, faUserNurse, faUserNinja];
 

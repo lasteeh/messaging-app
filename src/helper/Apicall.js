@@ -10,6 +10,7 @@ export const fetchRegister = async (body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchSignIn = async (data) => {
@@ -38,6 +39,7 @@ export const fetchSendMessage = async (data, body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchRetrieveMessage = async (data, id, msgType) => {
@@ -59,6 +61,7 @@ export const fetchCreateChannel = async (data, body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchGetUserChannel = async (data) => {
@@ -93,6 +96,7 @@ export const fetchAddMember = async (data, body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchAllUsers = async (data) => {
