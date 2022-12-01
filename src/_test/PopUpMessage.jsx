@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
+import { ApiContext } from "../context/apiContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
@@ -6,35 +7,31 @@ import {
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-let messagesArray = [];
-
-export const addPopup = (message) => {
-  messagesArray = [...messagesArray, message]
-}
-
 const PopUpMessage = (props) => {
-  const [arrayMsg, setArrayMsg] = useState([])
-  
+  const { popUpMessageList, setPopUpMessageList } = useContext(ApiContext);
+
+  const deleteMessage = (e) => {
+    const selected = popUpMessageList[e.currentTarget.dataset.id];
+    const filtered = popUpMessageList.filter();
+  };
+
   useEffect(() => {
-    console.log(arrayMsg)
     const interval = setInterval(() => {
-      
-      if (messagesArray.length) {
-        let trimmedList = messagesArray.slice(1);
-       setArrayMsg(trimmedList);
-       messagesArray.shift()
+      if (popUpMessageList.length) {
+        const trimmedList = popUpMessageList.slice(1);
+        setPopUpMessageList(trimmedList);
       }
     }, 1500);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [popUpMessageList]);
 
   return (
     <div className="fixed top-[3rem] left-[50%] translate-x-[-50%] isolate z-[200] max-h-[175px] overflow-hidden ">
-      {arrayMsg.length > 0 &&
-        arrayMsg.map((item, index) => {
+      {popUpMessageList.length > 0 &&
+        popUpMessageList.map((item, index) => {
           return (
             <div
               key={index}
@@ -49,7 +46,7 @@ const PopUpMessage = (props) => {
               <FontAwesomeIcon
                 icon={item.error ? faCircleXmark : faCircleCheck}
               />
-              <p className=" font-semibold ">{item}</p>
+              <p className=" font-semibold ">{item.message}</p>
               <FontAwesomeIcon
                 className="border-l-[0.1rem] py-[0.35rem] pl-[1rem] scale-[0.8]"
                 icon={faX}

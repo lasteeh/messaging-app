@@ -35,12 +35,6 @@ export default function Channel() {
 
   const selectedItem = async (e) => {
     let selected = e.currentTarget.dataset;
-    let msg = await fetchRetrieveMessage(
-      accessData,
-      selected.id,
-      selected.type
-    );
-    setChatMessages(msg);
 
     if (selected.type === "Channel") {
       setShowSideBarMembersList(true);
@@ -68,8 +62,8 @@ export default function Channel() {
             />
           ))
     );
-    const users = await fetchAllUsers(accessData);
-    setAllUsers(users);
+    const users = await fetchAllUsers(accessData)
+    setAllUsers(users)
   };
 
   const loadUserContacts = () => {

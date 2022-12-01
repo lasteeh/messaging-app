@@ -47,8 +47,7 @@ export const fetchRetrieveMessage = async (data, id, msgType) => {
       headers: data,
     }
   );
-  const apidata = await res.data;
-  return apidata;
+  return res.data;
 };
 
 export const fetchCreateChannel = async (data, body) => {

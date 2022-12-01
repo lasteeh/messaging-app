@@ -3,7 +3,7 @@ import { ApiContext } from "../context/apiContext";
 import { fetchAddMember, fetchChannelDetails } from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
-import PopUpMessage from "./PopUpMessage";
+import PopUpMessage, {addPopup} from "./PopUpMessage";
 
 export default function MemberSidebar() {
   const [addMemberInput, setAddMemberInput] = useState("");
@@ -87,13 +87,15 @@ export default function MemberSidebar() {
 
     if (valid["success"]) {
       // fetchAddMember(accessData, temporaryMemberRequest);
-      setPopUpMessageList([
-        ...popUpMessageList,
-        { message: "failed", error: true },
-      ]);
+      // setPopUpMessageList([
+      //   ...popUpMessageList,
+      //   { message: "failed", error: true },
+      // ]);
       console.log(valid.success);
+      addPopup(valid.success)
     } else {
       console.log(valid.error);
+      addPopup(valid.error)
     }
 
     setAddMemberInput("");

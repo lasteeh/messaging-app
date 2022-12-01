@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import { fetchSendMessage, fetchRetrieveMessage } from '../../helper/Apicall';
+import { fetchSendMessage } from '../../helper/Apicall';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faSmileBeam } from '@fortawesome/free-solid-svg-icons';
 import { ApiContext } from '../../context/apiContext';
