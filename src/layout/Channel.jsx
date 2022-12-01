@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useTransition } from "react";
 import { fetchGetUserChannel } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faSquarePlus, faRotate } from "@fortawesome/free-solid-svg-icons";
 import ChannelItem from "../components/ChannelItem";
 import CreateChannelModal from "../components/CreateChannelModal";
+import { userFilterList } from "../helper/functions";
 import myContacts from "../users/contacts.json";
 
 export default function Channel() {
@@ -16,6 +17,9 @@ export default function Channel() {
       : JSON.parse(localStorage.getItem("contactList"))
   );
   const [channelPanelSearchInput, setChannelPanelSearchInput] = useState("");
+  const [searchSelectionShowing, setSearchSelectionShowing] = useState(false);
+  const [searchSelection, setSearchSelection] = useState([]);
+  const [isListing, startTransition] = useTransition();
   const {
     theme,
     setTheme,
@@ -48,6 +52,21 @@ export default function Channel() {
       name: selected.name,
     });
     setChatLoading(true);
+  };
+
+  const addToContacts = (e) => {
+    let selected = e.currentTarget.dataset;
+
+    setContacts([...contacts, { uid: selected.id, email: selected.name }]);
+    localStorage.setItem("contactList", JSON.stringify(contacts));
+
+    setChatBoxHeaderName({
+      id: selected.id,
+      type: selected.type,
+      name: selected.name,
+    });
+    setChatLoading(true);
+    setChannelPanelSearchInput("");
   };
 
   const loadChannel = async () => {
@@ -86,7 +105,66 @@ export default function Channel() {
     // }
   };
 
-  const handleSearch = () => {};
+  const handleSearch = (e) => {
+    let val = e.currentTarget.value;
+    let userlist;
+    setChannelPanelSearchInput(val);
+
+    startTransition(() => {
+      if (msgType === "User") {
+        if (!usersOptions || usersOptions === "") {
+          setUsersOptions(
+            allUsers.data &&
+              allUsers.data.map((user) => {
+                return { value: user.id, label: user.uid };
+              })
+          );
+        }
+
+        if (val.length < 3) {
+          setSearchSelection([
+            <div className="w-[100%] h-[100%] grid place-items-center">
+              <FontAwesomeIcon
+                icon={faRotate}
+                className="channel-loading animate-spin text-[4rem] m-[auto]"
+              />
+            </div>,
+          ]);
+        } else if (val.length > 3) {
+          userlist = userFilterList(val, usersOptions);
+
+          if (userlist.length === 0) {
+            setSearchSelection(["No results"]);
+          } else {
+            setSearchSelection(
+              userlist.map((item, index) => (
+                <ChannelItem
+                  key={index}
+                  name={item.label}
+                  dataId={item.value}
+                  dataMsgType={"User"}
+                  onClickSelected={addToContacts}
+                />
+              ))
+            );
+          }
+        }
+      }
+      if (msgType === "Channel") {
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (channelPanelSearchInput.length > 1) {
+      setSearchSelectionShowing(true);
+    } else {
+      setSearchSelectionShowing(false);
+    }
+  }, [channelPanelSearchInput]);
+  useEffect(() => {
+    setChannelPanelSearchInput("");
+  }, [msgType]);
 
   useEffect(() => {
     loadChannel();
@@ -132,8 +210,20 @@ export default function Channel() {
           />
         </div>
 
-        <div className="channel-items flex flex-col items-start w-[100%] h-[100%] p-2.5 gap-2.5 overflow-y-auto">
-          {msgType === "User" ? contacts : channels}
+        <div className="channel-items flex flex-col justify-start items-stretch w-[100%] h-[100%] p-2.5 gap-2.5 overflow-y-auto">
+          {searchSelectionShowing === false
+            ? msgType === "User"
+              ? contacts.map((user, index) => (
+                  <ChannelItem
+                    key={index}
+                    name={user.email}
+                    dataId={user.uid}
+                    dataMsgType={"User"}
+                    onClickSelected={selectedItem}
+                  />
+                ))
+              : channels
+            : searchSelection}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
           {/* {Dark Theme} */}

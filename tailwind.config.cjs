@@ -53,6 +53,14 @@ module.exports = {
             opacity: "1",
           },
         },
+        spin: {
+          "0%": {
+            transform: "rotate(0deg)",
+          },
+          "100%": {
+            transform: "rotate(360deg)",
+          },
+        },
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
@@ -61,6 +69,7 @@ module.exports = {
         slideDown: "slideDown 250ms ease-in-out",
         swipeUp: "swipeUp 500ms ease-in-out",
         fadeIn: "fadeIn 500ms ease",
+        spin: "spin 2s ease infinite",
       },
     },
     plugins: [],

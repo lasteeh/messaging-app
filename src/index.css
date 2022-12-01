@@ -81,6 +81,7 @@
 .chat-box-header {
   background-color: var(--clr-chat-box-bg-1);
 }
+.channel-loading,
 .chat-box-header .icon {
   color: var(--clr-chat-box-header-icon-1);
 }
@@ -219,7 +220,7 @@ input[type="radio"]#cobalt {
   --clr-nav-bar-bg-1: hsl(220, 29%, 16%);
   --clr-nav-bar-bg-2: hsl(0, 0%, 94%);
 
-  --clr-nav-icon-bg-1: #2B3A55;
+  --clr-nav-icon-bg-1: #2b3a55;
   --clr-nav-icon-text-1: hsl(0, 0%, 90%, 1);
 
   --clr-channel-panel-bg-1: hsla(221, 22%, 35%, 0.9);
@@ -227,19 +228,19 @@ input[type="radio"]#cobalt {
 
   --clr-create-channel-bg-1: hsla(221, 22%, 35%);
 
-  --clr-channel-item-bg-1: #2B3A55;
+  --clr-channel-item-bg-1: #2b3a55;
   --clr-channel-item-hover-bg-1: #7388af;
 
   --clr-input-field-bg-1: #5f667e;
 
-  --clr-chat-box-bg-1: #2B3A55;
+  --clr-chat-box-bg-1: #2b3a55;
   --clr-chat-box-bg-2: #4f5b70;
 
   --clr-more-options-bg-1: hsla(221, 22%, 35%, 0.8);
 
   --clr-chat-bubble-text-1: white;
 
-  --clr-chat-bubble-bg-1: #2B3A55;
+  --clr-chat-bubble-bg-1: #2b3a55;
   --clr-chat-bubble-icon-1: #000000;
 
   --clr-chat-box-header-icon-1: hsla(222, 13%, 65%);
