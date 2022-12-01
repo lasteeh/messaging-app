@@ -62,11 +62,11 @@ export default function ChatHeader(props) {
         <FontAwesomeIcon className="w-[100%] h-[100%]" icon={faEllipsis} />
       </label>
 
-      <div className="more-options fixed min-w-[350px] max-w-[30%] h-[100vh]  top-0 right-0 p-4 pt-[70px] pb-[120px] overflow-y-auto z-[100] isolate">
+      <div className="more-options fixed min-w-[350px] max-w-[30%] h-[100vh]  top-0 right-0 p-4 pt-[70px] overflow-y-auto z-[100] isolate flex flex-col justify-start items-stretch">
         {showSideBarMembersList ? (
           <MemberListSidebar />
         ) : (
-          <div className="mt-[75%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
+          <div className="mt-[auto] text-right max-w-[300px] ml-auto h-[max-content] p-5">
             <p className="text-[0.8rem]">by:</p>
             <p className="text-[2rem] font-bold">DANIEL & LAST</p>
             <p className="text-[0.9rem]">
