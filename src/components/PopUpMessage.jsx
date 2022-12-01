@@ -25,6 +25,10 @@ const PopUpItem = (item, index) => {
     setRemoveItem(false)
   }
 
+  setTimeout(()=>{
+    deleteMessage()
+  },3000)
+
   return (
     <>
       {removeItem &&
