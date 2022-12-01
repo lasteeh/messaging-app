@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { ApiContext } from "../context/apiContext";
 import ChatItem from "../components/ChatItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,7 @@ import { faCommentSlash } from "@fortawesome/free-solid-svg-icons";
 import ChatHeader from "../components/Chatbox/ChatHeader";
 import Airplane from "../components/Chatbox/Airplane";
 import Messagebox from "../components/Chatbox/Messagebox";
-import { QueryClient, useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { fetchRetrieveMessage } from "../helper/Apicall";
 
 export default function Chatbox() {
@@ -31,9 +31,6 @@ export default function Chatbox() {
     );
   };
   const { data: chatMessages } = getAllMessages();
-
-  // const testdata = queryClient.getQueryData('USERS_MESSAGES')
-  // console.log(testdata)
 
   const chatFilter = (msg) => {
     let body = [];

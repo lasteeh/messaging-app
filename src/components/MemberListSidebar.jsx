@@ -29,7 +29,6 @@ export default function MemberSidebar() {
     usersOptions,
     setUsersOptions,
     chatBoxHeaderName,
-    setChatMessages,
     setShowSideBarMembersList,
     setChatBoxHeaderName,
     setChatLoading,
@@ -37,7 +36,7 @@ export default function MemberSidebar() {
   } = useContext(ApiContext);
   const toasty = useToasty();
   const queryClient = useQueryClient();
-  const allUsers = queryClient.getQueryData('ALL_USERS')
+  const allUsers = queryClient.getQueryData("ALL_USERS");
 
   const loadMembers = async () => {
     let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
@@ -186,11 +185,6 @@ export default function MemberSidebar() {
 
   const messageOwner = async (e) => {
     let selected = e.currentTarget.dataset;
-    let msg = await fetchRetrieveMessage(
-      accessData,
-      selected.id,
-      selected.type
-    );
     SetMsgType("User");
 
     setShowSideBarMembersList(false);
