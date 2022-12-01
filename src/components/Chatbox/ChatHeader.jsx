@@ -40,7 +40,7 @@ export default function ChatHeader(props) {
               <span className="font-normal text-[75%]">
                 Today is: {dateToday}
               </span>
-              <quote className="random-quote italic">"{greet}"</quote>
+              <span className="random-quote italic">"{greet}"</span>
             </>
           )}
         </p>

@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState, useTransition } from "react";
 import { ApiContext } from "../context/apiContext";
-import { fetchAddMember, fetchChannelDetails } from "../helper/Apicall";
+import {
+  fetchAddMember,
+  fetchChannelDetails,
+  fetchRetrieveMessage,
+} from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
 import { useToasty } from "./PopUpMessage";
@@ -27,6 +31,10 @@ export default function MemberSidebar() {
     chatBoxHeaderName,
     popUpMessageList,
     setPopUpMessageList,
+    setChatMessages,
+    setShowSideBarMembersList,
+    setChatBoxHeaderName,
+    setChatLoading,
   } = useContext(ApiContext);
   const toasty = useToasty();
 
@@ -182,7 +190,24 @@ export default function MemberSidebar() {
     });
   };
 
-  console.log(owner);
+  const messageOwner = async (e) => {
+    let selected = e.currentTarget.dataset;
+    let msg = await fetchRetrieveMessage(
+      accessData,
+      selected.id,
+      selected.type
+    );
+    setChatMessages(msg);
+
+    setShowSideBarMembersList(false);
+
+    setChatBoxHeaderName({
+      id: selected.id,
+      type: selected.type,
+      name: selected.name,
+    });
+    setChatLoading(true);
+  };
 
   return (
     <div>
@@ -200,7 +225,13 @@ export default function MemberSidebar() {
       {owner && (
         <>
           <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
-          <div className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem]">
+          <div
+            className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem] hover:brightness-[1.25] cursor-pointer"
+            onClick={messageOwner}
+            data-name={owner.owner_name}
+            data-id={owner.owner_id}
+            data-type="User"
+          >
             <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
               <FontAwesomeIcon
                 icon={faCrown}
