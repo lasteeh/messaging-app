@@ -41,7 +41,7 @@ const NavItem = (props) => {
         setChatBoxHeaderName(`Welcome, User ${accessData.id}!`);
         setChannelHeaderName(
           props.name === "messages"
-            ? "Messages"
+            ? "Direct Messages"
             : props.name === "channels"
             ? "Channels"
             : "Home"

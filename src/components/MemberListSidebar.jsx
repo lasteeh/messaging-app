@@ -1,9 +1,15 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState, useTransition } from "react";
 import { ApiContext } from "../context/apiContext";
-import { fetchAddMember, fetchChannelDetails } from "../helper/Apicall";
+import {
+  fetchAddMember,
+  fetchChannelDetails,
+  fetchRetrieveMessage,
+} from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
-import PopUpMessage, {addPopup} from "./PopUpMessage";
+import { useToasty } from "./PopUpMessage";
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
 
 export default function MemberSidebar() {
   const [addMemberInput, setAddMemberInput] = useState("");
@@ -14,6 +20,7 @@ export default function MemberSidebar() {
     id: "",
     member_id: "",
   });
+  const [owner, setOwner] = useState();
   const [membersDisplay, setMembersDisplay] = useState([]);
   const [memberList, setMemberList] = useState([]);
   const {
@@ -24,11 +31,23 @@ export default function MemberSidebar() {
     chatBoxHeaderName,
     popUpMessageList,
     setPopUpMessageList,
+    setChatMessages,
+    setShowSideBarMembersList,
+    setChatBoxHeaderName,
+    setChatLoading,
+    SetMsgType,
   } = useContext(ApiContext);
+  const toasty = useToasty();
 
   const loadMembers = async () => {
     let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
-    let mem = members.data.channel_members;
+    let mem = members.data.channel_members.filter(
+      (item) => item.user_id !== members.data.owner_id
+    );
+    const ownerName = allUsers.data.find(
+      (user) => user.id === members.data.owner_id
+    );
+    setOwner({ owner_id: members.data.owner_id, owner_name: ownerName.uid });
     setMemberList(mem);
     if (mem !== undefined) {
       setMembersDisplay(
@@ -92,10 +111,10 @@ export default function MemberSidebar() {
       //   { message: "failed", error: true },
       // ]);
       console.log(valid.success);
-      addPopup(valid.success)
+      toasty(valid.success);
     } else {
       console.log(valid.error);
-      addPopup(valid.error)
+      toasty(valid.error);
     }
 
     setAddMemberInput("");
@@ -172,14 +191,60 @@ export default function MemberSidebar() {
     });
   };
 
+  const messageOwner = async (e) => {
+    let selected = e.currentTarget.dataset;
+    let msg = await fetchRetrieveMessage(
+      accessData,
+      selected.id,
+      selected.type
+    );
+    setChatMessages(msg);
+    SetMsgType("User");
+
+    setShowSideBarMembersList(false);
+
+    setChatBoxHeaderName({
+      id: selected.id,
+      type: selected.type,
+      name: selected.name,
+    });
+    setChatLoading(true);
+  };
+
   return (
     <div>
-      <span className="font-semibold text-[0.9rem] uppercase">
-        Members - {membersDisplay.length}
-      </span>
-      <div className="flex flex-col justify-start items-stretch">
-        {membersDisplay}
-      </div>
+      {membersDisplay.length > 0 && (
+        <>
+          <span className="font-semibold text-[0.9rem] uppercase">
+            {membersDisplay.length > 1 ? "Members" : "Member"} -{" "}
+            {membersDisplay.length}
+          </span>
+          <div className="flex flex-col justify-start items-stretch">
+            {membersDisplay}
+          </div>
+        </>
+      )}
+      {owner && (
+        <>
+          <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
+          <div
+            className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem] hover:brightness-[1.25] cursor-pointer"
+            onClick={messageOwner}
+            data-name={owner.owner_name}
+            data-id={owner.owner_id}
+            data-type="User"
+          >
+            <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
+              <FontAwesomeIcon
+                icon={faCrown}
+                className="h-[100%] w-[100%] text-yellow-400"
+              />
+            </div>
+
+            <span>{owner.owner_name}</span>
+          </div>
+        </>
+      )}
 
       <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4 isolate">
         <div className="relative w-[100%] p-[2px] z-[1]">
