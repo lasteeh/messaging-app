@@ -3,6 +3,7 @@ import Nav from "./Navbar";
 import Channel from "./Channel";
 import Chatbox from "./Chatbox";
 import PopUpMessage from "../components/PopUpMessage";
+import Queryloader from "../helper/Queryloader";
 
 export default function Body() {
   return (
@@ -11,6 +12,7 @@ export default function Body() {
       <Channel />
       <Chatbox />
       <PopUpMessage />
+      <Queryloader />
     </div>
   );
 }

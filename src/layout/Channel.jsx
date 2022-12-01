@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
   fetchGetUserChannel,
-  fetchAllUsers,
 } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
-import {  useQuery, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import ChannelItem from "../components/ChannelItem";
@@ -14,7 +13,6 @@ import myContacts from "../users/contacts.json";
 export default function Channel() {
   const [channels, setChannels] = useState([]);
   const [contacts, setContacts] = useState([]);
-
   const {
     theme,
     setTheme,
@@ -30,17 +28,11 @@ export default function Channel() {
     usersOptions,
   } = useContext(ApiContext);
 
+  // Query fetch //
   const queryClient = useQueryClient()
-  
-  const getAllUsers = () =>{
-    return useQuery(['ALL_USERS', accessData], ()=> fetchAllUsers(accessData),
-    {
-      refetchInterval: 300000,
-      onSuccess: data => queryClient.setQueryData('ALL_USERS', data)
-    })
-  }
-  const { data: allUsers } = getAllUsers();
+  const allUsers  = queryClient.getQueryData('ALL_USERS')
 
+  // Events //
   const selectedItem = async (e) => {
     let selected = e.currentTarget.dataset;
 

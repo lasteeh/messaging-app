@@ -29,7 +29,6 @@ export default function MemberSidebar() {
     usersOptions,
     setUsersOptions,
     chatBoxHeaderName,
-    setChatMessages,
     setShowSideBarMembersList,
     setChatBoxHeaderName,
     setChatLoading,
@@ -187,12 +186,6 @@ export default function MemberSidebar() {
 
   const messageOwner = async (e) => {
     let selected = e.currentTarget.dataset;
-    let msg = await fetchRetrieveMessage(
-      accessData,
-      selected.id,
-      selected.type
-    );
-    setChatMessages(msg);
     SetMsgType("User");
 
     setShowSideBarMembersList(false);

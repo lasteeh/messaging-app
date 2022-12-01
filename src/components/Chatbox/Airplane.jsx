@@ -5,9 +5,6 @@ import { faPlane,faCloud } from '@fortawesome/free-solid-svg-icons'
 export default function Airplane() {
 
     const style = {
-        cloud: {
-              position: 'absolute',
-        },
         one: {
             opacity: '0.2',
             fontSize: '10rem',
@@ -35,11 +32,11 @@ export default function Airplane() {
 
     return (
         <div className="chatLoading absolute inset-0 h-[100%] w-[100%] z-[-1] overflow-hidden">
-            <FontAwesomeIcon className='animate-swing text-[clamp(10rem,_1vw,_15rem)]' icon={faPlane} />
-            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.one}}/>
-            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.two}}/>
-            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.three}}/>
-            <FontAwesomeIcon className='animate-pass' icon={faCloud} style={{...style.cloud ,...style.four}}/>
+            <FontAwesomeIcon className='animate-swing text-[clamp(10rem,_1vw,_15rem)] absolute' icon={faPlane} />
+            <FontAwesomeIcon className='animate-pass absolute' icon={faCloud} style={style.one}/>
+            <FontAwesomeIcon className='animate-pass absolute' icon={faCloud} style={style.two}/>
+            <FontAwesomeIcon className='animate-pass absolute' icon={faCloud} style={style.three}/>
+            <FontAwesomeIcon className='animate-pass absolute' icon={faCloud} style={style.four}/>
         </div>
   )
 }
