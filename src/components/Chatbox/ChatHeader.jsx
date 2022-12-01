@@ -17,7 +17,7 @@ export default function ChatHeader(props) {
 
   return (
     <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
-      <div className="icon aspect-square h-[50px] p-[5px]">
+      <div className="animate-fadeIn icon aspect-square h-[50px] p-[5px]">
         <FontAwesomeIcon
           className="h-[100%] w-[100%]"
           icon={
@@ -31,7 +31,7 @@ export default function ChatHeader(props) {
           }
         />
       </div>
-      <div className="grid auto-rows-auto ">
+      <div className="animate-fadeIn grid auto-rows-auto ">
         <p className="text-[0.9rem] font-bold flex flex-col justify-start items-start">
           {props.chatheader && props.chatheader.name ? (
             props.chatheader.name
@@ -62,11 +62,11 @@ export default function ChatHeader(props) {
         <FontAwesomeIcon className="w-[100%] h-[100%]" icon={faEllipsis} />
       </label>
 
-      <div className="more-options fixed min-w-[350px] max-w-[30%] h-[100vh]  top-0 right-0 p-4 pt-[70px] pb-[120px] overflow-y-auto z-[100] isolate">
+      <div className="more-options fixed min-w-[350px] max-w-[30%] h-[100vh]  top-0 right-0 p-4 pt-[70px] overflow-y-auto z-[100] isolate flex flex-col justify-start items-stretch">
         {showSideBarMembersList ? (
           <MemberListSidebar />
         ) : (
-          <div className="mt-[75%] text-right max-w-[70%] ml-auto h-[max-content] p-5">
+          <div className="mt-[auto] text-right max-w-[300px] ml-auto h-[max-content] p-5">
             <p className="text-[0.8rem]">by:</p>
             <p className="text-[2rem] font-bold">DANIEL & LAST</p>
             <p className="text-[0.9rem]">

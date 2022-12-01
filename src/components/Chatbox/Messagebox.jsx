@@ -30,7 +30,7 @@ export default function Messagebox() {
   };
 
   return (
-    <div className="message-sender flex flex-row items-center justify-start w-[100%] min-h-[80px]  p-6 gap-[1em] z-[5]">
+    <div className="message-sender animate-fadeIn flex flex-row items-center justify-start w-[100%] min-h-[80px]  p-6 gap-[1em] z-[5]">
       <input
         className={
           "message-field max-h-[40px] grow shrink width-[min(100px,100%)] min-w-[10px] p-[1rem] active:outline-none focus:outline-none rounded-[0.5rem]" +

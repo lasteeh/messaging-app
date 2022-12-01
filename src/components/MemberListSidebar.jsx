@@ -35,7 +35,7 @@ export default function MemberSidebar() {
   } = useContext(ApiContext);
   const toasty = useToasty();
   const queryClient = useQueryClient();
-  const allUsers = queryClient.getQueryData('ALL_USERS')
+  const allUsers = queryClient.getQueryData("ALL_USERS");
 
   const loadMembers = async () => {
     let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
@@ -79,7 +79,7 @@ export default function MemberSidebar() {
             user.label === target[0].label
         );
         if (selection.length !== 1) {
-          return { error: "dami pa din pre" };
+          return { error: "dami pa din kaparehas pre" };
         }
         if (existing) {
           return { error: "existing pre" };
@@ -103,15 +103,14 @@ export default function MemberSidebar() {
     let valid = validationFilter();
 
     if (valid["success"]) {
-      // fetchAddMember(accessData, temporaryMemberRequest);
-      toasty(valid.success);
+      fetchAddMember(accessData, temporaryMemberRequest);
+      toasty(valid.success, false);
+      setAddMemberInput("");
+      setIsShowing(false);
+      loadMembers();
     } else {
       toasty(valid.error);
     }
-
-    setAddMemberInput("");
-    setIsShowing(false);
-    loadMembers();
   };
 
   const handleSelectClick = (e) => {
@@ -198,41 +197,43 @@ export default function MemberSidebar() {
   };
 
   return (
-    <div>
-      {membersDisplay.length > 0 && (
-        <>
-          <span className="font-semibold text-[0.9rem] uppercase">
-            {membersDisplay.length > 1 ? "Members" : "Member"} -{" "}
-            {membersDisplay.length}
-          </span>
-          <div className="flex flex-col justify-start items-stretch">
-            {membersDisplay}
-          </div>
-        </>
-      )}
-      {owner && (
-        <>
-          <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
-          <div
-            className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem] hover:brightness-[1.25] cursor-pointer"
-            onClick={messageOwner}
-            data-name={owner.owner_name}
-            data-id={owner.owner_id}
-            data-type="User"
-          >
-            <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
-              <FontAwesomeIcon
-                icon={faCrown}
-                className="h-[100%] w-[100%] text-yellow-400"
-              />
+    <>
+      <div className="overflow-y-auto w-[100%] h-[100%]">
+        {membersDisplay.length > 0 && (
+          <>
+            <span className="font-semibold text-[0.9rem] uppercase">
+              {membersDisplay.length > 1 ? "Members" : "Member"} -{" "}
+              {membersDisplay.length}
+            </span>
+            <div className="flex flex-col justify-start items-stretch">
+              {membersDisplay}
             </div>
+          </>
+        )}
+        {owner && (
+          <>
+            <span className="font-semibold text-[0.9rem] uppercase">Owner</span>
+            <div
+              className="member-list-item flex flex-row justify-start items-center gap-[0.6rem] p-[0.5rem] hover:brightness-[1.25] cursor-pointer"
+              onClick={messageOwner}
+              data-name={owner.owner_name}
+              data-id={owner.owner_id}
+              data-type="User"
+            >
+              <div className="aspect-square min-h-[30px] max-h-[35px] p-[0.7rem] grid place-items-center rounded-[0.5rem] shadow-md">
+                <FontAwesomeIcon
+                  icon={faCrown}
+                  className="h-[100%] w-[100%] text-yellow-400"
+                />
+              </div>
 
-            <span>{owner.owner_name}</span>
-          </div>
-        </>
-      )}
+              <span>{owner.owner_name}</span>
+            </div>
+          </>
+        )}
+      </div>
 
-      <div className="channel-exist-add-member absolute bottom-0 left-0 w-[100%] p-4 isolate">
+      <div className="channel-exist-add-member  w-[100%] mt-auto isolate">
         <div className="relative w-[100%] p-[2px] z-[1]">
           {isShowing && (
             <div
@@ -264,6 +265,6 @@ export default function MemberSidebar() {
           add member
         </button>
       </div>
-    </div>
+    </>
   );
 }

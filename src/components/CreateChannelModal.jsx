@@ -4,6 +4,7 @@ import AddMemberItem from "./AddMemberItem";
 import { fetchCreateChannel } from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import { ApiContext } from "../context/apiContext";
+import { useToasty } from "./PopUpMessage";
 
 const CreateChannelModal = (props) => {
   const { setCreateChannel, accessData, setPopUpMessageList } =
@@ -15,18 +16,25 @@ const CreateChannelModal = (props) => {
   const [inputValue, setInputValue] = useState([]);
   const [membersToAdd, setMembersToAdd] = useState({});
 
+  const toasty = useToasty();
+
   const userOptions = props.usersList;
 
-  const channelSubmit = (data) => {
-    // let uid = Object.keys(membersToAdd);
-    // let body = {
-    //   name: data.channelname,
-    //   user_ids: uid,
-    // };
-    // setCreateChannel(false);
-    // fetchCreateChannel(accessData, body);
-    // reset({ channelname: "" });
-    showMessage();
+  const channelSubmit = async (data) => {
+    let uid = Object.keys(membersToAdd);
+    let body = {
+      name: data.channelname,
+      user_ids: uid,
+    };
+
+    let valid = await fetchCreateChannel(accessData, body);
+
+    if (valid.errors) {
+      valid.errors.map((item) => toasty(item));
+    } else {
+      reset({ channelname: "" });
+      setCreateChannel(false);
+    }
   };
 
   const removeMember = (id) => {
@@ -108,7 +116,7 @@ const CreateChannelModal = (props) => {
 
   return (
     <div
-      className="grid place-items-center fixed inset-0 bg-zinc-900/70 text-white z-[105] isolate w-[100vw] h-[100vh] "
+      className="grid place-items-center fixed inset-0 animate-fadeIn bg-zinc-900/70 text-white z-[105] isolate w-[100vw] h-[100vh] "
       onClick={() => {
         setIsShowing(false);
       }}
