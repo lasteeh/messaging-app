@@ -14,7 +14,6 @@ export default function Chatbox() {
   const {
     chat,
     setChat,
-    // chatMessages,
     chatBoxHeaderName,
     chatLoading,
     accessData,
@@ -24,9 +23,6 @@ export default function Chatbox() {
     return useQuery(['ALL_USERS', accessData, chatBoxHeaderName], ()=> fetchRetrieveMessage(accessData, chatBoxHeaderName.id, chatBoxHeaderName.type),{refetchInterval: 2000})
   }
   const {data: chatMessages} = getAllMessages();
-  // if (chatMessages && chatMessages.errors !== undefined) {
-  //   console.log(chatMessages.errors[0])
-  // }
 
   const chatFilter = (msg) => {
     let body = [];

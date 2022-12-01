@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import {
   fetchGetUserChannel,
   fetchAllUsers,
-  fetchRetrieveMessage,
 } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,7 +23,6 @@ export default function Channel() {
     createChannel,
     setCreateChannel,
     msgType,
-    setChatMessages,
     setChatBoxHeaderName,
     channelHeaderName,
     setChatLoading,
@@ -91,20 +89,10 @@ export default function Channel() {
     loadUserContacts();
   }, [createChannel]);
 
-  const getTheme = (theme) => {
-    localStorage.setItem("themePreference", JSON.stringify(theme));
-  };
-
-  useEffect(() => {
-    const localtheme = JSON.parse(localStorage.getItem("themePreference"));
-    if (localtheme) {
-      setTheme(localtheme);
-    }
-  }, [theme]);
-
   const handleTheme = (e) => {
-    setTheme(e.target.id.toLowerCase());
-    getTheme(e.target.id.toLowerCase());
+    let themeID = e.target.id.toLowerCase()
+    localStorage.setItem("themePreference", JSON.stringify(themeID));
+    setTheme(themeID);
   };
 
   return (
@@ -142,6 +130,7 @@ export default function Channel() {
           {msgType === "User" ? contacts : channels}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
+          {/* {Dark Theme} */}
           <label className="sr-only" htmlFor="dark">
             dark
           </label>
@@ -150,12 +139,12 @@ export default function Channel() {
             type="radio"
             name="theme"
             id="dark"
-            checked={theme !== "light"}
+            checked={theme === "dark"}
             value="dark"
             title="Dark Theme"
             onChange={handleTheme}
           />
-
+          {/* {Light Theme} */}
           <label className="sr-only" htmlFor="light">
             light
           </label>
@@ -167,6 +156,20 @@ export default function Channel() {
             title="Light Theme"
             checked={theme === "light"}
             value="light"
+            onChange={handleTheme}
+          />
+          {/* {Cobalt Theme} */}
+          <label className="sr-only" htmlFor="cobalt">
+            cobalt
+          </label>
+          <input
+            className="cursor-pointer opacity-[0.75]"
+            type="radio"
+            name="theme"
+            id="cobalt"
+            title="Cobalt Theme"
+            checked={theme === "cobalt"}
+            value="cobalt"
             onChange={handleTheme}
           />
         </div>

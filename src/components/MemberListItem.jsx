@@ -6,13 +6,10 @@ import {
   faUserNurse,
   faUserNinja,
 } from "@fortawesome/free-solid-svg-icons";
-import { fetchRetrieveMessage } from "../helper/Apicall";
 
 const MemberListItem = (props) => {
   const {
     allUsers,
-    accessData,
-    setChatMessages,
     setShowSideBarMembersList,
     setChatBoxHeaderName,
     setChatLoading,
@@ -25,12 +22,6 @@ const MemberListItem = (props) => {
 
   const messageMember = async (e) => {
     let selected = e.currentTarget.dataset;
-    let msg = await fetchRetrieveMessage(
-      accessData,
-      selected.id,
-      selected.type
-    );
-    setChatMessages(msg);
     SetMsgType("User");
 
     setShowSideBarMembersList(false);

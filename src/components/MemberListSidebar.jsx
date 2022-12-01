@@ -29,8 +29,6 @@ export default function MemberSidebar() {
     usersOptions,
     setUsersOptions,
     chatBoxHeaderName,
-    popUpMessageList,
-    setPopUpMessageList,
     setChatMessages,
     setShowSideBarMembersList,
     setChatBoxHeaderName,
@@ -106,14 +104,8 @@ export default function MemberSidebar() {
 
     if (valid["success"]) {
       // fetchAddMember(accessData, temporaryMemberRequest);
-      // setPopUpMessageList([
-      //   ...popUpMessageList,
-      //   { message: "failed", error: true },
-      // ]);
-      console.log(valid.success);
       toasty(valid.success);
     } else {
-      console.log(valid.error);
       toasty(valid.error);
     }
 
