@@ -8,10 +8,10 @@ import {
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
 import { useToasty } from "./PopUpMessage";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
 
-export default function MemberSidebar() {
+export default function MemberListSidebar() {
   const [addMemberInput, setAddMemberInput] = useState("");
   const [isListing, startTransition] = useTransition();
   const [selection, setSelection] = useState([]);
@@ -37,8 +37,16 @@ export default function MemberSidebar() {
   const queryClient = useQueryClient();
   const allUsers = queryClient.getQueryData("ALL_USERS");
 
+  const getMemberList = () => {
+    return useQuery(['CHANNEL_MEMBERS', accessData, chatBoxHeaderName],() => fetchChannelDetails(accessData, chatBoxHeaderName.id),
+    {
+      refetchInterval: 2000,
+      onSuccess: (data) => queryClient.setQueryData("CHANNEL_MEMBERS", data),
+    })
+  }
+  const {data: members} = getMemberList();
+
   const loadMembers = async () => {
-    let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
     let mem = members.data.channel_members.filter(
       (item) => item.user_id !== members.data.owner_id
     );
@@ -97,7 +105,7 @@ export default function MemberSidebar() {
 
   useEffect(() => {
     loadMembers();
-  }, [chatBoxHeaderName]);
+  }, [chatBoxHeaderName, members]);
 
   const handleSubmitMember = async () => {
     let valid = validationFilter();
