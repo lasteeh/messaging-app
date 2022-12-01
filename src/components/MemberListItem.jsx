@@ -16,6 +16,7 @@ const MemberListItem = (props) => {
     setShowSideBarMembersList,
     setChatBoxHeaderName,
     setChatLoading,
+    SetMsgType,
   } = useContext(ApiContext);
   const memberName = allUsers.data.find((user) => user.id === props.id);
   const icons = [faUserSecret, faUserNurse, faUserNinja];
@@ -30,6 +31,7 @@ const MemberListItem = (props) => {
       selected.type
     );
     setChatMessages(msg);
+    SetMsgType("User");
 
     setShowSideBarMembersList(false);
 

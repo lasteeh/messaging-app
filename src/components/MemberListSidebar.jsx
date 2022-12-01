@@ -35,6 +35,7 @@ export default function MemberSidebar() {
     setShowSideBarMembersList,
     setChatBoxHeaderName,
     setChatLoading,
+    SetMsgType,
   } = useContext(ApiContext);
   const toasty = useToasty();
 
@@ -198,6 +199,7 @@ export default function MemberSidebar() {
       selected.type
     );
     setChatMessages(msg);
+    SetMsgType("User");
 
     setShowSideBarMembersList(false);
 
