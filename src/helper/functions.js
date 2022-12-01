@@ -59,6 +59,12 @@ export const randomGreeting = () => {
     "Kamusta na?",
     "Kamusta ka?",
     "Message someone you love today...",
+    "Whatever you are, be a good one...",
+    "Be yourself; everyone else is already taken.",
+    "Act as if what you do makes a difference.",
+    "The only real mistake is the one from which we learn nothing.",
+    "Positive anything is better than negative nothing.",
+    "Limit your 'always' and your 'nevers'.",
   ];
   const randomNumber = Math.floor(Math.random() * greetList.length);
 

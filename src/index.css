@@ -340,3 +340,10 @@ fieldset::after {
 .create-channel.dropdown-selection:hover::after {
   opacity: 1;
 }
+
+.random-quote {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}

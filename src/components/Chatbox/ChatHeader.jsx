@@ -13,6 +13,7 @@ import { randomGreeting } from "../../helper/functions";
 export default function ChatHeader(props) {
   const { showSideBarMembersList } = useContext(ApiContext);
   const [greet, setGreet] = useState(randomGreeting());
+  const dateToday = new Date().toLocaleDateString();
 
   return (
     <div className="chat-box-header flex flex-row items-center p-2.5 justify-start w-[100%] min-h-[80px] gap-[5px] isolate z-[6]">
@@ -31,11 +32,18 @@ export default function ChatHeader(props) {
         />
       </div>
       <div className="grid auto-rows-auto ">
-        <span className="text-[0.9rem] font-bold">
-          {props.chatheader && props.chatheader.name
-            ? props.chatheader.name
-            : greet}
-        </span>
+        <p className="text-[0.9rem] font-bold flex flex-col justify-start items-start">
+          {props.chatheader && props.chatheader.name ? (
+            props.chatheader.name
+          ) : (
+            <>
+              <span className="font-normal text-[75%]">
+                Today is: {dateToday}
+              </span>
+              <quote className="random-quote italic">"{greet}"</quote>
+            </>
+          )}
+        </p>
       </div>
       <div className="header-sign-in-info ml-auto mr-[0rem] grid auto-cols-auto text-right text-[clamp(0.6rem,1vw,1rem)] pr-[0.5rem] rounded-[5px] border-r-[5px]">
         <span className="uppercase text-[70%]">signed in as</span>
