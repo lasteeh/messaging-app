@@ -1,7 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import {
-  fetchGetUserChannel,
-} from "../helper/Apicall";
+import { fetchGetUserChannel } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 import { useQueryClient } from "react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +10,12 @@ import myContacts from "../users/contacts.json";
 
 export default function Channel() {
   const [channels, setChannels] = useState([]);
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(
+    localStorage.getItem("contactList") === null
+      ? []
+      : JSON.parse(localStorage.getItem("contactList"))
+  );
+  const [channelPanelSearchInput, setChannelPanelSearchInput] = useState("");
   const {
     theme,
     setTheme,
@@ -29,8 +32,8 @@ export default function Channel() {
   } = useContext(ApiContext);
 
   // Query fetch //
-  const queryClient = useQueryClient()
-  const allUsers  = queryClient.getQueryData('ALL_USERS')
+  const queryClient = useQueryClient();
+  const allUsers = queryClient.getQueryData("ALL_USERS");
 
   // Events //
   const selectedItem = async (e) => {
@@ -65,24 +68,25 @@ export default function Channel() {
   };
 
   const loadUserContacts = () => {
-    let usercontacts = myContacts.users.find(
-      (user) => user.uid === accessData.id.toString()
-    );
-
-    if (usercontacts !== undefined) {
-      setContacts(
-        usercontacts.contacts.map((user, index) => (
-          <ChannelItem
-            key={index}
-            name={user.email}
-            dataId={user.uid}
-            dataMsgType={"User"}
-            onClickSelected={selectedItem}
-          />
-        ))
-      );
-    }
+    // let usercontacts = myContacts.users.find(
+    //   (user) => user.uid === accessData.id.toString()
+    // );
+    // if (usercontacts !== undefined) {
+    //   setContacts(
+    //     usercontacts.contacts.map((user, index) => (
+    //       <ChannelItem
+    //         key={index}
+    //         name={user.email}
+    //         dataId={user.uid}
+    //         dataMsgType={"User"}
+    //         onClickSelected={selectedItem}
+    //       />
+    //     ))
+    //   );
+    // }
   };
+
+  const handleSearch = () => {};
 
   useEffect(() => {
     loadChannel();
@@ -90,7 +94,7 @@ export default function Channel() {
   }, [createChannel]);
 
   const handleTheme = (e) => {
-    let themeID = e.target.id.toLowerCase()
+    let themeID = e.target.id.toLowerCase();
     localStorage.setItem("themePreference", JSON.stringify(themeID));
     setTheme(themeID);
   };
@@ -123,6 +127,8 @@ export default function Channel() {
           <input
             className="indent-[10px] w-[100%] h-[100%] p-2.5  focus:outline-none"
             placeholder="Search"
+            onChange={handleSearch}
+            value={channelPanelSearchInput}
           />
         </div>
 
