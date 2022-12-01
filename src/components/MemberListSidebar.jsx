@@ -4,7 +4,6 @@ import { ApiContext } from "../context/apiContext";
 import {
   fetchAddMember,
   fetchChannelDetails,
-  fetchRetrieveMessage,
 } from "../helper/Apicall";
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
