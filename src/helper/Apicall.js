@@ -39,6 +39,7 @@ export const fetchSendMessage = async (data, body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchRetrieveMessage = async (data, id, msgType) => {
@@ -95,6 +96,7 @@ export const fetchAddMember = async (data, body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchAllUsers = async (data) => {

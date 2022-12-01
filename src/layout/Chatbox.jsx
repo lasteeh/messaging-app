@@ -7,26 +7,33 @@ import { faCommentSlash } from "@fortawesome/free-solid-svg-icons";
 import ChatHeader from "../components/Chatbox/ChatHeader";
 import Airplane from "../components/Chatbox/Airplane";
 import Messagebox from "../components/Chatbox/Messagebox";
-import { useQuery } from "react-query";
+import { QueryClient, useQuery, useQueryClient } from "react-query";
 import { fetchRetrieveMessage } from "../helper/Apicall";
 
 export default function Chatbox() {
   const { chat, setChat, chatBoxHeaderName, chatLoading, accessData } =
     useContext(ApiContext);
 
+  const queryClient = useQueryClient();
   const getAllMessages = () => {
     return useQuery(
-      ["ALL_USERS", accessData, chatBoxHeaderName],
+      ["USERS_MESSAGES", accessData, chatBoxHeaderName],
       () =>
         fetchRetrieveMessage(
           accessData,
           chatBoxHeaderName.id,
           chatBoxHeaderName.type
         ),
-      { refetchInterval: 2000 }
+      {
+        refetchInterval: 2000,
+        onSuccess: (data) => queryClient.setQueryData("USERS_MESSAGES", data),
+      }
     );
   };
   const { data: chatMessages } = getAllMessages();
+
+  // const testdata = queryClient.getQueryData('USERS_MESSAGES')
+  // console.log(testdata)
 
   const chatFilter = (msg) => {
     let body = [];

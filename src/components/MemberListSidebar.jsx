@@ -9,6 +9,7 @@ import {
 import { userFilterList } from "../helper/functions";
 import MemberListItem from "./MemberListItem";
 import { useToasty } from "./PopUpMessage";
+import { useQueryClient } from "react-query";
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
 
 export default function MemberSidebar() {
@@ -25,7 +26,6 @@ export default function MemberSidebar() {
   const [memberList, setMemberList] = useState([]);
   const {
     accessData,
-    allUsers,
     usersOptions,
     setUsersOptions,
     chatBoxHeaderName,
@@ -36,6 +36,8 @@ export default function MemberSidebar() {
     SetMsgType,
   } = useContext(ApiContext);
   const toasty = useToasty();
+  const queryClient = useQueryClient();
+  const allUsers = queryClient.getQueryData('ALL_USERS')
 
   const loadMembers = async () => {
     let members = await fetchChannelDetails(accessData, chatBoxHeaderName.id);
