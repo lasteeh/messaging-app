@@ -10,6 +10,7 @@ export const fetchRegister = async (body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchSignIn = async (data) => {
@@ -59,6 +60,7 @@ export const fetchCreateChannel = async (data, body) => {
     },
     body: JSON.stringify(body),
   });
+  return res.json();
 };
 
 export const fetchGetUserChannel = async (data) => {
@@ -73,7 +75,7 @@ export const fetchGetUserChannel = async (data) => {
   return apidata;
 };
 
-export const fetchChannelDetails = async (data, id) =>{
+export const fetchChannelDetails = async (data, id) => {
   const res = await fetch(`${urlApi}channels/${id}`, {
     method: "Get",
     headers: {
@@ -102,6 +104,6 @@ export const fetchAllUsers = async (data) => {
       "Content-Type": "application/json",
       ...data,
     },
-  }); 
+  });
   return res.json();
 };

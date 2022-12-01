@@ -103,15 +103,14 @@ export default function MemberSidebar() {
     let valid = validationFilter();
 
     if (valid["success"]) {
-      // fetchAddMember(accessData, temporaryMemberRequest);
+      fetchAddMember(accessData, temporaryMemberRequest);
       toasty(valid.success, false);
+      setAddMemberInput("");
+      setIsShowing(false);
+      loadMembers();
     } else {
       toasty(valid.error);
     }
-
-    setAddMemberInput("");
-    setIsShowing(false);
-    loadMembers();
   };
 
   const handleSelectClick = (e) => {

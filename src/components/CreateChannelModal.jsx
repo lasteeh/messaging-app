@@ -20,15 +20,21 @@ const CreateChannelModal = (props) => {
 
   const userOptions = props.usersList;
 
-  const channelSubmit = (data) => {
-    // let uid = Object.keys(membersToAdd);
-    // let body = {
-    //   name: data.channelname,
-    //   user_ids: uid,
-    // };
-    // setCreateChannel(false);
-    // let valid = fetchCreateChannel(accessData, body);
-    // reset({ channelname: "" });
+  const channelSubmit = async (data) => {
+    let uid = Object.keys(membersToAdd);
+    let body = {
+      name: data.channelname,
+      user_ids: uid,
+    };
+
+    let valid = await fetchCreateChannel(accessData, body);
+
+    if (valid.errors) {
+      valid.errors.map((item) => toasty(item));
+    } else {
+      reset({ channelname: "" });
+      setCreateChannel(false);
+    }
   };
 
   const removeMember = (id) => {
