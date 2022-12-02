@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useTransition } from "react";
-import { fetchGetUserChannel } from "../helper/Apicall";
 import { ApiContext } from "../context/apiContext";
 import { useQueryClient, useQuery } from "react-query";
+import { fetchGetUserChannel } from "../helper/Apicall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus, faRotate } from "@fortawesome/free-solid-svg-icons";
 import ChannelItem from "../components/ChannelItem";
@@ -35,6 +35,17 @@ export default function Channel() {
   // Query fetch //
   const queryClient = useQueryClient();
   const allUsers = queryClient.getQueryData("ALL_USERS");
+
+  const getMyChannels = () =>{
+    return useQuery(['USER_CHANNEL', accessData], ()=> fetchGetUserChannel(accessData),
+    {
+      refetchInterval: 2000,
+      onSuccess: data => queryClient.setQueryData('USER_CHANNEL', data)
+    })
+  }
+  
+  const {data: ch} = getMyChannels();
+  
   let mycontacts = JSON.parse(localStorage.getItem('contactList'))
   let myContactList = mycontacts.find(data => data.userID === accessData.id)
 
@@ -87,33 +98,13 @@ export default function Channel() {
   };
 
   const loadChannel = async () => {
-    let ch = await fetchGetUserChannel(accessData);
     setChannels(
       ch.data === undefined
         ? ch.errors
-        : ch.data.map((data, index) => {
+        : ch.data.map((data) => {
             return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
           })
     );
-  };
-
-  const loadUserContacts = () => {
-    // let usercontacts = myContacts.users.find(
-    //   (user) => user.uid === accessData.id.toString()
-    // );
-    // if (usercontacts !== undefined) {
-    //   setContacts(
-    //     usercontacts.contacts.map((user, index) => (
-    //       <ChannelItem
-    //         key={index}
-    //         name={user.email}
-    //         dataId={user.uid}
-    //         dataMsgType={"User"}
-    //         onClickSelected={selectedItem}
-    //       />
-    //     ))
-    //   );
-    // }
   };
 
   const handleSearch = (e) => {
@@ -196,7 +187,6 @@ export default function Channel() {
   }, [msgType]);
 
   useEffect(() => {
-    console.log(contacts)
     setContactsDisplay(
       contacts.map((user, index) => (
         <ChannelItem
@@ -226,9 +216,8 @@ export default function Channel() {
 
   useEffect(() => {
     loadChannel();
-    loadUserContacts();
     displayContacts();
-  }, [createChannel]);
+  }, [createChannel, ch]);
 
   const handleTheme = (e) => {
     let themeID = e.target.id.toLowerCase();

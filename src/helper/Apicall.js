@@ -72,8 +72,7 @@ export const fetchGetUserChannel = async (data) => {
       ...data,
     },
   });
-  const apidata = await res.json();
-  return apidata;
+  return res.json();
 };
 
 export const fetchChannelDetails = async (data, id) => {
