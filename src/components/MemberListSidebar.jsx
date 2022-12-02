@@ -16,10 +16,6 @@ export default function MemberListSidebar() {
   const [isListing, startTransition] = useTransition();
   const [selection, setSelection] = useState([]);
   const [isShowing, setIsShowing] = useState(false);
-  const [temporaryMemberRequest, setTemporaryMemberRequest] = useState({
-    id: "",
-    member_id: "",
-  });
   const [owner, setOwner] = useState();
   const [membersDisplay, setMembersDisplay] = useState([]);
   const [memberList, setMemberList] = useState([]);
@@ -93,11 +89,11 @@ export default function MemberListSidebar() {
           return { error: "existing pre" };
         }
         if (!existing && selection.length === 1) {
-          setTemporaryMemberRequest({
+          return { success: {
+            message: "all goods pre",
             id: chatBoxHeaderName.id,
-            member_id: Number(target.value),
-          });
-          return { success: "all goods pre" };
+            member_id: Number(target[0].value),
+          }};
         }
       }
     }
@@ -107,12 +103,12 @@ export default function MemberListSidebar() {
     loadMembers();
   }, [chatBoxHeaderName, members]);
 
-  const handleSubmitMember = async () => {
+  const handleSubmitMember = () => {
     let valid = validationFilter();
-
+    console.log(valid)
     if (valid["success"]) {
-      fetchAddMember(accessData, temporaryMemberRequest);
-      toasty(valid.success, false);
+      fetchAddMember(accessData, {id: valid['success'].id, member_id: valid['success'].member_id});
+      toasty(valid['success'].message, false);
       setAddMemberInput("");
       setIsShowing(false);
       loadMembers();
@@ -124,10 +120,6 @@ export default function MemberListSidebar() {
   const handleSelectClick = (e) => {
     const selected = e.currentTarget.dataset;
     setAddMemberInput(selected.email);
-    setTemporaryMemberRequest({
-      id: chatBoxHeaderName.id,
-      member_id: Number(selected.value),
-    });
     setSelection([1]);
     setIsShowing(false);
   };
