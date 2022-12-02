@@ -12,8 +12,10 @@ import {
 import ChannelItem from "../components/ChannelItem";
 import CreateChannelModal from "../components/CreateChannelModal";
 import { userFilterList, channelFilterList } from "../helper/functions";
+import { useToasty } from "../components/PopUpMessage";
 
 export default function Channel() {
+  const toasty = useToasty();
   const [channels, setChannels] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [contactsDisplay, setContactsDisplay] = useState([]);
@@ -32,6 +34,7 @@ export default function Channel() {
     msgType,
     setChatBoxHeaderName,
     channelHeaderName,
+    setChannelHeaderName,
     setChatLoading,
     setShowSideBarMembersList,
     setUsersOptions,
@@ -73,6 +76,7 @@ export default function Channel() {
   };
 
   const updateContacts = (selected) => {
+    let existing;
     if (myContactList === undefined) {
       mycontacts = [
         ...mycontacts,
@@ -83,14 +87,22 @@ export default function Channel() {
       ];
       localStorage.setItem("contactList", JSON.stringify(mycontacts));
     } else {
-      mycontacts.forEach((data) => {
-        if (accessData.id === data.userID) {
-          data.contacts = [
-            ...data.contacts,
-            { uid: selected.id, email: selected.name },
-          ];
-        }
-      });
+      existing = myContactList.contacts.find(
+        (user) => Number(user.uid) === Number(selected.id)
+      );
+      if (!existing) {
+        mycontacts.forEach((data) => {
+          if (accessData.id === data.userID) {
+            data.contacts = [
+              ...data.contacts,
+              { uid: selected.id, email: selected.name },
+            ];
+          }
+        });
+      } else {
+        toasty("existing na sa contacts ih uwu");
+        return existing;
+      }
     }
     localStorage.setItem("contactList", JSON.stringify(mycontacts));
   };
@@ -106,16 +118,21 @@ export default function Channel() {
 
   const addToContacts = (e) => {
     let selected = e.currentTarget.dataset;
-    updateContacts(selected);
-    displayContacts();
-    setChatBoxHeaderName({
-      id: selected.id,
-      type: selected.type,
-      name: selected.name,
-    });
-    setChatLoading(true);
-    setChannelPanelSearchInput("");
-    toggleAddUser();
+
+    let existing = updateContacts(selected);
+    if (existing) {
+      return;
+    } else {
+      displayContacts();
+      setChatBoxHeaderName({
+        id: selected.id,
+        type: selected.type,
+        name: selected.name,
+      });
+      setChatLoading(true);
+      setChannelPanelSearchInput("");
+      toggleAddUser();
+    }
   };
 
   const loadChannel = async () => {
@@ -242,6 +259,21 @@ export default function Channel() {
     setChannelPanelSearchInput("");
     setIsAddingUser(false);
   }, [msgType]);
+  useEffect(() => {
+    if (!isAddingUser) {
+      setChannelPanelSearchInput("");
+      setSearchSelectionShowing(false);
+    }
+    setChannelHeaderName(
+      isAddingUser
+        ? "Add Contact"
+        : !isAddingUser && msgType === "User"
+        ? "Direct Messages"
+        : !isAddingUser && msgType === "Channel"
+        ? "Channels"
+        : "Home"
+    );
+  }, [isAddingUser]);
 
   useEffect(() => {
     setContactsDisplay(
@@ -281,8 +313,6 @@ export default function Channel() {
     localStorage.setItem("themePreference", JSON.stringify(themeID));
     setTheme(themeID);
   };
-
-  console.log(isAddingUser);
 
   return (
     <>
