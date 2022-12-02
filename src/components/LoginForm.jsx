@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ApiContext } from "../context/apiContext";
@@ -6,6 +6,7 @@ import { fetchSignIn } from "../helper/Apicall";
 
 export default function LoginForm() {
     const navigate = useNavigate();
+    const [ errorMessage, setErrorMessage] = useState([])
     const {  
         setAccessData, 
         setChat, 
@@ -18,12 +19,15 @@ export default function LoginForm() {
     } = useForm();
 
     const handleSignIn = useCallback(async (data) => {
+        setErrorMessage([])
         try {
             let checkData = await fetchSignIn(data);
             setAccessData(checkData);
             navigate("/Slackapp/Home", { replace: true });
         } catch (e) {
             // shadow errorhandling
+            console.log(e)
+            setErrorMessage(e.response.data.errors[0])
         }
       }, []);
   
@@ -56,6 +60,7 @@ export default function LoginForm() {
                 className="w-[250px] p-2.5 rounded-xl border-4 border-zinc-900/80 hover:ring-orange-300 ring-2 shadow-slate-500 shadow-md"
                 placeholder="Password"
             ></input>
+            <span className="text-red-500">{errorMessage}</span>
             <span className="cursor-pointer" onClick={() => navigate("/Slackapp/Signup", { replace: true })}>No Account? Sign up</span>
             <button
                 type="submit"

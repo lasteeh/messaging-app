@@ -3,14 +3,8 @@ import axios from "axios";
 export const urlApi = "http://206.189.91.54/api/v1/";
 
 export const fetchRegister = async (body) => {
-  const res = await fetch(`${urlApi}auth/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-  return res.json();
+  const res = await axios.post(`${urlApi}auth/`, body);
+  return res.response;
 };
 
 export const fetchSignIn = async (data) => {

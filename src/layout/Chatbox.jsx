@@ -25,7 +25,7 @@ export default function Chatbox() {
           chatBoxHeaderName.type
         ),
       {
-        refetchInterval: 2000,
+        refetchInterval: 1000,
         onSuccess: (data) => queryClient.setQueryData("USERS_MESSAGES", data),
       }
     );
