@@ -75,6 +75,7 @@ export default function SignUpForm() {
         className="w-[250px] p-2.5 rounded-xl border-4 border-zinc-900/80 hover:ring-orange-300 ring-2 shadow-slate-500 shadow-md"
         placeholder="Password"
       ></input>
+      <span className="cursor-pointer" onClick={() => navigate("/Slackapp/Login", { replace: true })}>Have an Account Already? Login Here</span>
       <button
         type="submit"
         className="bg-zinc-800 rounded-2xl w-[100px] h-[40px] hover:bg-zinc-800/60 hover:ring-orange-300 ring-2 border-zinc-400/60 border-2 shadow-md text-slate-300"
