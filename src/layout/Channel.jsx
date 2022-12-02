@@ -13,6 +13,11 @@ import ChannelItem from "../components/ChannelItem";
 import CreateChannelModal from "../components/CreateChannelModal";
 import { userFilterList, channelFilterList } from "../helper/functions";
 import { useToasty } from "../components/PopUpMessage";
+import {
+  TooManyMatches,
+  NoMatches,
+  TypeToSearch,
+} from "../components/ErrorArt/BGMessages";
 
 export default function Channel() {
   const toasty = useToasty();
@@ -136,7 +141,7 @@ export default function Channel() {
   };
 
   const loadChannel = async () => {
-    if (ch.errors === undefined){
+    if (ch.errors === undefined) {
       setChannels(
         ch.data.map((data) => {
           return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
@@ -169,19 +174,12 @@ export default function Channel() {
         }
 
         if (val.length < 3) {
-          setSearchSelection([
-            <div className="w-[100%] h-[100%] grid place-items-center">
-              <FontAwesomeIcon
-                icon={faRotate}
-                className="channel-loading animate-spin text-[4rem] m-[auto]"
-              />
-            </div>,
-          ]);
+          setSearchSelection(<TooManyMatches />);
         } else if (val.length > 3) {
           userlist = userFilterList(val, usersOptions);
 
           if (userlist.length === 0) {
-            setSearchSelection(["No results"]);
+            setSearchSelection(<NoMatches />);
           } else {
             setSearchSelection(
               userlist.map((item, index) => (
@@ -211,7 +209,7 @@ export default function Channel() {
         });
 
         if (userlist.length === 0) {
-          setSearchSelection(["No results"]);
+          setSearchSelection(<NoMatches />);
         } else {
           setSearchSelection(
             userlist.map((item, index) => (
@@ -230,7 +228,7 @@ export default function Channel() {
         channellist = channelFilterList(val, channels);
 
         if (channellist.length === 0) {
-          setSearchSelection(["no results"]);
+          setSearchSelection(<NoMatches />);
         } else {
           setSearchSelection(
             channellist.map((item, index) => (
@@ -379,13 +377,7 @@ export default function Channel() {
               ? channelsDisplay
               : ""
             : searchSelection}
-          {!searchSelectionShowing && isAddingUser ? (
-            <div className="w-[100%] h-[100%] grid place-items-center">
-              Type to search
-            </div>
-          ) : (
-            ""
-          )}
+          {!searchSelectionShowing && isAddingUser && <TypeToSearch />}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
           {/* {Dark Theme} */}

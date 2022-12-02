@@ -81,6 +81,7 @@
 .chat-box-header {
   background-color: var(--clr-chat-box-bg-1);
 }
+.result-icon,
 .channel-loading,
 .chat-box-header .icon {
   color: var(--clr-chat-box-header-icon-1);
