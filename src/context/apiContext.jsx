@@ -11,9 +11,7 @@ export const ApiContextProvider = ({ children }) => {
   const [channels, setChannels] = useState([]);
   const [createChannel, setCreateChannel] = useState(false);
   const [msgType, SetMsgType] = useState("User");
-  const [chatBoxHeaderName, setChatBoxHeaderName] = useState(
-    `Hey there, Welcome! ${accessData.uid}`
-  );
+  const [chatBoxHeaderName, setChatBoxHeaderName] = useState([]);
   const [channelHeaderName, setChannelHeaderName] = useState("Home");
   const [chat, setChat] = useState([]);
   const [chatLoading, setChatLoading] = useState(false);
@@ -23,6 +21,7 @@ export const ApiContextProvider = ({ children }) => {
     localStorage.getItem('themePreference') === null ? "dark" : JSON.parse(localStorage.getItem('themePreference'))
     );
   const [popUpMessageList, setPopUpMessageList] = useState([]);
+  localStorage.getItem('contactList') === null ? localStorage.setItem('contactList', JSON.stringify([])) : ''
 
   useEffect(() => {
     if (accessData.length !== 0) {

@@ -7,7 +7,6 @@ import { faSquarePlus, faRotate } from "@fortawesome/free-solid-svg-icons";
 import ChannelItem from "../components/ChannelItem";
 import CreateChannelModal from "../components/CreateChannelModal";
 import { userFilterList, channelFilterList } from "../helper/functions";
-import myContacts from "../users/contacts.json";
 
 export default function Channel() {
   const [channels, setChannels] = useState([]);
@@ -40,27 +39,46 @@ export default function Channel() {
   // Query fetch //
   const queryClient = useQueryClient();
   const allUsers = queryClient.getQueryData("ALL_USERS");
+  let mycontacts = JSON.parse(localStorage.getItem('contactList'))
 
   // Events //
   const selectedItem = async (e) => {
     let selected = e.currentTarget.dataset;
-
     if (selected.type === "Channel") {
       setShowSideBarMembersList(true);
     }
+    setChatLoading(true);
     setChatBoxHeaderName({
       id: selected.id,
       type: selected.type,
       name: selected.name,
     });
-    setChatLoading(true);
   };
+
+  const updateContacts = (selected) => {
+    if (mycontacts.length === 0) {
+      mycontacts = [{userID: accessData.id, contacts: [{ uid: selected.id, email: selected.name }]}]
+      localStorage.setItem('contactList', JSON.stringify(mycontacts))
+    } else {
+      mycontacts.forEach(data => {
+        if (accessData.id === data.userID) {
+          data.contacts = [...data.contacts, {uid: selected.id, email: selected.name}]
+        }
+      })
+    }
+    console.log(mycontacts)
+    localStorage.setItem('contactList', JSON.stringify(mycontacts))
+  }
+
+  const displayContacts = () =>{
+    let myContactList = mycontacts.find(data => data.userID === accessData.id)
+    setContacts(myContactList.contacts);
+  }
 
   const addToContacts = (e) => {
     let selected = e.currentTarget.dataset;
-
-    setContacts([...contacts, { uid: selected.id, email: selected.name }]);
-
+    updateContacts(selected)
+    displayContacts();
     setChatBoxHeaderName({
       id: selected.id,
       type: selected.type,
@@ -168,6 +186,8 @@ export default function Channel() {
     });
   };
 
+  
+
   useEffect(() => {
     if (channelPanelSearchInput.length > 0) {
       setSearchSelectionShowing(true);
@@ -178,8 +198,9 @@ export default function Channel() {
   useEffect(() => {
     setChannelPanelSearchInput("");
   }, [msgType]);
+
   useEffect(() => {
-    localStorage.setItem("contactList", JSON.stringify(contacts));
+    // localStorage.setItem("contactList", JSON.stringify(contacts));
     setContactsDisplay(
       contacts.map((user, index) => (
         <ChannelItem
@@ -210,6 +231,7 @@ export default function Channel() {
   useEffect(() => {
     loadChannel();
     loadUserContacts();
+    displayContacts();
   }, [createChannel]);
 
   const handleTheme = (e) => {
