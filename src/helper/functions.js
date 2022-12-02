@@ -48,6 +48,16 @@ export const userFilterList = (val, allusers) => {
     );
   });
 };
+export const channelFilterList = (val, allchannels) => {
+  return allchannels.filter((user) => {
+    const Name = user.name.toLowerCase();
+    const Value = user.dataId.toString();
+    const trimmedSearchValue = val.toString().toLowerCase();
+    return (
+      Value.includes(trimmedSearchValue) || Name.includes(trimmedSearchValue)
+    );
+  });
+};
 
 export const randomGreeting = () => {
   const greetList = [

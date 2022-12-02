@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus, faRotate } from "@fortawesome/free-solid-svg-icons";
 import ChannelItem from "../components/ChannelItem";
 import CreateChannelModal from "../components/CreateChannelModal";
-import { userFilterList } from "../helper/functions";
+import { userFilterList, channelFilterList } from "../helper/functions";
 import myContacts from "../users/contacts.json";
 
 export default function Channel() {
@@ -16,6 +16,8 @@ export default function Channel() {
       ? []
       : JSON.parse(localStorage.getItem("contactList"))
   );
+  const [contactsDisplay, setContactsDisplay] = useState([]);
+  const [channelsDisplay, setChannelsDisplay] = useState([]);
   const [channelPanelSearchInput, setChannelPanelSearchInput] = useState("");
   const [searchSelectionShowing, setSearchSelectionShowing] = useState(false);
   const [searchSelection, setSearchSelection] = useState([]);
@@ -58,7 +60,6 @@ export default function Channel() {
     let selected = e.currentTarget.dataset;
 
     setContacts([...contacts, { uid: selected.id, email: selected.name }]);
-    localStorage.setItem("contactList", JSON.stringify(contacts));
 
     setChatBoxHeaderName({
       id: selected.id,
@@ -74,15 +75,9 @@ export default function Channel() {
     setChannels(
       ch.data === undefined
         ? ch.errors
-        : ch.data.map((data, index) => (
-            <ChannelItem
-              key={index}
-              name={data.name}
-              dataId={data.id}
-              dataMsgType={"Channel"}
-              onClickSelected={selectedItem}
-            />
-          ))
+        : ch.data.map((data, index) => {
+            return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
+          })
     );
   };
 
@@ -108,6 +103,7 @@ export default function Channel() {
   const handleSearch = (e) => {
     let val = e.currentTarget.value;
     let userlist;
+    let channellist;
     setChannelPanelSearchInput(val);
 
     startTransition(() => {
@@ -151,12 +147,29 @@ export default function Channel() {
         }
       }
       if (msgType === "Channel") {
+        channellist = channelFilterList(val, channels);
+
+        if (channellist.length === 0) {
+          setSearchSelection(["no results"]);
+        } else {
+          setSearchSelection(
+            channellist.map((item, index) => (
+              <ChannelItem
+                name={item.name}
+                dataId={item.dataId}
+                key={index}
+                dataMsgType={"Channel"}
+                onClickSelected={selectedItem}
+              />
+            ))
+          );
+        }
       }
     });
   };
 
   useEffect(() => {
-    if (channelPanelSearchInput.length > 1) {
+    if (channelPanelSearchInput.length > 0) {
       setSearchSelectionShowing(true);
     } else {
       setSearchSelectionShowing(false);
@@ -165,6 +178,34 @@ export default function Channel() {
   useEffect(() => {
     setChannelPanelSearchInput("");
   }, [msgType]);
+  useEffect(() => {
+    localStorage.setItem("contactList", JSON.stringify(contacts));
+    setContactsDisplay(
+      contacts.map((user, index) => (
+        <ChannelItem
+          key={index}
+          name={user.email}
+          dataId={user.uid}
+          dataMsgType={"User"}
+          onClickSelected={selectedItem}
+        />
+      ))
+    );
+  }, [contacts]);
+
+  useEffect(() => {
+    setChannelsDisplay(
+      channels.map((data, index) => (
+        <ChannelItem
+          key={index}
+          name={data.name}
+          dataId={data.dataId}
+          dataMsgType={"Channel"}
+          onClickSelected={selectedItem}
+        />
+      ))
+    );
+  }, [channels]);
 
   useEffect(() => {
     loadChannel();
@@ -213,16 +254,10 @@ export default function Channel() {
         <div className="channel-items flex flex-col justify-start items-stretch w-[100%] h-[100%] p-2.5 gap-2.5 overflow-y-auto">
           {searchSelectionShowing === false
             ? msgType === "User"
-              ? contacts.map((user, index) => (
-                  <ChannelItem
-                    key={index}
-                    name={user.email}
-                    dataId={user.uid}
-                    dataMsgType={"User"}
-                    onClickSelected={selectedItem}
-                  />
-                ))
-              : channels
+              ? contactsDisplay
+              : msgType === "Channel"
+              ? channelsDisplay
+              : ""
             : searchSelection}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
