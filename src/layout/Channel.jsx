@@ -98,13 +98,13 @@ export default function Channel() {
   };
 
   const loadChannel = async () => {
-    setChannels(
-      ch.data === undefined
-        ? ch.errors
-        : ch.data.map((data) => {
-            return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
-          })
-    );
+    if (ch.errors === undefined){
+      setChannels(
+        ch.data.map((data) => {
+          return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
+        })
+      );
+    }
   };
 
   const handleSearch = (e) => {

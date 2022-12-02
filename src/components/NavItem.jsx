@@ -19,12 +19,12 @@ const NavItem = (props) => {
     theme,
     accessData,
     setChat,
-    msgType,
     SetMsgType,
     setChatBoxHeaderName,
     setChannelHeaderName,
     setChatLoading,
     setShowSideBarMembersList,
+    setPopUpMessageList,
   } = useContext(ApiContext);
 
   const parseName = (name) => {
@@ -49,6 +49,7 @@ const NavItem = (props) => {
         setChat("");
         setChatLoading(false);
         setShowSideBarMembersList(false);
+        setPopUpMessageList([]);
       }}
       title={parseName(props.name)}
     >

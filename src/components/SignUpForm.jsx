@@ -13,7 +13,7 @@ export default function SignUpForm() {
         email: data.username,
         password: data.password,
       };
-      // await fetchRegister(body)
+      await fetchRegister(body)
 
       reset({
         username: "",
