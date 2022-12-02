@@ -67,6 +67,7 @@ export default function Channel() {
   }
 
   const displayContacts = () =>{
+    let myContactList = mycontacts.find(data => data.userID === accessData.id)
     if (myContactList !== undefined) {
      setContacts(myContactList.contacts);
     }
