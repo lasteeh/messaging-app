@@ -10,11 +10,7 @@ import { userFilterList, channelFilterList } from "../helper/functions";
 
 export default function Channel() {
   const [channels, setChannels] = useState([]);
-  const [contacts, setContacts] = useState(
-    localStorage.getItem("contactList") === null
-      ? []
-      : JSON.parse(localStorage.getItem("contactList"))
-  );
+  const [contacts, setContacts] = useState([]);
   const [contactsDisplay, setContactsDisplay] = useState([]);
   const [channelsDisplay, setChannelsDisplay] = useState([]);
   const [channelPanelSearchInput, setChannelPanelSearchInput] = useState("");
@@ -40,6 +36,7 @@ export default function Channel() {
   const queryClient = useQueryClient();
   const allUsers = queryClient.getQueryData("ALL_USERS");
   let mycontacts = JSON.parse(localStorage.getItem('contactList'))
+  let myContactList = mycontacts.find(data => data.userID === accessData.id)
 
   // Events //
   const selectedItem = async (e) => {
@@ -56,8 +53,8 @@ export default function Channel() {
   };
 
   const updateContacts = (selected) => {
-    if (mycontacts.length === 0) {
-      mycontacts = [{userID: accessData.id, contacts: [{ uid: selected.id, email: selected.name }]}]
+    if (myContactList === undefined) {
+      mycontacts = [...mycontacts, {userID: accessData.id, contacts: [{ uid: selected.id, email: selected.name }]}]
       localStorage.setItem('contactList', JSON.stringify(mycontacts))
     } else {
       mycontacts.forEach(data => {
@@ -66,13 +63,13 @@ export default function Channel() {
         }
       })
     }
-    console.log(mycontacts)
     localStorage.setItem('contactList', JSON.stringify(mycontacts))
   }
 
   const displayContacts = () =>{
-    let myContactList = mycontacts.find(data => data.userID === accessData.id)
-    setContacts(myContactList.contacts);
+    if (myContactList !== undefined) {
+     setContacts(myContactList.contacts);
+    }
   }
 
   const addToContacts = (e) => {
@@ -186,8 +183,6 @@ export default function Channel() {
     });
   };
 
-  
-
   useEffect(() => {
     if (channelPanelSearchInput.length > 0) {
       setSearchSelectionShowing(true);
@@ -200,7 +195,7 @@ export default function Channel() {
   }, [msgType]);
 
   useEffect(() => {
-    // localStorage.setItem("contactList", JSON.stringify(contacts));
+    console.log(contacts)
     setContactsDisplay(
       contacts.map((user, index) => (
         <ChannelItem
