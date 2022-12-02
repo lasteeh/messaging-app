@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserGroup, faHashtag } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserGroup,
+  faHashtag,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { ApiContext } from "../context/apiContext";
 
 const ChannelItem = (props) => {
@@ -20,7 +24,13 @@ const ChannelItem = (props) => {
     >
       <div className="bg-gray-200 w-[22%] max-h-[70px] aspect-square p-2.5 rounded-[8px]">
         <FontAwesomeIcon
-          icon={props.dataMsgType === "Channel" ? faHashtag : faUserGroup}
+          icon={
+            !props.isSearchResult && props.dataMsgType === "Channel"
+              ? faHashtag
+              : !props.isSearchResult && props.dataMsgType
+              ? faUserGroup
+              : faMagnifyingGlass
+          }
           className="w-[100%] h-[100%]"
         />
       </div>
