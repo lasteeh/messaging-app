@@ -69,6 +69,14 @@ module.exports = {
             transform: "rotate(10deg)",
           },
         },
+        point: {
+          "0%": {
+            transform: "translateY(-20%) scaleX(0.9)",
+          },
+          "100%": {
+            transform: "translateY(0) scaleX(1.1)",
+          },
+        },
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
@@ -79,6 +87,7 @@ module.exports = {
         fadeIn: "fadeIn 500ms ease",
         spin: "spin 2s ease infinite",
         wave: "wave 2s ease infinite alternate",
+        point: "point 500ms ease-in infinite alternate",
       },
     },
     plugins: [],
