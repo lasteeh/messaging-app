@@ -20,7 +20,7 @@ import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 const ChannelItem = (props) => {
   const { chatBoxHeaderName } = useContext(ApiContext);
-  const [randomIcon, setRandomIcon] = useState();
+  const [randomIcon, setRandomIcon] = useState(faFaceSmile);
   const list = [
     faRocket,
     faFaceSmile,
@@ -76,15 +76,19 @@ const ChannelItem = (props) => {
         </div>
       </div>
       {props.dataMsgType === "User" && !props.isSearchResult && (
-        <div
+        <button
+          type="button"
           className="h-[100%] w-[10px] hover:w-[40px] grid place-items-center transition-[width,opacity,box-shadow] opacity-[0.02] hover:opacity-[0.8] bg-red-900 rounded-[0.5rem] z-[1] shadow-[-20px_0px_0px_0px,_-10px_0px_0px_0px,_-5px_0px_0px_0px] shadow-[#7f1d1d]"
           onClick={props.onTrashClick}
+          data-id={props.dataId}
+          data-type={props.dataMsgType}
+          data-name={props.name}
         >
           <FontAwesomeIcon
             icon={faTrash}
             className="text-white bg-transparent"
           />
-        </div>
+        </button>
       )}
     </div>
   );

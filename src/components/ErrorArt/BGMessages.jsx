@@ -53,3 +53,14 @@ export function TypeToSearch() {
     </div>
   );
 }
+
+export function StartAddingItems(props) {
+  return (
+    <div className="w-[100%] h-[100%] relative flex flex-col justify-center items-center gap-[0.5rem] bg-transparent ">
+      <p className="result-icon text-[4rem] animate-point">&#92418;</p>
+      <p className="text-[1.25rem] opacity-[0.5] text-center italic mb-[50%]">
+        Start Adding New {props.type}
+      </p>
+    </div>
+  );
+}

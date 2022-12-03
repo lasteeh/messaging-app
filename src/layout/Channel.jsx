@@ -17,6 +17,7 @@ import {
   TooManyMatches,
   NoMatches,
   TypeToSearch,
+  StartAddingItems,
 } from "../components/ErrorArt/BGMessages";
 import RandomWaifu from "../components/ErrorArt/RandomWaifu";
 
@@ -113,6 +114,23 @@ export default function Channel() {
     localStorage.setItem("contactList", JSON.stringify(mycontacts));
   };
 
+  const removeContact = (e) => {
+    const selected = e.currentTarget.dataset;
+
+    const index = myContactList.contacts.findIndex(
+      (obj) => obj.uid === selected.id
+    );
+
+    if (index > -1) {
+      myContactList.contacts.splice(index, 1);
+    } else {
+      return;
+    }
+
+    localStorage.setItem("contactList", JSON.stringify(mycontacts));
+    displayContacts();
+  };
+
   const displayContacts = () => {
     let myContactList = mycontacts.find(
       (data) => data.userID === accessData.id
@@ -169,7 +187,6 @@ export default function Channel() {
 
     startTransition(() => {
       if (isAddingUser && msgType === "User") {
-        console.log("look for new user");
         if (!usersOptions || usersOptions === "") {
           setUsersOptions(
             allUsers.data &&
@@ -203,7 +220,6 @@ export default function Channel() {
         }
       }
       if (!isAddingUser && msgType === "User") {
-        console.log("filter only");
         userlist = contacts.filter((user) => {
           const Name = user.email.toLowerCase();
           const Value = user.uid.toString();
@@ -288,6 +304,7 @@ export default function Channel() {
           dataId={user.uid}
           dataMsgType={"User"}
           onClickSelected={selectedItem}
+          onTrashClick={removeContact}
         />
       ))
     );
@@ -352,8 +369,6 @@ export default function Channel() {
                 }
                 if (msgType === "User") {
                   toggleAddUser();
-                  console.log(isAddingUser, "is adding?");
-                  console.log(searchSelectionShowing, "is selection showing");
                 }
               }}
             />
@@ -390,6 +405,10 @@ export default function Channel() {
             !searchSelectionShowing &&
             msgType !== "User" &&
             msgType !== "Channel" && <RandomWaifu />}
+          {contacts.length === 0 &&
+            !searchSelectionShowing &&
+            !isAddingUser &&
+            msgType !== undefined && <StartAddingItems type={msgType} />}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
           {/* {Dark Theme} */}
