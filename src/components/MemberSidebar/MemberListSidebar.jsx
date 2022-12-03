@@ -1,10 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState, useTransition } from "react";
 import { ApiContext } from "../../context/apiContext";
-import {
-  fetchAddMember,
-  fetchChannelDetails,
-} from "../../helper/Apicall";
+import { fetchAddMember, fetchChannelDetails } from "../../helper/Apicall";
 import { userFilterList } from "../../helper/functions";
 import MemberListItem from "./MemberListItem";
 import { useToasty } from "../PopUpMessage";
@@ -34,32 +31,35 @@ export default function MemberListSidebar() {
   const allUsers = queryClient.getQueryData("ALL_USERS");
 
   const getMemberList = () => {
-    return useQuery(['CHANNEL_MEMBERS', accessData, chatBoxHeaderName],() => fetchChannelDetails(accessData, chatBoxHeaderName.id),
-    {
-      refetchInterval: 2000,
-      onSuccess: (data) => queryClient.setQueryData("CHANNEL_MEMBERS", data),
-    })
-  }
-  const {data: members} = getMemberList();
+    return useQuery(
+      ["CHANNEL_MEMBERS", accessData, chatBoxHeaderName],
+      () => fetchChannelDetails(accessData, chatBoxHeaderName.id),
+      {
+        refetchInterval: 2000,
+        onSuccess: (data) => queryClient.setQueryData("CHANNEL_MEMBERS", data),
+      }
+    );
+  };
+  const { data: members } = getMemberList();
 
   const loadMembers = async () => {
     try {
-    let mem = members.data.channel_members.filter(
-      (item) => item.user_id !== members.data.owner_id
-    );
-    const ownerName = allUsers.data.find(
-      (user) => user.id === members.data.owner_id
-    );
-    setOwner({ owner_id: members.data.owner_id, owner_name: ownerName.uid });
-    setMemberList(mem);
-    if (mem !== undefined) {
-      setMembersDisplay(
-        mem.map((data, index) => (
-          <MemberListItem key={index} id={data.user_id} />
-        ))
+      let mem = members.data.channel_members.filter(
+        (item) => item.user_id !== members.data.owner_id
       );
-    }
-    } catch(e) {
+      const ownerName = allUsers.data.find(
+        (user) => user.id === members.data.owner_id
+      );
+      setOwner({ owner_id: members.data.owner_id, owner_name: ownerName.uid });
+      setMemberList(mem);
+      if (mem !== undefined) {
+        setMembersDisplay(
+          mem.map((data, index) => (
+            <MemberListItem key={index} id={data.user_id} />
+          ))
+        );
+      }
+    } catch (e) {
       // console.log(e)
       //shadow error
     }
@@ -94,11 +94,13 @@ export default function MemberListSidebar() {
           return { error: "existing pre" };
         }
         if (!existing && selection.length === 1) {
-          return { success: {
-            message: "all goods pre",
-            id: chatBoxHeaderName.id,
-            member_id: Number(target[0].value),
-          }};
+          return {
+            success: {
+              message: "all goods pre",
+              id: chatBoxHeaderName.id,
+              member_id: Number(target[0].value),
+            },
+          };
         }
       }
     }
@@ -110,10 +112,13 @@ export default function MemberListSidebar() {
 
   const handleSubmitMember = () => {
     let valid = validationFilter();
-    console.log(valid)
+    console.log(valid);
     if (valid["success"]) {
-      fetchAddMember(accessData, {id: valid['success'].id, member_id: valid['success'].member_id});
-      toasty(valid['success'].message, false);
+      fetchAddMember(accessData, {
+        id: valid["success"].id,
+        member_id: valid["success"].member_id,
+      });
+      toasty(valid["success"].message, false);
       setAddMemberInput("");
       setIsShowing(false);
       loadMembers();
@@ -170,7 +175,7 @@ export default function MemberListSidebar() {
             userlist.map((item, index) => (
               <div
                 key={index}
-                className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200"
+                className="text-black w-[100%] p-[0.25rem_0.4rem] hover:bg-gray-200 cursor-pointer"
                 onClick={(e) => {
                   handleSelectClick(e);
                 }}

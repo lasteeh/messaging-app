@@ -94,7 +94,7 @@ const CreateChannelModal = (props) => {
           setSelection(
             list.map((item, index) => (
               <div
-                className="create-channel dropdown-selection relative text-black w-[100%] p-[0.25rem_1rem] hover:bg-gray-200 "
+                className="create-channel dropdown-selection relative text-black w-[100%] p-[0.25rem_1rem] hover:bg-gray-200 cursor-pointer"
                 key={index}
                 onClick={(e) => {
                   handleSelectClick(e);

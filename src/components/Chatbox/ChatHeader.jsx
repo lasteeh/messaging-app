@@ -56,7 +56,7 @@ export default function ChatHeader(props) {
         id="more-options"
       />
       <label
-        className="h-[40px] w-[40px] hover:bg-gray-400/25 text-center p-[0.6rem] grid place-items-center rounded-full z-[101]"
+        className="h-[40px] w-[40px] hover:bg-gray-400/25 text-center p-[0.6rem] grid place-items-center rounded-full z-[101] cursor-pointer"
         htmlFor="more-options"
       >
         <FontAwesomeIcon className="w-[100%] h-[100%]" icon={faEllipsis} />

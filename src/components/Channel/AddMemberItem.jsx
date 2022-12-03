@@ -5,7 +5,7 @@ import { faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 const AddMemberItem = (props) => {
   return (
     <div
-      className="temp-member flex flex-row justify-start items-center relative max-h-[2rem] gap-[1rem] text-[0.8rem] text-[black] hover:brightness-90 w-[max-content] rounded-[5px] overflow-hidden shadow-sm shadow-current "
+      className="temp-member flex flex-row justify-start items-center relative max-h-[2rem] gap-[1rem] text-[0.8rem] text-[black] hover:brightness-90 w-[max-content] rounded-[5px] overflow-hidden shadow-sm shadow-current cursor-pointer"
       onClick={() => {
         props.toggle(props.value);
       }}
