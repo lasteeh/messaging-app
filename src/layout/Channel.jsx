@@ -160,14 +160,14 @@ export default function Channel() {
 
   const loadChannel = async () => {
     try {
-      if (ch.errors === undefined){
+      if (ch.errors === undefined) {
         setChannels(
           ch.data.map((data) => {
             return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
           })
         );
       }
-    } catch (e){
+    } catch (e) {
       // console.log(e)
       // shadow error
     }
@@ -407,7 +407,8 @@ export default function Channel() {
           {contacts.length === 0 &&
             !searchSelectionShowing &&
             !isAddingUser &&
-            msgType !== undefined && <StartAddingItems type={msgType} />}
+            msgType !== undefined &&
+            msgType !== "Channel" && <StartAddingItems type={msgType} />}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
           {/* {Dark Theme} */}
