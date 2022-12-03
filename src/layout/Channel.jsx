@@ -18,6 +18,7 @@ import {
   NoMatches,
   TypeToSearch,
 } from "../components/ErrorArt/BGMessages";
+import RandomWaifu from "../components/ErrorArt/RandomWaifu";
 
 export default function Channel() {
   const toasty = useToasty();
@@ -318,38 +319,40 @@ export default function Channel() {
         <div className="channel-panel-header flex flex-row flex-wrap items-center justify-start w-[100%] min-h-[80px]  p-5 font-bold ">
           <span>{channelHeaderName}</span>
 
-          <FontAwesomeIcon
-            icon={
-              msgType === "Channel"
-                ? faSquarePlus
-                : msgType === "User" && isAddingUser
-                ? faMagnifyingGlass
-                : msgType === "User" && !isAddingUser
-                ? faUserPlus
-                : ""
-            }
-            className={`channel-plus ml-auto cursor-pointer text-[1.25rem] transition-[outline] rounded-[2px] ${
-              isAddingUser && msgType === "User"
-                ? "outline-4 outline-inherit outline outline-offset-[0.2rem]"
-                : ""
-            }`}
-            onClick={() => {
-              if (msgType === "Channel") {
-                setUsersOptions(
-                  allUsers.data &&
-                    allUsers.data.map((user) => {
-                      return { value: user.id, label: user.uid };
-                    })
-                );
-                setCreateChannel(true);
+          {msgType !== undefined && (
+            <FontAwesomeIcon
+              icon={
+                msgType === "Channel"
+                  ? faSquarePlus
+                  : msgType === "User" && isAddingUser
+                  ? faMagnifyingGlass
+                  : msgType === "User" && !isAddingUser
+                  ? faUserPlus
+                  : ""
               }
-              if (msgType === "User") {
-                toggleAddUser();
-                console.log(isAddingUser, "is adding?");
-                console.log(searchSelectionShowing, "is selection showing");
-              }
-            }}
-          />
+              className={`channel-plus ml-auto cursor-pointer text-[1.25rem] transition-[outline] rounded-[2px] ${
+                isAddingUser && msgType === "User"
+                  ? "outline-4 outline-inherit outline outline-offset-[0.2rem]"
+                  : ""
+              }`}
+              onClick={() => {
+                if (msgType === "Channel") {
+                  setUsersOptions(
+                    allUsers.data &&
+                      allUsers.data.map((user) => {
+                        return { value: user.id, label: user.uid };
+                      })
+                  );
+                  setCreateChannel(true);
+                }
+                if (msgType === "User") {
+                  toggleAddUser();
+                  console.log(isAddingUser, "is adding?");
+                  console.log(searchSelectionShowing, "is selection showing");
+                }
+              }}
+            />
+          )}
         </div>
 
         <div className="channel-filter p-[0.8rem]">
@@ -378,6 +381,10 @@ export default function Channel() {
               : ""
             : searchSelection}
           {!searchSelectionShowing && isAddingUser && <TypeToSearch />}
+          {!isAddingUser &&
+            !searchSelectionShowing &&
+            msgType !== "User" &&
+            msgType !== "Channel" && <RandomWaifu />}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
           {/* {Dark Theme} */}
