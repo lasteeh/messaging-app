@@ -13,6 +13,12 @@ import ChannelItem from "../components/ChannelItem";
 import CreateChannelModal from "../components/CreateChannelModal";
 import { userFilterList, channelFilterList } from "../helper/functions";
 import { useToasty } from "../components/PopUpMessage";
+import {
+  TooManyMatches,
+  NoMatches,
+  TypeToSearch,
+} from "../components/ErrorArt/BGMessages";
+import RandomWaifu from "../components/ErrorArt/RandomWaifu";
 
 export default function Channel() {
   const toasty = useToasty();
@@ -174,19 +180,12 @@ export default function Channel() {
         }
 
         if (val.length < 3) {
-          setSearchSelection([
-            <div className="w-[100%] h-[100%] grid place-items-center">
-              <FontAwesomeIcon
-                icon={faRotate}
-                className="channel-loading animate-spin text-[4rem] m-[auto]"
-              />
-            </div>,
-          ]);
+          setSearchSelection(<TooManyMatches />);
         } else if (val.length > 3) {
           userlist = userFilterList(val, usersOptions);
 
           if (userlist.length === 0) {
-            setSearchSelection(["No results"]);
+            setSearchSelection(<NoMatches />);
           } else {
             setSearchSelection(
               userlist.map((item, index) => (
@@ -216,7 +215,7 @@ export default function Channel() {
         });
 
         if (userlist.length === 0) {
-          setSearchSelection(["No results"]);
+          setSearchSelection(<NoMatches />);
         } else {
           setSearchSelection(
             userlist.map((item, index) => (
@@ -235,7 +234,7 @@ export default function Channel() {
         channellist = channelFilterList(val, channels);
 
         if (channellist.length === 0) {
-          setSearchSelection(["no results"]);
+          setSearchSelection(<NoMatches />);
         } else {
           setSearchSelection(
             channellist.map((item, index) => (
@@ -325,38 +324,40 @@ export default function Channel() {
         <div className="channel-panel-header flex flex-row flex-wrap items-center justify-start w-[100%] min-h-[80px]  p-5 font-bold ">
           <span>{channelHeaderName}</span>
 
-          <FontAwesomeIcon
-            icon={
-              msgType === "Channel"
-                ? faSquarePlus
-                : msgType === "User" && isAddingUser
-                ? faMagnifyingGlass
-                : msgType === "User" && !isAddingUser
-                ? faUserPlus
-                : ""
-            }
-            className={`channel-plus ml-auto cursor-pointer text-[1.25rem] transition-[outline] rounded-[2px] ${
-              isAddingUser && msgType === "User"
-                ? "outline-4 outline-inherit outline outline-offset-[0.2rem]"
-                : ""
-            }`}
-            onClick={() => {
-              if (msgType === "Channel") {
-                setUsersOptions(
-                  allUsers.data &&
-                    allUsers.data.map((user) => {
-                      return { value: user.id, label: user.uid };
-                    })
-                );
-                setCreateChannel(true);
+          {msgType !== undefined && (
+            <FontAwesomeIcon
+              icon={
+                msgType === "Channel"
+                  ? faSquarePlus
+                  : msgType === "User" && isAddingUser
+                  ? faMagnifyingGlass
+                  : msgType === "User" && !isAddingUser
+                  ? faUserPlus
+                  : ""
               }
-              if (msgType === "User") {
-                toggleAddUser();
-                console.log(isAddingUser, "is adding?");
-                console.log(searchSelectionShowing, "is selection showing");
-              }
-            }}
-          />
+              className={`channel-plus ml-auto cursor-pointer text-[1.25rem] transition-[outline] rounded-[2px] ${
+                isAddingUser && msgType === "User"
+                  ? "outline-4 outline-inherit outline outline-offset-[0.2rem]"
+                  : ""
+              }`}
+              onClick={() => {
+                if (msgType === "Channel") {
+                  setUsersOptions(
+                    allUsers.data &&
+                      allUsers.data.map((user) => {
+                        return { value: user.id, label: user.uid };
+                      })
+                  );
+                  setCreateChannel(true);
+                }
+                if (msgType === "User") {
+                  toggleAddUser();
+                  console.log(isAddingUser, "is adding?");
+                  console.log(searchSelectionShowing, "is selection showing");
+                }
+              }}
+            />
+          )}
         </div>
 
         <div className="channel-filter p-[0.8rem]">
@@ -384,13 +385,11 @@ export default function Channel() {
               ? channelsDisplay
               : ""
             : searchSelection}
-          {!searchSelectionShowing && isAddingUser ? (
-            <div className="w-[100%] h-[100%] grid place-items-center">
-              Type to search
-            </div>
-          ) : (
-            ""
-          )}
+          {!searchSelectionShowing && isAddingUser && <TypeToSearch />}
+          {!isAddingUser &&
+            !searchSelectionShowing &&
+            msgType !== "User" &&
+            msgType !== "Channel" && <RandomWaifu />}
         </div>
         <div className="theme-picker mt-auto p-[0.8rem] min-h-[70px] w-[100%] flex flex-row justify-center items-center gap-[1rem]">
           {/* {Dark Theme} */}

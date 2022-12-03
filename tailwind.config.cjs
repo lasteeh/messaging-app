@@ -61,6 +61,14 @@ module.exports = {
             transform: "rotate(360deg)",
           },
         },
+        wave: {
+          "0%": {
+            transform: "rotate(-30deg)",
+          },
+          "100%": {
+            transform: "rotate(10deg)",
+          },
+        },
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
@@ -70,6 +78,7 @@ module.exports = {
         swipeUp: "swipeUp 500ms ease-in-out",
         fadeIn: "fadeIn 500ms ease",
         spin: "spin 2s ease infinite",
+        wave: "wave 2s ease infinite alternate",
       },
     },
     plugins: [],
