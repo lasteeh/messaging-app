@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { ApiContext } from "../context/apiContext";
-import ChatItem from "../components/ChatItem";
+import ChatItem from "../components/Chatbox/ChatItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 import { faCommentSlash } from "@fortawesome/free-solid-svg-icons";

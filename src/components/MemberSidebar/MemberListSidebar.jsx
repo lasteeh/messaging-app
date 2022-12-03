@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useEffect, useState, useTransition, useCallback } from "react";
-import { ApiContext } from "../context/apiContext";
+import React, { useContext, useEffect, useState, useTransition } from "react";
+import { ApiContext } from "../../context/apiContext";
 import {
   fetchAddMember,
   fetchChannelDetails,
-} from "../helper/Apicall";
-import { userFilterList } from "../helper/functions";
+} from "../../helper/Apicall";
+import { userFilterList } from "../../helper/functions";
 import MemberListItem from "./MemberListItem";
-import { useToasty } from "./PopUpMessage";
+import { useToasty } from "../PopUpMessage";
 import { useQueryClient, useQuery } from "react-query";
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
 

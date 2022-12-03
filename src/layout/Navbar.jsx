@@ -1,5 +1,5 @@
 import React from "react";
-import NavItem from "../components/NavItem";
+import NavItem from "../components/Navbar/NavItem";
 
 export default function Navbar() {
   return (

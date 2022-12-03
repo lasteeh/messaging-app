@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { ApiContext } from "../context/apiContext";
-import { calculateTime } from "../helper/functions";
+import { ApiContext } from "../../context/apiContext";
+import { calculateTime } from "../../helper/functions";
 
 const ChatItem = (props) => {
   const { accessData } = useContext(ApiContext);

@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faTrashCan, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const AddMemberItem = (props) => {
   return (

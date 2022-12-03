@@ -15,7 +15,7 @@ import {
   faFish,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { ApiContext } from "../context/apiContext";
+import { ApiContext } from "../../context/apiContext";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 const ChannelItem = (props) => {

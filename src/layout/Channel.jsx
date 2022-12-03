@@ -5,12 +5,11 @@ import { fetchGetUserChannel } from "../helper/Apicall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSquarePlus,
-  faRotate,
   faUserPlus,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-import ChannelItem from "../components/ChannelItem";
-import CreateChannelModal from "../components/CreateChannelModal";
+import ChannelItem from "../components/Channel/ChannelItem";
+import CreateChannelModal from "../components/Channel/CreateChannelModal";
 import { userFilterList, channelFilterList } from "../helper/functions";
 import { useToasty } from "../components/PopUpMessage";
 import {

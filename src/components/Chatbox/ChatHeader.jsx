@@ -7,7 +7,7 @@ import {
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiContext } from "../../context/apiContext";
-import MemberListSidebar from "../MemberListSidebar";
+import MemberListSidebar from "../MemberSidebar/MemberListSidebar";
 import { randomGreeting } from "../../helper/functions";
 
 export default function ChatHeader(props) {

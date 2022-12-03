@@ -1,10 +1,10 @@
 import React, { useContext, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import AddMemberItem from "./AddMemberItem";
-import { fetchCreateChannel } from "../helper/Apicall";
-import { userFilterList } from "../helper/functions";
-import { ApiContext } from "../context/apiContext";
-import { useToasty } from "./PopUpMessage";
+import { fetchCreateChannel } from "../../helper/Apicall";
+import { userFilterList } from "../../helper/functions";
+import { ApiContext } from "../../context/apiContext";
+import { useToasty } from "../PopUpMessage";
 
 const CreateChannelModal = (props) => {
   const { setCreateChannel, accessData, setPopUpMessageList } =
