@@ -136,12 +136,17 @@ export default function Channel() {
   };
 
   const loadChannel = async () => {
-    if (ch.errors === undefined){
-      setChannels(
-        ch.data.map((data) => {
-          return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
-        })
-      );
+    try {
+      if (ch.errors === undefined){
+        setChannels(
+          ch.data.map((data) => {
+            return { name: data.name, dataId: data.id, dataMsgType: "Channel" };
+          })
+        );
+      }
+    } catch (e){
+      // console.log(e)
+      // shadow error
     }
   };
 

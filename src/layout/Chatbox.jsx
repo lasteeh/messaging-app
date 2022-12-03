@@ -94,7 +94,7 @@ export default function Chatbox() {
   useEffect(() => {
     if (chatMessages !== undefined) {
       let msg = chatMessages.data;
-      msg === undefined ? console.log("undefined") : chatFilter(msg);
+      msg === undefined ? '' : chatFilter(msg);
     }
   }, [chatMessages]);
 

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useEffect, useState, useTransition } from "react";
+import React, { useContext, useEffect, useState, useTransition, useCallback } from "react";
 import { ApiContext } from "../context/apiContext";
 import {
   fetchAddMember,
@@ -43,6 +43,7 @@ export default function MemberListSidebar() {
   const {data: members} = getMemberList();
 
   const loadMembers = async () => {
+    try {
     let mem = members.data.channel_members.filter(
       (item) => item.user_id !== members.data.owner_id
     );
@@ -57,6 +58,10 @@ export default function MemberListSidebar() {
           <MemberListItem key={index} id={data.user_id} />
         ))
       );
+    }
+    } catch(e) {
+      // console.log(e)
+      //shadow error
     }
   };
 
