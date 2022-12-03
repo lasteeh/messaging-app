@@ -330,8 +330,6 @@ export default function Channel() {
     setTheme(themeID);
   };
 
-  console.log(contacts);
-
   return (
     <>
       <div className="channel-panel flex flex-col items-stretch justify-start  w-[100%] max-w-[320px] h-[100%] z-[3]">
