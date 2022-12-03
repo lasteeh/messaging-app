@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserGroup,
@@ -20,6 +20,7 @@ import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 const ChannelItem = (props) => {
   const { chatBoxHeaderName } = useContext(ApiContext);
+  const [randomIcon, setRandomIcon] = useState();
   const list = [
     faRocket,
     faFaceSmile,
@@ -33,6 +34,10 @@ const ChannelItem = (props) => {
     faFish,
   ];
   const randomNumber = Math.floor(Math.random() * list.length);
+
+  useEffect(() => {
+    setRandomIcon(list[randomNumber]);
+  }, [props.dataId]);
 
   return (
     <div className="flex flex-row justify-start items-center isolate">
@@ -65,7 +70,7 @@ const ChannelItem = (props) => {
         </div>
         <div className="ch-i-bg absolute inset-0 z-[-1] overflow-hidden rounded-[inherit] opacity-[0.2]">
           <FontAwesomeIcon
-            icon={list[randomNumber]}
+            icon={randomIcon}
             className="text-[5rem] absolute right-0 bottom-0 rotate-[-40deg]"
           />
         </div>
