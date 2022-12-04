@@ -58,7 +58,9 @@ export default function LoginForm() {
         className="w-[250px] p-2.5 rounded-xl border-4 border-zinc-900/80 hover:ring-orange-300 ring-2 shadow-slate-500 shadow-md"
         placeholder="Password"
       ></input>
-      <span className="text-red-500">{errorMessage}</span>
+      <span className="text-red-500 dop-shadow-md font-bold">
+        {errorMessage}
+      </span>
       <span
         className="cursor-pointer drop-shadow-md text-white"
         onClick={() => navigate("/Slackapp/Signup", { replace: true })}
