@@ -77,6 +77,39 @@ module.exports = {
             transform: "translateY(0) scaleX(1.1)",
           },
         },
+        scaleIn: {
+          "0%": {
+            transform: "scaleX(0)",
+          },
+          "75%": {
+            transform: "scale(1.2)",
+          },
+          "100%": {
+            transform: "scaleX(1)",
+          },
+        },
+        scaleInRL: {
+          "0%": {
+            transform: "scaleX(0) rotate(0deg)",
+          },
+          "75%": {
+            transform: "scale(1.2)",
+          },
+          "100%": {
+            transform: "scaleX(1) rotate(-30deg)",
+          },
+        },
+        scaleInRR: {
+          "0%": {
+            transform: "scaleX(0) rotate(0deg)",
+          },
+          "75%": {
+            transform: "scale(1.2)",
+          },
+          "100%": {
+            transform: "scaleX(1) rotate(30deg)",
+          },
+        },
       },
       animation: {
         wiggle: "wiggle 100ms ease-in-out",
@@ -88,6 +121,11 @@ module.exports = {
         spin: "spin 2s ease infinite",
         wave: "wave 2s ease infinite alternate",
         point: "point 500ms ease-in infinite alternate",
+        scaleIn: "scaleIn 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
+        scaleInRL:
+          "scaleInRL 0.75s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
+        scaleInRR:
+          "scaleInRR 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
       },
     },
     plugins: [],

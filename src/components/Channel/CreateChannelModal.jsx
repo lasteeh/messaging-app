@@ -5,6 +5,12 @@ import { fetchCreateChannel } from "../../helper/Apicall";
 import { userFilterList } from "../../helper/functions";
 import { ApiContext } from "../../context/apiContext";
 import { useToasty } from "../PopUpMessage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSmile,
+  faSmileBeam,
+  faSmileWink,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CreateChannelModal = (props) => {
   const { setCreateChannel, accessData, setPopUpMessageList } =
@@ -122,9 +128,23 @@ const CreateChannelModal = (props) => {
       }}
     >
       <form
-        className="create-channel-form   px-[1rem] pt-[4rem] pb-[1rem] w-[min(500px,100%)] rounded-[12px] "
+        className="create-channel-form   px-[1rem] pt-[4rem] pb-[1rem] w-[min(500px,100%)] rounded-[12px] isolate"
         onSubmit={handleSubmit(channelSubmit)}
       >
+        <div className="relative smileyss z-[-1] bg-transparent result-icon isolate  translate-y-[-1rem] w-[100%] h-[20px]">
+          <FontAwesomeIcon
+            icon={faSmileBeam}
+            className="animate-scaleInRL absolute left-[40%] top-[-40%] text-[2.2rem] z-[1] drop-shadow-md "
+          />
+          <FontAwesomeIcon
+            icon={faSmileWink}
+            className="animate-scaleIn absolute left-[46%] top-[-150%] text-[3.5rem] z-[3] drop-shadow-md "
+          />
+          <FontAwesomeIcon
+            icon={faSmile}
+            className="animate-scaleInRR absolute left-[57%] top-[0%] text-[1.8rem] z-[2] rotate-[30deg] drop-shadow-md"
+          />
+        </div>
         <div className="flex flex-col justify-start items-stretch gap-[0] w-[100%] rounded-[0.75rem] pl-[1.5rem] pr-[1.5rem] pb-[2.5rem] pt-[1rem]">
           <span className="text-center font-bold text-[1.5rem]">
             Create a New Channel
