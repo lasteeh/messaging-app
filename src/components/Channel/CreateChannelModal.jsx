@@ -40,6 +40,7 @@ const CreateChannelModal = (props) => {
     } else {
       reset({ channelname: "" });
       setCreateChannel(false);
+      toasty("created na boss", false);
     }
   };
 
