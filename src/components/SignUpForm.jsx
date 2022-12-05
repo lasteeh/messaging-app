@@ -39,12 +39,12 @@ export default function SignUpForm() {
 
   return (
     <form
-      className="flex flex-col items-center justify-center gap-3 text-white drop-shadow-md"
+      className="flex flex-col items-center justify-center gap-3  drop-shadow-md"
       onSubmit={handleSubmit(submitForm)}
     >
-      <span className="text-2xl font-extrabold">Sign Up</span>
+      <span className="text-2xl  text-white font-extrabold">Sign Up</span>
       <div className="self-start">
-        <span className="font-bold">Username</span>
+        <span className="font-bold text-white">Username</span>
         <span className="text-red-500 ml-5 drop-shadow-md font-bold">
           {errorMessage.email}
         </span>
@@ -56,7 +56,7 @@ export default function SignUpForm() {
       ></input>
 
       <div className="self-start">
-        <span className="self-start font-bold">Password</span>
+        <span className="self-start font-bold text-white">Password</span>
         <span className="text-red-500 ml-5 drop-shadow-md font-bold">
           {errorMessage.password}
         </span>
@@ -69,7 +69,9 @@ export default function SignUpForm() {
       ></input>
 
       <div className="self-start">
-        <span className="self-start font-bold">Confirm Password</span>
+        <span className="self-start font-bold text-white">
+          Confirm Password
+        </span>
         <span className="text-red-500 ml-5 drop-shadow-md font-bold">
           {confirmPassword}
         </span>

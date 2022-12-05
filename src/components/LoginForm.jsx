@@ -18,7 +18,7 @@ export default function LoginForm() {
       navigate("/Slackapp/Home", { replace: true });
     } catch (e) {
       // shadow errorhandling
-      console.log(e);
+      // console.log(e);
       setErrorMessage(e.response.data.errors[0]);
     }
   }, []);
