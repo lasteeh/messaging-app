@@ -83,7 +83,7 @@ export default function SignUpForm() {
         placeholder="Password"
       ></input>
       <span
-        className="cursor-pointer"
+        className="cursor-pointer  text-white"
         onClick={() => navigate("/Slackapp/Login", { replace: true })}
       >
         Have an Account Already? Login Here
